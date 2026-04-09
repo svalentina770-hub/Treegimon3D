@@ -1,0 +1,29 @@
+apiVersion: agones.dev/v1
+kind: GameServer
+metadata:
+  name: unity-server
+spec:
+  container: unity-server
+  ports:
+    - name: default
+      portPolicy: Static
+      containerPort: 7777
+      hostPort: 7777
+      protocol: UDP
+
+  health:
+    disabled: true
+
+  template:
+    spec:
+      containers:
+        - name: unity-server
+          image: unity-server
+          imagePullPolicy: Never
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"

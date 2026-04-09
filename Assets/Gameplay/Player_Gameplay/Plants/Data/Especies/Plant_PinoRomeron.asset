@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226203679f9f64d4d852c29e367b7f84, type: 3}
+  m_Name: Plant_PinoRomeron
+  m_EditorClassIdentifier: Assembly-CSharp::PlantSpeciesData
+  plantId: pino_romeron
+  displayName: Pino Romeron
+  rarity: 0
+  biomeType: 3
+  obtainMethod: Misiones, batalla con jugadores y guardas
+  baseHP: 1000
+  baseAttack: 10
+  baseDefense: 0
+  minLevelToPvP: 3
+  xpWin: 150
+  xpLose: 100
+  xpWinBiomeBonus: 250
+  xpLoseBiomeBonus: 150
+  basicAttack: {fileID: 11400000, guid: 4386947a8ea921e408c429c0e34f2e89, type: 2}
+  defenseSkill: {fileID: 11400000, guid: e4dbb1eb2bd008844bfdad617cf6aea7, type: 2}
+  specialSkill: {fileID: 11400000, guid: bb24fbf63a6ad1c4ea423a8952e4bf5e, type: 2}
+  worldVisualPrefab: {fileID: 0}

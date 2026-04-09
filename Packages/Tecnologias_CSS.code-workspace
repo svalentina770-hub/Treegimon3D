@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"name": "Tecnologias_CSS",
+			"path": "../../../../Downloads/Tecnologias_CSS"
+		},
+		{
+			"name": "HTMLCSS",
+			"path": "../../../../Downloads/HTMLCSS"
+		},
+		{
+			"name": "Spline Integration",
+			"path": "../../../../Downloads/Spline Integration"
+		},
+		{
+			"name": "Calculadora",
+			"path": "../../../../Downloads/Tecnologias_CSS/Calculadora"
+		},
+		{
+			"path": "../../../../Downloads/slider_1-main"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "slider_1-main"
+	}
+}

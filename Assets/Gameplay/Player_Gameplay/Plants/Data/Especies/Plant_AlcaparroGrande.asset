@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226203679f9f64d4d852c29e367b7f84, type: 3}
+  m_Name: Plant_AlcaparroGrande
+  m_EditorClassIdentifier: Assembly-CSharp::PlantSpeciesData
+  plantId: alcaparro_grande
+  displayName: Alcaparro Grande
+  rarity: 0
+  biomeType: 1
+  obtainMethod: Misiones, batalla con jugadores y guardas
+  baseHP: 1000
+  baseAttack: 0
+  baseDefense: 0
+  minLevelToPvP: 3
+  xpWin: 150
+  xpLose: 100
+  xpWinBiomeBonus: 250
+  xpLoseBiomeBonus: 150
+  basicAttack: {fileID: 11400000, guid: b7ebea78372e3ab47ae911330e840d68, type: 2}
+  defenseSkill: {fileID: 11400000, guid: 798a583e7ddfc2d469a33b002a07e17e, type: 2}
+  specialSkill: {fileID: 11400000, guid: aa26194fc00ebba40a869d91cae34e32, type: 2}
+  worldVisualPrefab: {fileID: 0}
