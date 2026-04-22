@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 41422c04654dfa94da868cb724e246ab
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 232818
+  packageName: Low Poly Woods
+  packageVersion: 1.1.0
+  assetPath: Assets/Low Poly Woods/URP/LowPolyForestURP Asset_Renderer.asset
+  uploadId: 538358

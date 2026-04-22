@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7c54c1dcbd1d5184882769e6921fe434
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 232818
+  packageName: Low Poly Woods
+  packageVersion: 1.1.0
+  assetPath: Assets/Low Poly Woods/Shaders/PumpkinEmission.shadergraph
+  uploadId: 538358
