@@ -1,0 +1,7 @@
+# Material unico exportado
+newmtl mat_Andres_Felipe_Morales_Domínguez_fase_3
+illum 1
+Ka 0.000 0.000 0.000
+Kd 1.000 1.000 1.000
+Ks 0.000 0.000 0.000
+map_Kd Andres_Felipe_Morales_Domínguez_fase_3.png
