@@ -7,12 +7,12 @@ public enum PlantRarity
 
 public enum PlantBiomeType
 {
-    Hidro,
-    Solar,
-    Xerofito,
-    Montana,
-    Templado,
-    Neutro
+    Hidro=1,
+    Solar=2,
+    Xerofito=3,
+    Montana=4,
+    Templado=0,
+    
 }
 
 public enum AbilityKind

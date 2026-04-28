@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 3378286891838948122}
   - component: {fileID: -3805578499771249250}
   - component: {fileID: -8731443607353370765}
+  - component: {fileID: 953110513472578441}
+  - component: {fileID: 3925117279716756862}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -166,7 +168,9 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 5
   rotationSpeed: 10
+  cameraTransform: {fileID: 0}
   joystickInput: {x: 0, y: 0}
+  canMove: 1
 --- !u!54 &4819015782175130240
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -355,6 +359,119 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CombatUIBootstrap
   ShowTopMostFoldoutHeaderGroup: 1
   combatUIPrefab: {fileID: 2554256253945257757, guid: 0bfff1fd2b26324408fa190be9aaa5dc, type: 3}
+--- !u!114 &953110513472578441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975381901614032375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6e810127e871b47aadbfab3b86b54f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPlantLoadout
+  ShowTopMostFoldoutHeaderGroup: 1
+  plantDatabase: {fileID: 11400000, guid: 209caa4e306667e49af0e793858bcdcd, type: 2}
+  debugDefaultPlantId: aliso
+  debugDefaultLevel: 3
+  equippedPlantId:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0016:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0032:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0048: 0
+        byte0049: 0
+        byte0050: 0
+        byte0051: 0
+        byte0052: 0
+        byte0053: 0
+        byte0054: 0
+        byte0055: 0
+        byte0056: 0
+        byte0057: 0
+        byte0058: 0
+        byte0059: 0
+        byte0060: 0
+        byte0061: 0
+  plantLevel:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 1
+  currentXP:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0
+--- !u!114 &3925117279716756862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975381901614032375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01aaf4e0342abad4486bdb2fbcae7eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombatBridge
+  ShowTopMostFoldoutHeaderGroup: 1
+  playerNameDisplay: {fileID: 3142791613098488497}
+  playerPlantLoadout: {fileID: 953110513472578441}
 --- !u!1 &4513776537070824554
 GameObject:
   m_ObjectHideFlags: 0

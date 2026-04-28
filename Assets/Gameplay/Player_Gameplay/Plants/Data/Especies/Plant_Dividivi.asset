@@ -28,4 +28,4 @@ MonoBehaviour:
   basicAttack: {fileID: 11400000, guid: e0c1014760434e648b4543bb843aab66, type: 2}
   defenseSkill: {fileID: 11400000, guid: f0e338ff8660c044cadc9b4baab9d55e, type: 2}
   specialSkill: {fileID: 11400000, guid: 7a0af2b61aa32a2479ce676172c34687, type: 2}
-  worldVisualPrefab: {fileID: 0}
+  worldVisualPrefab: {fileID: 3357965063184430170, guid: 3387b861bcae2bc469803b9dbb7e61f0, type: 3}

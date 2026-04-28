@@ -25,9 +25,9 @@ public class AbilityData : ScriptableObject
     public int healDurationTurns = 0;
 
     public bool buffsAttack;
-    [Range(0f, 1f)] public float damageattackBuffPercent;
-
+    public int attackBuffPercent;
     public int buffDurationTurns = 0;
+  
     public bool reducesIncomingDamage;
     [Range(0f, 1f)] public float damageReductionPercent;
 

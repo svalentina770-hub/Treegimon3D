@@ -52,7 +52,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 17.537016
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -65,7 +65,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -142,9 +142,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocalFollowCamera
   height: 6
-  distance: 7
-  lookHeight: 1.5
+  distance: 8
+  lookHeight: 2
   positionSmoothTime: 0.22
   forwardSmoothSpeed: 45
   rotationSmoothSpeed: 45
-  snapDistance: 20
+  snapDistance: 30
