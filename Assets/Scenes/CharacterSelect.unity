@@ -890,6 +890,7 @@ GameObject:
   - component: {fileID: 961739752}
   - component: {fileID: 961739751}
   - component: {fileID: 961739750}
+  - component: {fileID: 961739754}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1015,6 +1016,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!114 &961739754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961739749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10353d9510d4adf49a4aa3d42a989ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  smoothTime: 0.2
 --- !u!1 &1076060269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,8 +1072,8 @@ MonoBehaviour:
   leftButton: {fileID: 2043905552}
   rightButton: {fileID: 172882102}
   playButton: {fileID: 1404517805}
-  editorModelsFolderPath: Assets/Resources/Modelos_3D/fase4
-  resourcesModelsFolderPath: Modelos_3D/fase4
+  editorModelsBaseFolderPath: Assets/Resources/Modelos_3D
+  resourcesModelsBaseFolderPath: Modelos_3D
   userDataResourcePath: Data/Data_user
   swipeThreshold: 50
   CubeTransparente: {fileID: 2100000, guid: 47fe882d618bed64c83af5582565eb02, type: 2}

@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using System.Collections;
 
 public class NetworkUI : MonoBehaviour
 {
     [SerializeField] private ushort port = 7777;
     [SerializeField] private string serverAddress = "127.0.0.1";
+
+    [Header("Camera")]
+    [SerializeField] private SmoothCameraFollow cameraFollow;
+    [SerializeField] private float maxCameraSearchTime = 10f;
 
     [Header("Debug")]
     [SerializeField] private bool mostrarBotonesHostYServer = true;
@@ -70,6 +75,7 @@ public class NetworkUI : MonoBehaviour
             {
                 SavePlayerData();
                 NetworkManager.Singleton.StartHost();
+                StartCoroutine(AssignCameraWhenPlayerExists());
             }
 
             if (GUI.Button(new Rect(100, y, 80, 30), "Server"))
@@ -110,6 +116,31 @@ public class NetworkUI : MonoBehaviour
 
         transport.SetConnectionData(serverAddress, port);
         NetworkManager.Singleton.StartClient();
+        StartCoroutine(AssignCameraWhenPlayerExists());
+    }
+
+    private IEnumerator AssignCameraWhenPlayerExists()
+    {
+        if (cameraFollow == null)
+        {
+            cameraFollow = FindObjectOfType<SmoothCameraFollow>();
+        }
+
+        if (cameraFollow == null)
+        {
+            Debug.LogWarning("NetworkUI: No se encontró un componente SmoothCameraFollow en la escena.");
+            yield break;
+        }
+
+        float elapsedTime = 0f;
+
+        while (GameObject.Find("Player") == null && elapsedTime < maxCameraSearchTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        cameraFollow.FindPlayerTarget();
     }
 
     private void SavePlayerData()
