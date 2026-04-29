@@ -1,0 +1,1528 @@
+{
+  "usuario": {
+    "id": "user_001",
+    "nombre": "olivares_001",
+    "nivel": 5,
+    "xp": 1200
+  },
+  "recursos": {
+    "agua": {
+      "cantidad": 12,
+      "cooldown": 8
+    },
+    "sol": {
+      "cantidad": 5,
+      "cooldown": 10
+    },
+    "composta": {
+      "cantidad": 3,
+      "cooldown": 7
+    }
+  },
+  "plantas": [
+    {
+      "id": "aliso",
+      "nombre_especie": "Aliso",
+      "nombre_cientifico": "Alnus acuminata",
+      "desbloqueada": false,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 0
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "aliso",
+      "id_subespecie": 1,
+      "id_instancia": "aliso_01",
+      "nombre_estudiante": ""
+    },
+    {
+      "id": "cajeto",
+      "nombre_especie": "Cajeto",
+      "nombre_cientifico": "Citharexylum subflavescens",
+      "desbloqueada": false,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 0
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "cajeto",
+      "id_subespecie": 1,
+      "id_instancia": "cajeto_01",
+      "nombre_estudiante": ""
+    },
+    {
+      "id": "espino",
+      "nombre_especie": "Espino",
+      "nombre_cientifico": "Duranta mutisii",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 0
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "espino",
+      "id_subespecie": 1,
+      "id_instancia": "espino_01",
+      "nombre_estudiante": "Juan Sebastian Cuellar Cardon"
+    },
+    {
+      "id": "alcaparro_grande",
+      "nombre_especie": "Alcaparro grande",
+      "nombre_cientifico": "Senna viarum",
+      "desbloqueada": false,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 0
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "alcaparro_grande",
+      "id_subespecie": 1,
+      "id_instancia": "alcaparro_grande_01",
+      "nombre_estudiante": ""
+    },
+    {
+      "id": "roble",
+      "nombre_especie": "Roble",
+      "nombre_cientifico": "Quercus humboldtii",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 2,
+        "xp": 75
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "roble",
+      "id_subespecie": 1,
+      "id_instancia": "roble_01",
+      "nombre_estudiante": "Javier Santiago Bustos Laverde"
+    },
+    {
+      "id": "roble",
+      "nombre_especie": "Roble",
+      "nombre_cientifico": "Quercus humboldtii",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 3,
+        "xp": 150
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "roble",
+      "id_subespecie": 2,
+      "id_instancia": "roble_02",
+      "nombre_estudiante": "Maicol Stiven Torres Rivas"
+    },
+    {
+      "id": "roble",
+      "nombre_especie": "Roble",
+      "nombre_cientifico": "Quercus humboldtii",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 4,
+        "xp": 225
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "roble",
+      "id_subespecie": 3,
+      "id_instancia": "roble_03",
+      "nombre_estudiante": "Samuel David Rivas Poveda"
+    },
+    {
+      "id": "roble",
+      "nombre_especie": "Roble",
+      "nombre_cientifico": "Quercus humboldtii",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 5,
+        "xp": 300
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "roble",
+      "id_subespecie": 4,
+      "id_instancia": "roble_04",
+      "nombre_estudiante": "Sergio Alejandro Fonseca Tamara"
+    },
+    {
+      "id": "manzano",
+      "nombre_especie": "Manzano",
+      "nombre_cientifico": "Billia rosea",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 6,
+        "xp": 375
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "manzano",
+      "id_subespecie": 1,
+      "id_instancia": "manzano_01",
+      "nombre_estudiante": "Juan Esteban Quintana Rodríguez"
+    },
+    {
+      "id": "manzano",
+      "nombre_especie": "Manzano",
+      "nombre_cientifico": "Billia rosea",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 7,
+        "xp": 450
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "manzano",
+      "id_subespecie": 2,
+      "id_instancia": "manzano_02",
+      "nombre_estudiante": "Luis Alejandro Moyano Bello"
+    },
+    {
+      "id": "manzano",
+      "nombre_especie": "Manzano",
+      "nombre_cientifico": "Billia rosea",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 8,
+        "xp": 525
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "manzano",
+      "id_subespecie": 3,
+      "id_instancia": "manzano_03",
+      "nombre_estudiante": "Miguel Angel Cartagena Herrera"
+    },
+    {
+      "id": "alcaparro_enano",
+      "nombre_especie": "Alcaparro enano",
+      "nombre_cientifico": "Senna multiglandulosa",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 600
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "alcaparro_enano",
+      "id_subespecie": 1,
+      "id_instancia": "alcaparro_enano_01",
+      "nombre_estudiante": "Andres Santiago Duque García"
+    },
+    {
+      "id": "alcaparro_enano",
+      "nombre_especie": "Alcaparro enano",
+      "nombre_cientifico": "Senna multiglandulosa",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 2,
+        "xp": 675
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "alcaparro_enano",
+      "id_subespecie": 2,
+      "id_instancia": "alcaparro_enano_02",
+      "nombre_estudiante": "Jimmy Alejandro Torres Heraque"
+    },
+    {
+      "id": "alcaparro_enano",
+      "nombre_especie": "Alcaparro enano",
+      "nombre_cientifico": "Senna multiglandulosa",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 3,
+        "xp": 750
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "alcaparro_enano",
+      "id_subespecie": 3,
+      "id_instancia": "alcaparro_enano_03",
+      "nombre_estudiante": "Laura Sofia Parra Ledezma"
+    },
+    {
+      "id": "alcaparro_enano",
+      "nombre_especie": "Alcaparro enano",
+      "nombre_cientifico": "Senna multiglandulosa",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 4,
+        "xp": 825
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "alcaparro_enano",
+      "id_subespecie": 4,
+      "id_instancia": "alcaparro_enano_04",
+      "nombre_estudiante": "Luisa Fernanda Suárez Banoy"
+    },
+    {
+      "id": "alcaparro_enano",
+      "nombre_especie": "Alcaparro enano",
+      "nombre_cientifico": "Senna multiglandulosa",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 5,
+        "xp": 900
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "alcaparro_enano",
+      "id_subespecie": 5,
+      "id_instancia": "alcaparro_enano_05",
+      "nombre_estudiante": "Maria Paula Hernandez Hernandez"
+    },
+    {
+      "id": "dividivi",
+      "nombre_especie": "Dividivi",
+      "nombre_cientifico": "Caesalpinia spinosa",
+      "desbloqueada": false,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 0
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "dividivi",
+      "id_subespecie": 1,
+      "id_instancia": "dividivi_01",
+      "nombre_estudiante": ""
+    },
+    {
+      "id": "cedrillo",
+      "nombre_especie": "Cedrillo",
+      "nombre_cientifico": "Smallanthus pyramidalis",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 6,
+        "xp": 975
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "cedrillo",
+      "id_subespecie": 1,
+      "id_instancia": "cedrillo_01",
+      "nombre_estudiante": "Geraldine Torres Reyes"
+    },
+    {
+      "id": "cedrillo",
+      "nombre_especie": "Cedrillo",
+      "nombre_cientifico": "Smallanthus pyramidalis",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 7,
+        "xp": 1050
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "cedrillo",
+      "id_subespecie": 2,
+      "id_instancia": "cedrillo_02",
+      "nombre_estudiante": "Jeronimo Vargas Hoyos"
+    },
+    {
+      "id": "cedrillo",
+      "nombre_especie": "Cedrillo",
+      "nombre_cientifico": "Smallanthus pyramidalis",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 8,
+        "xp": 1125
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "cedrillo",
+      "id_subespecie": 3,
+      "id_instancia": "cedrillo_03",
+      "nombre_estudiante": "Jhanely Carolina Pérez Ramos"
+    },
+    {
+      "id": "cedrillo",
+      "nombre_especie": "Cedrillo",
+      "nombre_cientifico": "Smallanthus pyramidalis",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 1200
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "cedrillo",
+      "id_subespecie": 4,
+      "id_instancia": "cedrillo_04",
+      "nombre_estudiante": "Tomas Marín Ojeda"
+    },
+    {
+      "id": "mangle",
+      "nombre_especie": "Mangle",
+      "nombre_cientifico": "Escallonia pendula",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 2,
+        "xp": 1275
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "mangle",
+      "id_subespecie": 1,
+      "id_instancia": "mangle_01",
+      "nombre_estudiante": "Juan Sebastian Riaño Fernandez"
+    },
+    {
+      "id": "mangle",
+      "nombre_especie": "Mangle",
+      "nombre_cientifico": "Escallonia pendula",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 3,
+        "xp": 1350
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "mangle",
+      "id_subespecie": 2,
+      "id_instancia": "mangle_02",
+      "nombre_estudiante": "Lina Vanesa Rico Laverde"
+    },
+    {
+      "id": "drago",
+      "nombre_especie": "Drago",
+      "nombre_cientifico": "Croton coriaceus",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 4,
+        "xp": 1425
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "drago",
+      "id_subespecie": 1,
+      "id_instancia": "drago_01",
+      "nombre_estudiante": "Alejandro Ramirez Velasquez"
+    },
+    {
+      "id": "drago",
+      "nombre_especie": "Drago",
+      "nombre_cientifico": "Croton coriaceus",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 5,
+        "xp": 1500
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "drago",
+      "id_subespecie": 2,
+      "id_instancia": "drago_02",
+      "nombre_estudiante": "David Alejandro Hernández Prieto"
+    },
+    {
+      "id": "drago",
+      "nombre_especie": "Drago",
+      "nombre_cientifico": "Croton coriaceus",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 6,
+        "xp": 1575
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "drago",
+      "id_subespecie": 3,
+      "id_instancia": "drago_03",
+      "nombre_estudiante": "Isabella Vega Heredia"
+    },
+    {
+      "id": "drago",
+      "nombre_especie": "Drago",
+      "nombre_cientifico": "Croton coriaceus",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 7,
+        "xp": 1650
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "drago",
+      "id_subespecie": 4,
+      "id_instancia": "drago_04",
+      "nombre_estudiante": "Jesica Alejandra Piñeros Garcia"
+    },
+    {
+      "id": "drago",
+      "nombre_especie": "Drago",
+      "nombre_cientifico": "Croton coriaceus",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 8,
+        "xp": 1725
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "drago",
+      "id_subespecie": 5,
+      "id_instancia": "drago_05",
+      "nombre_estudiante": "Yuri Alexandra Castañeda Montaño"
+    },
+    {
+      "id": "pino_romeron",
+      "nombre_especie": "Pino romerón",
+      "nombre_cientifico": "Retrophyllum rospigliosii",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 1800
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "pino_romeron",
+      "id_subespecie": 1,
+      "id_instancia": "pino_romeron_01",
+      "nombre_estudiante": "Karen Tatiana Sandoval Malagón"
+    },
+    {
+      "id": "pino_romeron",
+      "nombre_especie": "Pino romerón",
+      "nombre_cientifico": "Retrophyllum rospigliosii",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 2,
+        "xp": 1875
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "pino_romeron",
+      "id_subespecie": 2,
+      "id_instancia": "pino_romeron_02",
+      "nombre_estudiante": "Santiago Correa Fandiño"
+    },
+    {
+      "id": "cucharo_negro",
+      "nombre_especie": "Cucharo negro",
+      "nombre_cientifico": "Myrsine coriacea",
+      "desbloqueada": false,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 0
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "cucharo_negro",
+      "id_subespecie": 1,
+      "id_instancia": "cucharo_negro_01",
+      "nombre_estudiante": ""
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 3,
+        "xp": 1950
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 1,
+      "id_instancia": "sietecueros_01",
+      "nombre_estudiante": "Danna Lucia Plazas Lara"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 4,
+        "xp": 2025
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 2,
+      "id_instancia": "sietecueros_02",
+      "nombre_estudiante": "Erick Santiago Rodríguez Paez"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 5,
+        "xp": 2100
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 3,
+      "id_instancia": "sietecueros_03",
+      "nombre_estudiante": "Juan Sebastian Rocha Ballen"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 6,
+        "xp": 2175
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 4,
+      "id_instancia": "sietecueros_04",
+      "nombre_estudiante": "Karen Daniela Bustos Valero"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 7,
+        "xp": 2250
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 5,
+      "id_instancia": "sietecueros_05",
+      "nombre_estudiante": "Laura Daniela Ibañez Rodríguez"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 8,
+        "xp": 2325
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 6,
+      "id_instancia": "sietecueros_06",
+      "nombre_estudiante": "Liseth Tatiana Castro Rodríguez"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 2400
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 7,
+      "id_instancia": "sietecueros_07",
+      "nombre_estudiante": "Lyander Anthony Hernández Acosta"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 2,
+        "xp": 2475
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 8,
+      "id_instancia": "sietecueros_08",
+      "nombre_estudiante": "Maria Jose Castaño Celis"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 3,
+        "xp": 2550
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 9,
+      "id_instancia": "sietecueros_09",
+      "nombre_estudiante": "Mateo Sánchez Ramos"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 4,
+        "xp": 2625
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 10,
+      "id_instancia": "sietecueros_10",
+      "nombre_estudiante": "Matilde Bermúdez Baquero"
+    },
+    {
+      "id": "sietecueros",
+      "nombre_especie": "Sietecueros",
+      "nombre_cientifico": "Tibouchina lepidota",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 5,
+        "xp": 2700
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "sietecueros",
+      "id_subespecie": 11,
+      "id_instancia": "sietecueros_11",
+      "nombre_estudiante": "Susan Michelle Doblado Torres"
+    },
+    {
+      "id": "nogal",
+      "nombre_especie": "Nogal",
+      "nombre_cientifico": "Juglans neotropica",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbusto",
+        "salud": "saludable",
+        "hp_actual": 1350
+      },
+      "progreso": {
+        "nivel": 6,
+        "xp": 2775
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "nogal",
+      "id_subespecie": 1,
+      "id_instancia": "nogal_01",
+      "nombre_estudiante": "Diego Martínez Rodríguez"
+    },
+    {
+      "id": "cedro",
+      "nombre_especie": "Cedro",
+      "nombre_cientifico": "Cedrela montana",
+      "desbloqueada": false,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 0
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "cedro",
+      "id_subespecie": 1,
+      "id_instancia": "cedro_01",
+      "nombre_estudiante": ""
+    },
+    {
+      "id": "duraznillo",
+      "nombre_especie": "Duraznillo",
+      "nombre_cientifico": "Abatia parviflora",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "arbol",
+        "salud": "saludable",
+        "hp_actual": 1500
+      },
+      "progreso": {
+        "nivel": 7,
+        "xp": 2850
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "duraznillo",
+      "id_subespecie": 1,
+      "id_instancia": "duraznillo_01",
+      "nombre_estudiante": "Andres Felipe Morales Domínguez"
+    },
+    {
+      "id": "duraznillo",
+      "nombre_especie": "Duraznillo",
+      "nombre_cientifico": "Abatia parviflora",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "ent",
+        "salud": "saludable",
+        "hp_actual": 1650
+      },
+      "progreso": {
+        "nivel": 8,
+        "xp": 2925
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "duraznillo",
+      "id_subespecie": 2,
+      "id_instancia": "duraznillo_02",
+      "nombre_estudiante": "Anne Catalina Galvis Carvajal"
+    },
+    {
+      "id": "duraznillo",
+      "nombre_especie": "Duraznillo",
+      "nombre_cientifico": "Abatia parviflora",
+      "desbloqueada": true,
+      "estado": {
+        "fase": "semilla",
+        "salud": "saludable",
+        "hp_actual": 1200
+      },
+      "progreso": {
+        "nivel": 1,
+        "xp": 3000
+      },
+      "visual_estado": {
+        "skin": "default",
+        "variacion": "normal"
+      },
+      "uso": {
+        "seleccionada": false,
+        "en_combate": false
+      },
+      "recursos_aplicados": {
+        "agua": 0,
+        "sol": 0,
+        "composta": 0
+      },
+      "id_base_especie": "duraznillo",
+      "id_subespecie": 3,
+      "id_instancia": "duraznillo_03",
+      "nombre_estudiante": "Gireth Sharik Alvarado Rubio"
+    }
+  ]
+}

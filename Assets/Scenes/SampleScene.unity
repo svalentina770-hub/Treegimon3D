@@ -4898,7 +4898,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192340533}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4994,6 +4994,7 @@ GameObject:
   - component: {fileID: 1192340529}
   - component: {fileID: 1192340528}
   - component: {fileID: 1192340531}
+  - component: {fileID: 1192340534}
   m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
@@ -5001,6 +5002,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1192340534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1192340533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 486fcda9c7d5d4842abaa7ef6b8a5f2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 0}
+  plantScale: {x: 1, y: 1, z: 1}
+  plantSpawnPosition: {x: 0, y: 1.5, z: 0}
 --- !u!1001 &1195298335
 PrefabInstance:
   m_ObjectHideFlags: 0
