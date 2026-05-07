@@ -14,6 +14,7 @@ public class PlayerTeleport : NetworkBehaviour
     private bool wasUsingGravity;
     private bool wasKinematic;
     private bool wasMovementEnabled;
+    private bool isInDuelMode;
 
     private CombatArenaInstance localArenaInstance;
 
@@ -89,17 +90,25 @@ public class PlayerTeleport : NetworkBehaviour
         string rivalName,
         int combatBiome)
     {
-        if (movementScript != null)
+        if (!isInDuelMode)
         {
-            wasMovementEnabled = movementScript.enabled;
-            movementScript.enabled = false;
+            isInDuelMode = true;
+
+            if (movementScript != null)
+                wasMovementEnabled = movementScript.enabled;
+
+            if (rb != null)
+            {
+                wasUsingGravity = rb.useGravity;
+                wasKinematic = rb.isKinematic;
+            }
         }
+
+        if (movementScript != null)
+            movementScript.enabled = false;
 
         if (rb != null)
         {
-            wasUsingGravity = rb.useGravity;
-            wasKinematic = rb.isKinematic;
-
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.useGravity = false;
@@ -121,11 +130,13 @@ public class PlayerTeleport : NetworkBehaviour
                     biomeVisual.ApplyBiome((PlantBiomeType)combatBiome);
             }
 
-            LocalFollowCamera cam = Camera.main != null ? Camera.main.GetComponent<LocalFollowCamera>() : null;
+            SmoothCameraFollow cam = Camera.main != null ? Camera.main.GetComponent<SmoothCameraFollow>() : null;
             if (cam != null)
             {
                 if (localArenaInstance != null && localArenaInstance.CameraAnchor != null)
                     cam.SetFixedAnchor(localArenaInstance.CameraAnchor, true);
+                else if (playerCameraTarget != null)
+                    cam.SetFollowTarget(playerCameraTarget, true);
                 else
                     cam.SnapNow();
             }
@@ -163,7 +174,9 @@ public class PlayerTeleport : NetworkBehaviour
         }
 
         if (movementScript != null)
-            movementScript.enabled = wasMovementEnabled;
+            movementScript.enabled = true;
+
+        isInDuelMode = false;
 
         if (IsOwner)
         {
@@ -173,9 +186,12 @@ public class PlayerTeleport : NetworkBehaviour
                 localArenaInstance = null;
             }
 
-            LocalFollowCamera cam = Camera.main != null ? Camera.main.GetComponent<LocalFollowCamera>() : null;
+            SmoothCameraFollow cam = Camera.main != null ? Camera.main.GetComponent<SmoothCameraFollow>() : null;
             if (cam != null && playerCameraTarget != null)
+            {
+                cam.ClearFixedAnchor(false);
                 cam.SetFollowTarget(playerCameraTarget, true);
+            }
 
             if (CombatUIController.LocalInstance != null)
                 CombatUIController.LocalInstance.HideCombatUI();

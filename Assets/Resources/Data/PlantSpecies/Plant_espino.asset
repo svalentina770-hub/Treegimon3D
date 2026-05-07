@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226203679f9f64d4d852c29e367b7f84, type: 3}
+  m_Name: Plant_espino
+  m_EditorClassIdentifier: 
+  plantId: espino
+  displayName: Espino
+  scientificName: Duranta mutisii
+  generalDescription: 'Especie nativa: Espino.'
+  careDescription: "Requiere cuidado seg\xFAn su bioma y estado de crecimiento."
+  rarity: 2
+  biomeType: 2
+  combatRole: Balanceado
+  obtainMethod: Desbloqueada mediante progreso del usuario o inventario del archivo
+    .tree.
+  baseHP: 1500
+  baseAttack: 120
+  baseDefense: 10
+  baseSpecialAttack: 210
+  defensePercent: 0.25
+  minLevelToPvP: 1
+  xpWin: 150
+  xpLose: 100
+  xpWinBiomeBonus: 250
+  xpLoseBiomeBonus: 150
+  basicAttack: {fileID: 0}
+  defenseSkill: {fileID: 0}
+  specialSkill: {fileID: 0}
+  basicAttackDisplayName: Rayo solar
+  defenseDisplayName: "Fotos\xEDntesis"
+  specialDisplayName: Defensa espinosa
+  worldVisualPrefab: {fileID: 0}

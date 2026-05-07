@@ -3,25 +3,40 @@ using Unity.Netcode;
 
 public class LocalPlayerCameraBootstrap : NetworkBehaviour
 {
-    [SerializeField] private LocalFollowCamera cameraPrefab;
+    [Header("Prefab de cámara local")]
+    [SerializeField] private SmoothCameraFollow cameraPrefab;
+
+    [Header("Objetivo de cámara")]
     [SerializeField] private Transform cameraTarget;
 
-    private LocalFollowCamera localCameraInstance;
+    private SmoothCameraFollow localCameraInstance;
 
     public override void OnNetworkSpawn()
     {
-        if (!IsOwner) return;
+        if (!IsOwner)
+            return;
 
         if (cameraTarget == null)
             cameraTarget = transform;
 
+        if (cameraPrefab == null)
+        {
+            Debug.LogWarning("[LocalPlayerCameraBootstrap] No hay prefab de cámara asignado.");
+            return;
+        }
+
         localCameraInstance = Instantiate(cameraPrefab);
-        localCameraInstance.SetFollowTarget(cameraTarget, true);
+        localCameraInstance.SetTarget(cameraTarget);
+
+        PlayerMovement playerMovement = GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+            TryAssignCameraToPlayerMovement(playerMovement, localCameraInstance.transform);
     }
 
     public override void OnNetworkDespawn()
     {
-        if (!IsOwner) return;
+        if (!IsOwner)
+            return;
 
         if (localCameraInstance != null)
             Destroy(localCameraInstance.gameObject);
@@ -29,16 +44,31 @@ public class LocalPlayerCameraBootstrap : NetworkBehaviour
 
     public void EnterCombatCamera(Transform combatTarget = null)
     {
-        if (!IsOwner || localCameraInstance == null) return;
+        if (!IsOwner || localCameraInstance == null)
+            return;
 
         Transform targetToUse = combatTarget != null ? combatTarget : cameraTarget;
-        localCameraInstance.SetCombatOrbit(targetToUse, true);
+        localCameraInstance.SetTarget(targetToUse);
     }
 
     public void ExitCombatCamera()
     {
-        if (!IsOwner || localCameraInstance == null) return;
+        if (!IsOwner || localCameraInstance == null)
+            return;
 
-        localCameraInstance.SetFollowTarget(cameraTarget, true);
+        localCameraInstance.SetTarget(cameraTarget);
+    }
+
+    private void TryAssignCameraToPlayerMovement(PlayerMovement playerMovement, Transform cameraTransform)
+    {
+        System.Reflection.MethodInfo method = typeof(PlayerMovement).GetMethod("SetCameraTransform");
+
+        if (method != null)
+        {
+            method.Invoke(playerMovement, new object[] { cameraTransform });
+            return;
+        }
+
+        Debug.LogWarning("[LocalPlayerCameraBootstrap] PlayerMovement no tiene SetCameraTransform(). La cámara seguirá al jugador, pero el movimiento no será relativo a la cámara hasta agregar ese método al PlayerMovement real.");
     }
 }

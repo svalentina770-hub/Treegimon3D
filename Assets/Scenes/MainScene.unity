@@ -132,9 +132,10 @@ GameObject:
   - component: {fileID: 16055621}
   - component: {fileID: 16055620}
   - component: {fileID: 16055619}
+  - component: {fileID: 16055623}
   m_Layer: 0
   m_Name: Boss_Templado
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
+  SynchronizeTransform: 0
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
@@ -245,8 +246,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 20
+  m_CollisionDetection: 3
 --- !u!135 &16055622
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -268,6 +269,30 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &16055623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16055617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b332dcb4545e4bad9e7dba79dcc5d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_templado
+  bossDisplayName: Alcatraz guardian
+  bossBiome: 5
+  maxHP: 1450
+  basicAttackDamage: 95
+  specialAttackDamage: 170
+  defenseValue: 18
+  defensePercent: 0.25
+  basicAttackName: "Picada a\xE9rea"
+  defenseName: Alas protectoras
+  specialAttackName: Vuelo templado
 --- !u!1 &144769878
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,161 +357,6 @@ Transform:
   - {fileID: 1002499072}
   m_Father: {fileID: 938929216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &330585543
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 330585546}
-  - component: {fileID: 330585545}
-  - component: {fileID: 330585544}
-  - component: {fileID: 330585547}
-  - component: {fileID: 330585548}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: EditorOnly
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &330585544
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
---- !u!20 &330585545
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 1
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &330585546
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.23489788, y: -0, z: -0, w: 0.9720201}
-  m_LocalPosition: {x: 0.11, y: 9.34, z: -12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 27.171, y: 0, z: 0}
---- !u!114 &330585547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
---- !u!114 &330585548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10353d9510d4adf49a4aa3d42a989ca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  smoothTime: 0.2
-  cameraOffset: {x: 0, y: 6, z: -8}
-  lookAtHeight: 1.5
-  rotateCameraToTarget: 1
 --- !u!1 &358230387
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &373136934
 Transform:
   m_ObjectHideFlags: 0
@@ -1100,9 +970,10 @@ GameObject:
   - component: {fileID: 743599968}
   - component: {fileID: 743599967}
   - component: {fileID: 743599966}
+  - component: {fileID: 743599970}
   m_Layer: 0
   m_Name: Boss_Montana
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1180,7 +1051,7 @@ MonoBehaviour:
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
+  SynchronizeTransform: 0
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
@@ -1213,8 +1084,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 20
+  m_CollisionDetection: 3
 --- !u!135 &743599969
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1236,6 +1107,30 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &743599970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743599964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b332dcb4545e4bad9e7dba79dcc5d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_Montana
+  bossDisplayName: Tren Neogranadino
+  bossBiome: 4
+  maxHP: 1800
+  basicAttackDamage: 100
+  specialAttackDamage: 210
+  defenseValue: 30
+  defensePercent: 0.35
+  basicAttackName: Embestida pesada
+  defenseName: "Blindaje de monta\xF1a"
+  specialAttackName: Avalancha
 --- !u!1 &752385414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,9 +1144,10 @@ GameObject:
   - component: {fileID: 752385418}
   - component: {fileID: 752385417}
   - component: {fileID: 752385416}
+  - component: {fileID: 752385420}
   m_Layer: 0
   m_Name: Boss_Xerofito
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1329,7 +1225,7 @@ MonoBehaviour:
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
+  SynchronizeTransform: 0
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
@@ -1362,8 +1258,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 20
+  m_CollisionDetection: 3
 --- !u!135 &752385419
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1385,6 +1281,30 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &752385420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752385414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b332dcb4545e4bad9e7dba79dcc5d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_xerofito
+  bossDisplayName: Profesor
+  bossBiome: 3
+  maxHP: 1600
+  basicAttackDamage: 100
+  specialAttackDamage: 180
+  defenseValue: 25
+  defensePercent: 0.3
+  basicAttackName: "Lecci\xF3n espinosa"
+  defenseName: "Estrategia acad\xE9mica"
+  specialAttackName: Examen sorpresa
 --- !u!1001 &767124059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1617,9 +1537,10 @@ GameObject:
   - component: {fileID: 924368884}
   - component: {fileID: 924368882}
   - component: {fileID: 924368883}
+  - component: {fileID: 924368886}
   m_Layer: 0
   m_Name: Boss_Solar
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1657,7 +1578,7 @@ MonoBehaviour:
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
+  SynchronizeTransform: 0
   ActiveSceneSynchronization: 0
   SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
@@ -1730,8 +1651,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 20
+  m_CollisionDetection: 3
 --- !u!135 &924368885
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1753,6 +1674,30 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &924368886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924368880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b332dcb4545e4bad9e7dba79dcc5d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_Solar
+  bossDisplayName: Centinela Solar
+  bossBiome: 2
+  maxHP: 1500
+  basicAttackDamage: 110
+  specialAttackDamage: 190
+  defenseValue: 15
+  defensePercent: 0.2
+  basicAttackName: Rebote solar
+  defenseName: Brillo Protector
+  specialAttackName: "Explosi\xF3n Solar"
 --- !u!1 &938929215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,10 +1709,12 @@ GameObject:
   - component: {fileID: 938929216}
   - component: {fileID: 938929219}
   - component: {fileID: 938929218}
+  - component: {fileID: 938929220}
   - component: {fileID: 938929217}
+  - component: {fileID: 938929221}
   m_Layer: 0
   m_Name: Boss_Hidro
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1853,8 +1800,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 20
+  m_CollisionDetection: 3
 --- !u!135 &938929219
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1876,6 +1823,55 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &938929220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938929215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4218068244
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 0
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &938929221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938929215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b332dcb4545e4bad9e7dba79dcc5d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_hidro
+  bossDisplayName: "Guardi\xE1n del Humedal"
+  bossBiome: 1
+  maxHP: 1500
+  basicAttackDamage: 90
+  specialAttackDamage: 160
+  defenseValue: 20
+  defensePercent: 0.25
+  basicAttackName: Picotazo de agua
+  defenseName: "Plumas H\xFAmedas"
+  specialAttackName: Oleaje del Humedal
 --- !u!1 &942729077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,11 +2262,12 @@ GameObject:
   - component: {fileID: 1129594663}
   - component: {fileID: 1129594667}
   - component: {fileID: 1129594666}
-  - component: {fileID: 1129594665}
   - component: {fileID: 1129594664}
+  - component: {fileID: 1129594668}
+  - component: {fileID: 1129594669}
   m_Layer: 0
   m_Name: Boss_Central
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2305,7 +2302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   bossId: boss_central
-  bossDisplayName: Alcatraz guardian
+  bossDisplayName: Guardian
   bossBiome: 0
   assignedZone: {fileID: 454085330}
   canMove: 0
@@ -2331,31 +2328,6 @@ MonoBehaviour:
   clientPositionLerpSpeed: 8
   clientRotationLerpSpeed: 8
   networkSendInterval: 0.2
---- !u!114 &1129594665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129594662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 28676372
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 0
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!54 &1129594666
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2381,8 +2353,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 20
+  m_CollisionDetection: 3
 --- !u!135 &1129594667
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2404,6 +2376,55 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1129594668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129594662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 825786899
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 0
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &1129594669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129594662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b332dcb4545e4bad9e7dba79dcc5d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_central
+  bossDisplayName: Guardian
+  bossBiome: 0
+  maxHP: 2200
+  basicAttackDamage: 130
+  specialAttackDamage: 260
+  defenseValue: 40
+  defensePercent: 0.4
+  basicAttackName: Carga ecuestre
+  defenseName: Honor del campus
+  specialAttackName: Juramento del centinela
 --- !u!1 &1181436872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,7 +2934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DuelArenaManager
   arenaPrefab: {fileID: 9182212972197918175, guid: 44c17eea1c7884a459d77cf5183b0971, type: 3}
-  arenaParent: {fileID: 0}
+  arenaParent: {fileID: 1181436873}
   arenaBasePosition: {x: 0, y: -500, z: 0}
   arenaSpacing: {x: 0, y: 0, z: 300}
   returnSeparation: 10
@@ -3089,7 +3110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetworkBootstrapUI
   port: 7777
   serverAddress: 127.0.0.1
-  cameraFollow: {fileID: 330585548}
+  cameraFollow: {fileID: 0}
   maxCameraSearchTime: 10
   mostrarBotonesHostYServer: 1
   mostrarCampoIP: 1
@@ -9207,7 +9228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.34585
+      value: -0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12240,7 +12261,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 144769879}

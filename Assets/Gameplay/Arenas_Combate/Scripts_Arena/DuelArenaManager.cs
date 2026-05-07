@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -9,7 +10,7 @@ public class DuelArenaManager : MonoBehaviour
     [Header("Prefab de arena")]
     [SerializeField] private CombatArenaInstance arenaPrefab;
 
-    [Header("Organizaci�n en escena")]
+    [Header("Organizaci�n en escena")]
     [SerializeField] private Transform arenaParent;
     [SerializeField] private Vector3 arenaBasePosition = new Vector3(0f, -500f, 0f);
     [SerializeField] private Vector3 arenaSpacing = new Vector3(0f, 0f, 300f);
@@ -31,6 +32,12 @@ public class DuelArenaManager : MonoBehaviour
 
         public ulong playerA;
         public ulong playerB;
+
+        public bool isBossDuel;
+        public ulong bossNetworkObjectId;
+
+        public Vector3 bossReturnPos;
+        public Quaternion bossReturnRot;
 
         public Vector3 returnPosA;
         public Quaternion returnRotA;
@@ -201,6 +208,117 @@ public class DuelArenaManager : MonoBehaviour
         return true;
     }
 
+    public bool TryStartBossDuel(ulong playerId, NetworkObject bossNetworkObject, out int duelId)
+    {
+        duelId = 0;
+
+        if (NetworkManager.Singleton == null || !NetworkManager.Singleton.IsServer)
+            return false;
+
+        if (IsPlayerBusy(playerId))
+            return false;
+
+        if (bossNetworkObject == null)
+            return false;
+
+        if (!TryGetPlayerObject(playerId, out NetworkObject playerObject))
+            return false;
+
+        PlayerTeleport playerTeleport = playerObject.GetComponent<PlayerTeleport>();
+        BossZoneController bossController = bossNetworkObject.GetComponentInChildren<BossZoneController>(true);
+
+        if (playerTeleport == null || bossController == null || arenaPrefab == null)
+        {
+            Debug.LogWarning("Faltan referencias para iniciar el duelo contra boss.");
+            return false;
+        }
+
+        if (arenaPrefab.AnchorA == null || arenaPrefab.AnchorB == null)
+        {
+            Debug.LogWarning("El prefab de arena no tiene AnchorA/AnchorB.");
+            return false;
+        }
+
+        int slotIndex = AllocateSlot();
+        Vector3 arenaWorldPosition = arenaBasePosition + arenaSpacing * slotIndex;
+        Quaternion arenaWorldRotation = Quaternion.identity;
+
+        duelId = nextSessionId++;
+
+        Vector3 originalPlayerPos = playerObject.transform.position;
+        Quaternion originalPlayerRot = playerObject.transform.rotation;
+
+        Vector3 originalBossPos = bossNetworkObject.transform.position;
+        Quaternion originalBossRot = bossNetworkObject.transform.rotation;
+
+        Vector3 duelStartPoint = (originalPlayerPos + originalBossPos) * 0.5f;
+        PlantBiomeType combatBiome = BiomeZoneRegistry.GetBiomeAtPosition(duelStartPoint);
+        Debug.Log("Bioma detectado para duelo contra boss: " + combatBiome);
+
+        Vector3 direction = originalBossPos - originalPlayerPos;
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.001f)
+            direction = playerObject.transform.forward;
+
+        if (direction.sqrMagnitude < 0.001f)
+            direction = Vector3.right;
+
+        direction.Normalize();
+
+        Vector3 separatedReturnPlayerPos = duelStartPoint - direction * (returnSeparation * 0.5f);
+
+        Vector3 duelPosPlayer = arenaWorldPosition + arenaPrefab.AnchorA.localPosition;
+        Vector3 duelPosBoss = arenaWorldPosition + arenaPrefab.AnchorB.localPosition;
+
+        Quaternion duelRotPlayer = arenaWorldRotation * arenaPrefab.AnchorA.localRotation;
+        Quaternion duelRotBoss = arenaWorldRotation * arenaPrefab.AnchorB.localRotation;
+
+        string playerName = GetPlayerDisplayName(playerId);
+        string bossName = bossController.BossDisplayName;
+
+        DuelSession session = new DuelSession
+        {
+            sessionId = duelId,
+            slotIndex = slotIndex,
+            playerA = playerId,
+            playerB = 0,
+            isBossDuel = true,
+            bossNetworkObjectId = bossNetworkObject.NetworkObjectId,
+            returnPosA = separatedReturnPlayerPos,
+            returnRotA = originalPlayerRot,
+            returnPosB = originalBossPos,
+            returnRotB = originalBossRot,
+            bossReturnPos = originalBossPos,
+            bossReturnRot = originalBossRot,
+            arenaWorldPosition = arenaWorldPosition,
+            arenaWorldRotation = arenaWorldRotation,
+            combatBiome = combatBiome
+        };
+
+        sessionsById[duelId] = session;
+        sessionIdByPlayer[playerId] = duelId;
+
+        bossController.ForceStopForCombat();
+        bossNetworkObject.transform.SetPositionAndRotation(duelPosBoss, duelRotBoss);
+
+        playerTeleport.EnterDuelMode(
+            duelPosPlayer,
+            duelRotPlayer,
+            arenaWorldPosition,
+            arenaWorldRotation,
+            playerName,
+            bossName,
+            (int)combatBiome
+        );
+
+        if (!TryStartBossCombatSession(duelId, playerId, bossNetworkObject, combatBiome))
+            Debug.LogWarning("DuelCombatManager todavía no implementa StartBossCombatSession. Se teletransportó al jugador y al boss, pero no inició combate contra IA.");
+
+        Debug.Log($"Duelo contra boss iniciado. SessionId={duelId}, Slot={slotIndex}, Boss={bossName}, Bioma={combatBiome}");
+        return true;
+    }
+
     public bool TryEndDuelByPlayer(ulong playerId)
     {
         if (!sessionIdByPlayer.TryGetValue(playerId, out int duelId))
@@ -223,7 +341,18 @@ public class DuelArenaManager : MonoBehaviour
                 teleportA.ExitDuelMode(session.returnPosA, session.returnRotA);
         }
 
-        if (TryGetPlayerObject(session.playerB, out NetworkObject objectB))
+        if (session.isBossDuel)
+        {
+            if (TryGetSpawnedNetworkObject(session.bossNetworkObjectId, out NetworkObject bossObject))
+            {
+                bossObject.transform.SetPositionAndRotation(session.bossReturnPos, session.bossReturnRot);
+
+                BossZoneController bossController = bossObject.GetComponentInChildren<BossZoneController>(true);
+                if (bossController != null)
+                    bossController.ResumeMovement();
+            }
+        }
+        else if (TryGetPlayerObject(session.playerB, out NetworkObject objectB))
         {
             PlayerTeleport teleportB = objectB.GetComponent<PlayerTeleport>();
             if (teleportB != null)
@@ -232,7 +361,9 @@ public class DuelArenaManager : MonoBehaviour
 
         sessionsById.Remove(duelId);
         sessionIdByPlayer.Remove(session.playerA);
-        sessionIdByPlayer.Remove(session.playerB);
+
+        if (!session.isBossDuel)
+            sessionIdByPlayer.Remove(session.playerB);
 
         ReleaseSlot(session.slotIndex);
 
@@ -252,6 +383,36 @@ public class DuelArenaManager : MonoBehaviour
 
         playerObject = clientData.PlayerObject;
         return playerObject != null;
+    }
+
+    private bool TryGetSpawnedNetworkObject(ulong networkObjectId, out NetworkObject networkObject)
+    {
+        networkObject = null;
+
+        if (NetworkManager.Singleton == null || NetworkManager.Singleton.SpawnManager == null)
+            return false;
+
+        return NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out networkObject);
+    }
+
+    private bool TryStartBossCombatSession(int duelId, ulong playerId, NetworkObject bossNetworkObject, PlantBiomeType combatBiome)
+    {
+        if (DuelCombatManager.Instance == null || bossNetworkObject == null)
+            return false;
+
+        MethodInfo method = typeof(DuelCombatManager).GetMethod(
+            "StartBossCombatSession",
+            BindingFlags.Instance | BindingFlags.Public,
+            null,
+            new[] { typeof(int), typeof(ulong), typeof(NetworkObject), typeof(PlantBiomeType) },
+            null
+        );
+
+        if (method == null)
+            return false;
+
+        method.Invoke(DuelCombatManager.Instance, new object[] { duelId, playerId, bossNetworkObject, combatBiome });
+        return true;
     }
 
     private string GetPlayerDisplayName(ulong clientId)

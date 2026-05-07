@@ -1,0 +1,551 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f307b2fb95fc7f24899a1b88a8a10a2b, type: 3}
+  m_Name: PlantDataBase
+  m_EditorClassIdentifier: 
+  plants:
+  - {fileID: 11400000, guid: cdd37bba91b4443bca8626bff22cc90e, type: 2}
+  - {fileID: 11400000, guid: da8c9caa1b44d47ab8caa3776452728d, type: 2}
+  - {fileID: 11400000, guid: 2ec0e5ef3bb3c4344aee39a1c6dc1ca2, type: 2}
+  - {fileID: 11400000, guid: 2850bc81588544c2b956e56f6fdb8bcb, type: 2}
+  - {fileID: 11400000, guid: cdc42c73daa0f431d84a6ce3b665cf53, type: 2}
+  - {fileID: 11400000, guid: 2cf6e33796e02443a95f0f18d5b83b88, type: 2}
+  - {fileID: 11400000, guid: caac921e39ffc437caec5a98758daf16, type: 2}
+  - {fileID: 11400000, guid: 3fcfb957652fe4c33ab77869810d6feb, type: 2}
+  - {fileID: 11400000, guid: 3f83d327a22fe497d81c1ed603abb17b, type: 2}
+  - {fileID: 11400000, guid: 13e4c48e4c18346cfb44cba21d2618b0, type: 2}
+  - {fileID: 11400000, guid: 334ad354b9f474aa79e5b4132da24949, type: 2}
+  - {fileID: 11400000, guid: 2f023ff057ecf4cba9f0e8e4653571b3, type: 2}
+  - {fileID: 11400000, guid: 43240c2e8b6864e968eb6476459b5539, type: 2}
+  - {fileID: 11400000, guid: b4eb83a694ce94c16b63d304a2069718, type: 2}
+  - {fileID: 11400000, guid: 1197691f0416e4d33a1922c95e030b6f, type: 2}
+  modelVariants:
+  - modelKey: "Alcaparro_enano_Andres_Santiago_Duque_Garc\xEDa"
+    baseSpeciesId: alcaparro_enano
+    speciesDisplayName: Alcaparro enano
+    subspeciesId: 1
+    instanceId: alcaparro_enano_01
+    studentName: "Andres Santiago Duque Garc\xEDa"
+    fase1ResourcePath: "Modelos_3D/fase1/Alcaparro_enano_Andres_Santiago_Duque_Garc\xEDa_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Alcaparro_enano_Andres_Santiago_Duque_Garc\xEDa_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Alcaparro_enano_Andres_Santiago_Duque_Garc\xEDa_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Alcaparro_enano_Andres_Santiago_Duque_Garc\xEDa_fase_4"
+  - modelKey: Alcaparro_enano_Jimmy_Alejandro_Torres_Heraque
+    baseSpeciesId: alcaparro_enano
+    speciesDisplayName: Alcaparro enano
+    subspeciesId: 2
+    instanceId: alcaparro_enano_02
+    studentName: Jimmy Alejandro Torres Heraque
+    fase1ResourcePath: Modelos_3D/fase1/Alcaparro_enano_Jimmy_Alejandro_Torres_Heraque_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Alcaparro_enano_Jimmy_Alejandro_Torres_Heraque_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Alcaparro_enano_Jimmy_Alejandro_Torres_Heraque_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Alcaparro_enano_Jimmy_Alejandro_Torres_Heraque_fase_4
+  - modelKey: Alcaparro_enano_Laura_Sofia_Parra_Ledezma
+    baseSpeciesId: alcaparro_enano
+    speciesDisplayName: Alcaparro enano
+    subspeciesId: 3
+    instanceId: alcaparro_enano_03
+    studentName: Laura Sofia Parra Ledezma
+    fase1ResourcePath: Modelos_3D/fase1/Alcaparro_enano_Laura_Sofia_Parra_Ledezma_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Alcaparro_enano_Laura_Sofia_Parra_Ledezma_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Alcaparro_enano_Laura_Sofia_Parra_Ledezma_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Alcaparro_enano_Laura_Sofia_Parra_Ledezma_fase_4
+  - modelKey: Alcaparro_enano_Maria_Paula_Hernandez_Hernandez
+    baseSpeciesId: alcaparro_enano
+    speciesDisplayName: Alcaparro enano
+    subspeciesId: 4
+    instanceId: alcaparro_enano_04
+    studentName: Maria Paula Hernandez Hernandez
+    fase1ResourcePath: Modelos_3D/fase1/Alcaparro_enano_Maria_Paula_Hernandez_Hernandez_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Alcaparro_enano_Maria_Paula_Hernandez_Hernandez_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Alcaparro_enano_Maria_Paula_Hernandez_Hernandez_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Alcaparro_enano_Maria_Paula_Hernandez_Hernandez_fase_4
+  - modelKey: "Alcaparro_enano_Sara_Viviana_Rojas_G\xF3mez"
+    baseSpeciesId: alcaparro_enano
+    speciesDisplayName: Alcaparro enano
+    subspeciesId: 5
+    instanceId: alcaparro_enano_05
+    studentName: "Sara Viviana Rojas G\xF3mez"
+    fase1ResourcePath: "Modelos_3D/fase1/Alcaparro_enano_Sara_Viviana_Rojas_G\xF3mez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Alcaparro_enano_Sara_Viviana_Rojas_G\xF3mez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Alcaparro_enano_Sara_Viviana_Rojas_G\xF3mez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Alcaparro_enano_Sara_Viviana_Rojas_G\xF3mez_fase_4"
+  - modelKey: Aliso_Juan_Pablo_Yalta_Badillo
+    baseSpeciesId: aliso
+    speciesDisplayName: Aliso
+    subspeciesId: 6
+    instanceId: aliso_06
+    studentName: Juan Pablo Yalta Badillo
+    fase1ResourcePath: Modelos_3D/fase1/Aliso_Juan_Pablo_Yalta_Badillo_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Aliso_Juan_Pablo_Yalta_Badillo_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Aliso_Juan_Pablo_Yalta_Badillo_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Aliso_Juan_Pablo_Yalta_Badillo_fase_4
+  - modelKey: Suculentas_Carlos_Bahamon
+    baseSpeciesId: suculentas
+    speciesDisplayName: Suculentas
+    subspeciesId: 7
+    instanceId: suculentas_07
+    studentName: Carlos Bahamon
+    fase1ResourcePath: Modelos_3D/fase1/Suculentas_Carlos_Bahamon_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Suculentas_Carlos_Bahamon_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Suculentas_Carlos_Bahamon_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Suculentas_Carlos_Bahamon_fase_4
+  - modelKey: Cedrillo_Geraldine_Torres_Reyes
+    baseSpeciesId: cedrillo
+    speciesDisplayName: Cedrillo
+    subspeciesId: 8
+    instanceId: cedrillo_08
+    studentName: Geraldine Torres Reyes
+    fase1ResourcePath: Modelos_3D/fase1/Cedrillo_Geraldine_Torres_Reyes_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Cedrillo_Geraldine_Torres_Reyes_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Cedrillo_Geraldine_Torres_Reyes_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Cedrillo_Geraldine_Torres_Reyes_fase_4
+  - modelKey: Cedrillo_Jeronimo_Vargas_Hoyos
+    baseSpeciesId: cedrillo
+    speciesDisplayName: Cedrillo
+    subspeciesId: 9
+    instanceId: cedrillo_09
+    studentName: Jeronimo Vargas Hoyos
+    fase1ResourcePath: Modelos_3D/fase1/Cedrillo_Jeronimo_Vargas_Hoyos_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Cedrillo_Jeronimo_Vargas_Hoyos_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Cedrillo_Jeronimo_Vargas_Hoyos_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Cedrillo_Jeronimo_Vargas_Hoyos_fase_4
+  - modelKey: "Cedrillo_Tomas_Mar\xEDn_Ojeda"
+    baseSpeciesId: cedrillo
+    speciesDisplayName: Cedrillo
+    subspeciesId: 10
+    instanceId: cedrillo_10
+    studentName: "Tomas Mar\xEDn Ojeda"
+    fase1ResourcePath: "Modelos_3D/fase1/Cedrillo_Tomas_Mar\xEDn_Ojeda_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Cedrillo_Tomas_Mar\xEDn_Ojeda_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Cedrillo_Tomas_Mar\xEDn_Ojeda_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Cedrillo_Tomas_Mar\xEDn_Ojeda_fase_4"
+  - modelKey: "Cedro_Juan_Manuel_Lombana_C\xE1rdenas"
+    baseSpeciesId: cedro
+    speciesDisplayName: Cedro
+    subspeciesId: 11
+    instanceId: cedro_11
+    studentName: "Juan Manuel Lombana C\xE1rdenas"
+    fase1ResourcePath: "Modelos_3D/fase1/Cedro_Juan_Manuel_Lombana_C\xE1rdenas_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Cedro_Juan_Manuel_Lombana_C\xE1rdenas_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Cedro_Juan_Manuel_Lombana_C\xE1rdenas_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Cedro_Juan_Manuel_Lombana_C\xE1rdenas_fase_4"
+  - modelKey: Drago_Adriana_Sofia_Espitia_Contreras
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 12
+    instanceId: drago_12
+    studentName: Adriana Sofia Espitia Contreras
+    fase1ResourcePath: Modelos_3D/fase1/Drago_Adriana_Sofia_Espitia_Contreras_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Drago_Adriana_Sofia_Espitia_Contreras_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Drago_Adriana_Sofia_Espitia_Contreras_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Drago_Adriana_Sofia_Espitia_Contreras_fase_4
+  - modelKey: Drago_Alejandro_Ramirez_Velasquez
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 13
+    instanceId: drago_13
+    studentName: Alejandro Ramirez Velasquez
+    fase1ResourcePath: Modelos_3D/fase1/Drago_Alejandro_Ramirez_Velasquez_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Drago_Alejandro_Ramirez_Velasquez_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Drago_Alejandro_Ramirez_Velasquez_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Drago_Alejandro_Ramirez_Velasquez_fase_4
+  - modelKey: "Drago_Carlos_Ernesto_Correa_Rodr\xEDguez"
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 14
+    instanceId: drago_14
+    studentName: "Carlos Ernesto Correa Rodr\xEDguez"
+    fase1ResourcePath: "Modelos_3D/fase1/Drago_Carlos_Ernesto_Correa_Rodr\xEDguez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Drago_Carlos_Ernesto_Correa_Rodr\xEDguez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Drago_Carlos_Ernesto_Correa_Rodr\xEDguez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Drago_Carlos_Ernesto_Correa_Rodr\xEDguez_fase_4"
+  - modelKey: "Drago_David_Alejandro_Hern\xE1ndez_Prieto"
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 15
+    instanceId: drago_15
+    studentName: "David Alejandro Hern\xE1ndez Prieto"
+    fase1ResourcePath: "Modelos_3D/fase1/Drago_David_Alejandro_Hern\xE1ndez_Prieto_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Drago_David_Alejandro_Hern\xE1ndez_Prieto_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Drago_David_Alejandro_Hern\xE1ndez_Prieto_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Drago_David_Alejandro_Hern\xE1ndez_Prieto_fase_4"
+  - modelKey: Drago_Isabella_Vega_Heredia
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 16
+    instanceId: drago_16
+    studentName: Isabella Vega Heredia
+    fase1ResourcePath: Modelos_3D/fase1/Drago_Isabella_Vega_Heredia_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Drago_Isabella_Vega_Heredia_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Drago_Isabella_Vega_Heredia_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Drago_Isabella_Vega_Heredia_fase_4
+  - modelKey: "Drago_Jesica_Alejandra_Pi\xF1eros_Garcia"
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 17
+    instanceId: drago_17
+    studentName: "Jesica Alejandra Pi\xF1eros Garcia"
+    fase1ResourcePath: "Modelos_3D/fase1/Drago_Jesica_Alejandra_Pi\xF1eros_Garcia_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Drago_Jesica_Alejandra_Pi\xF1eros_Garcia_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Drago_Jesica_Alejandra_Pi\xF1eros_Garcia_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Drago_Jesica_Alejandra_Pi\xF1eros_Garcia_fase_4"
+  - modelKey: "Drago_Tomas_Mateo_Buitrago_Guti\xE9rrez"
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 18
+    instanceId: drago_18
+    studentName: "Tomas Mateo Buitrago Guti\xE9rrez"
+    fase1ResourcePath: "Modelos_3D/fase1/Drago_Tomas_Mateo_Buitrago_Guti\xE9rrez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Drago_Tomas_Mateo_Buitrago_Guti\xE9rrez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Drago_Tomas_Mateo_Buitrago_Guti\xE9rrez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Drago_Tomas_Mateo_Buitrago_Guti\xE9rrez_fase_4"
+  - modelKey: "Drago_Yuri_Alexandra_Casta\xF1eda_Monta\xF1o"
+    baseSpeciesId: drago
+    speciesDisplayName: Drago
+    subspeciesId: 19
+    instanceId: drago_19
+    studentName: "Yuri Alexandra Casta\xF1eda Monta\xF1o"
+    fase1ResourcePath: "Modelos_3D/fase1/Drago_Yuri_Alexandra_Casta\xF1eda_Monta\xF1o_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Drago_Yuri_Alexandra_Casta\xF1eda_Monta\xF1o_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Drago_Yuri_Alexandra_Casta\xF1eda_Monta\xF1o_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Drago_Yuri_Alexandra_Casta\xF1eda_Monta\xF1o_fase_4"
+  - modelKey: "Duraznillo_Andres_Felipe_Morales_Dom\xEDnguez"
+    baseSpeciesId: duraznillo
+    speciesDisplayName: Duraznillo
+    subspeciesId: 20
+    instanceId: duraznillo_20
+    studentName: "Andres Felipe Morales Dom\xEDnguez"
+    fase1ResourcePath: "Modelos_3D/fase1/Duraznillo_Andres_Felipe_Morales_Dom\xEDnguez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Duraznillo_Andres_Felipe_Morales_Dom\xEDnguez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Duraznillo_Andres_Felipe_Morales_Dom\xEDnguez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Duraznillo_Andres_Felipe_Morales_Dom\xEDnguez_fase_4"
+  - modelKey: Duraznillo_Anne_Catalina_Galvis_Carvajal
+    baseSpeciesId: duraznillo
+    speciesDisplayName: Duraznillo
+    subspeciesId: 21
+    instanceId: duraznillo_21
+    studentName: Anne Catalina Galvis Carvajal
+    fase1ResourcePath: Modelos_3D/fase1/Duraznillo_Anne_Catalina_Galvis_Carvajal_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Duraznillo_Anne_Catalina_Galvis_Carvajal_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Duraznillo_Anne_Catalina_Galvis_Carvajal_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Duraznillo_Anne_Catalina_Galvis_Carvajal_fase_4
+  - modelKey: Duraznillo_Gireth_Sharik_Alvarado_Rubio
+    baseSpeciesId: duraznillo
+    speciesDisplayName: Duraznillo
+    subspeciesId: 22
+    instanceId: duraznillo_22
+    studentName: Gireth Sharik Alvarado Rubio
+    fase1ResourcePath: Modelos_3D/fase1/Duraznillo_Gireth_Sharik_Alvarado_Rubio_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Duraznillo_Gireth_Sharik_Alvarado_Rubio_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Duraznillo_Gireth_Sharik_Alvarado_Rubio_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Duraznillo_Gireth_Sharik_Alvarado_Rubio_fase_4
+  - modelKey: Espino_Juan_Sebastian_Cuellar_Cardon
+    baseSpeciesId: espino
+    speciesDisplayName: Espino
+    subspeciesId: 23
+    instanceId: espino_23
+    studentName: Juan Sebastian Cuellar Cardon
+    fase1ResourcePath: Modelos_3D/fase1/Espino_Juan_Sebastian_Cuellar_Cardon_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Espino_Juan_Sebastian_Cuellar_Cardon_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Espino_Juan_Sebastian_Cuellar_Cardon_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Espino_Juan_Sebastian_Cuellar_Cardon_fase_4
+  - modelKey: "Mangle_Juan_Sebastian_Ria\xF1o_Fernandez"
+    baseSpeciesId: mangle
+    speciesDisplayName: Mangle
+    subspeciesId: 24
+    instanceId: mangle_24
+    studentName: "Juan Sebastian Ria\xF1o Fernandez"
+    fase1ResourcePath: "Modelos_3D/fase1/Mangle_Juan_Sebastian_Ria\xF1o_Fernandez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Mangle_Juan_Sebastian_Ria\xF1o_Fernandez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Mangle_Juan_Sebastian_Ria\xF1o_Fernandez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Mangle_Juan_Sebastian_Ria\xF1o_Fernandez_fase_4"
+  - modelKey: Mangle_Lina_Vanesa_Rico_Laverde
+    baseSpeciesId: mangle
+    speciesDisplayName: Mangle
+    subspeciesId: 25
+    instanceId: mangle_25
+    studentName: Lina Vanesa Rico Laverde
+    fase1ResourcePath: Modelos_3D/fase1/Mangle_Lina_Vanesa_Rico_Laverde_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Mangle_Lina_Vanesa_Rico_Laverde_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Mangle_Lina_Vanesa_Rico_Laverde_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Mangle_Lina_Vanesa_Rico_Laverde_fase_4
+  - modelKey: "Manzano_Juan_Esteban_Quintana_Rodr\xEDguez"
+    baseSpeciesId: manzano
+    speciesDisplayName: Manzano
+    subspeciesId: 26
+    instanceId: manzano_26
+    studentName: "Juan Esteban Quintana Rodr\xEDguez"
+    fase1ResourcePath: "Modelos_3D/fase1/Manzano_Juan_Esteban_Quintana_Rodr\xEDguez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Manzano_Juan_Esteban_Quintana_Rodr\xEDguez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Manzano_Juan_Esteban_Quintana_Rodr\xEDguez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Manzano_Juan_Esteban_Quintana_Rodr\xEDguez_fase_4"
+  - modelKey: Manzano_Julian_David_Almonacid_Vanegas
+    baseSpeciesId: manzano
+    speciesDisplayName: Manzano
+    subspeciesId: 27
+    instanceId: manzano_27
+    studentName: Julian David Almonacid Vanegas
+    fase1ResourcePath: Modelos_3D/fase1/Manzano_Julian_David_Almonacid_Vanegas_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Manzano_Julian_David_Almonacid_Vanegas_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Manzano_Julian_David_Almonacid_Vanegas_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Manzano_Julian_David_Almonacid_Vanegas_fase_4
+  - modelKey: "Manzano_Mateo_Andres_Guzm\xE1n_Reyes"
+    baseSpeciesId: manzano
+    speciesDisplayName: Manzano
+    subspeciesId: 28
+    instanceId: manzano_28
+    studentName: "Mateo Andres Guzm\xE1n Reyes"
+    fase1ResourcePath: "Modelos_3D/fase1/Manzano_Mateo_Andres_Guzm\xE1n_Reyes_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Manzano_Mateo_Andres_Guzm\xE1n_Reyes_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Manzano_Mateo_Andres_Guzm\xE1n_Reyes_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Manzano_Mateo_Andres_Guzm\xE1n_Reyes_fase_4"
+  - modelKey: Manzano_Miguel_Angel_Cartagena_Herrera
+    baseSpeciesId: manzano
+    speciesDisplayName: Manzano
+    subspeciesId: 29
+    instanceId: manzano_29
+    studentName: Miguel Angel Cartagena Herrera
+    fase1ResourcePath: Modelos_3D/fase1/Manzano_Miguel_Angel_Cartagena_Herrera_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Manzano_Miguel_Angel_Cartagena_Herrera_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Manzano_Miguel_Angel_Cartagena_Herrera_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Manzano_Miguel_Angel_Cartagena_Herrera_fase_4
+  - modelKey: "Manzano_Paula_Alejandra_Rinc\xF3n_Otalvaro"
+    baseSpeciesId: manzano
+    speciesDisplayName: Manzano
+    subspeciesId: 30
+    instanceId: manzano_30
+    studentName: "Paula Alejandra Rinc\xF3n Otalvaro"
+    fase1ResourcePath: "Modelos_3D/fase1/Manzano_Paula_Alejandra_Rinc\xF3n_Otalvaro_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Manzano_Paula_Alejandra_Rinc\xF3n_Otalvaro_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Manzano_Paula_Alejandra_Rinc\xF3n_Otalvaro_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Manzano_Paula_Alejandra_Rinc\xF3n_Otalvaro_fase_4"
+  - modelKey: "Nogal_Diego_Mart\xEDnez_Rodr\xEDguez"
+    baseSpeciesId: nogal
+    speciesDisplayName: Nogal
+    subspeciesId: 31
+    instanceId: nogal_31
+    studentName: "Diego Mart\xEDnez Rodr\xEDguez"
+    fase1ResourcePath: "Modelos_3D/fase1/Nogal_Diego_Mart\xEDnez_Rodr\xEDguez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Nogal_Diego_Mart\xEDnez_Rodr\xEDguez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Nogal_Diego_Mart\xEDnez_Rodr\xEDguez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Nogal_Diego_Mart\xEDnez_Rodr\xEDguez_fase_4"
+  - modelKey: Pasto_William_Cubillos
+    baseSpeciesId: pasto
+    speciesDisplayName: Pasto
+    subspeciesId: 32
+    instanceId: pasto_32
+    studentName: William Cubillos
+    fase1ResourcePath: Modelos_3D/fase1/Pasto_William_Cubillos_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Pasto_William_Cubillos_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Pasto_William_Cubillos_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Pasto_William_Cubillos_fase_4
+  - modelKey: "Pino_romeron_Daniel_Felipe_Orjuela_Rodr\xEDguez"
+    baseSpeciesId: pino_romeron
+    speciesDisplayName: "Pino romer\xF3n"
+    subspeciesId: 33
+    instanceId: pino_romeron_33
+    studentName: "Daniel Felipe Orjuela Rodr\xEDguez"
+    fase1ResourcePath: "Modelos_3D/fase1/Pino_romeron_Daniel_Felipe_Orjuela_Rodr\xEDguez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Pino_romeron_Daniel_Felipe_Orjuela_Rodr\xEDguez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Pino_romeron_Daniel_Felipe_Orjuela_Rodr\xEDguez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Pino_romeron_Daniel_Felipe_Orjuela_Rodr\xEDguez_fase_4"
+  - modelKey: "Pino_romeron_Juan_Esteban_Acosta_Pe\xF1a"
+    baseSpeciesId: pino_romeron
+    speciesDisplayName: "Pino romer\xF3n"
+    subspeciesId: 34
+    instanceId: pino_romeron_34
+    studentName: "Juan Esteban Acosta Pe\xF1a"
+    fase1ResourcePath: "Modelos_3D/fase1/Pino_romeron_Juan_Esteban_Acosta_Pe\xF1a_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Pino_romeron_Juan_Esteban_Acosta_Pe\xF1a_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Pino_romeron_Juan_Esteban_Acosta_Pe\xF1a_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Pino_romeron_Juan_Esteban_Acosta_Pe\xF1a_fase_4"
+  - modelKey: "Pino_romer\xF3n_Karen_Tatiana_Sandoval_Malag\xF3n"
+    baseSpeciesId: pino_romeron
+    speciesDisplayName: "Pino romer\xF3n"
+    subspeciesId: 35
+    instanceId: pino_romeron_35
+    studentName: "Karen Tatiana Sandoval Malag\xF3n"
+    fase1ResourcePath: "Modelos_3D/fase1/Pino_romer\xF3n_Karen_Tatiana_Sandoval_Malag\xF3n_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Pino_romer\xF3n_Karen_Tatiana_Sandoval_Malag\xF3n_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Pino_romer\xF3n_Karen_Tatiana_Sandoval_Malag\xF3n_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Pino_romer\xF3n_Karen_Tatiana_Sandoval_Malag\xF3n_fase_4"
+  - modelKey: "Pino_romer\xF3n_Santiago_Correa_Fandi\xF1o"
+    baseSpeciesId: pino_romeron
+    speciesDisplayName: "Pino romer\xF3n"
+    subspeciesId: 36
+    instanceId: pino_romeron_36
+    studentName: "Santiago Correa Fandi\xF1o"
+    fase1ResourcePath: "Modelos_3D/fase1/Pino_romer\xF3n_Santiago_Correa_Fandi\xF1o_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Pino_romer\xF3n_Santiago_Correa_Fandi\xF1o_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Pino_romer\xF3n_Santiago_Correa_Fandi\xF1o_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Pino_romer\xF3n_Santiago_Correa_Fandi\xF1o_fase_4"
+  - modelKey: Roble_Javier_Santiago_Bustos_Laverde
+    baseSpeciesId: roble
+    speciesDisplayName: Roble
+    subspeciesId: 37
+    instanceId: roble_37
+    studentName: Javier Santiago Bustos Laverde
+    fase1ResourcePath: Modelos_3D/fase1/Roble_Javier_Santiago_Bustos_Laverde_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Roble_Javier_Santiago_Bustos_Laverde_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Roble_Javier_Santiago_Bustos_Laverde_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Roble_Javier_Santiago_Bustos_Laverde_fase_4
+  - modelKey: Roble_Maicol_Stiven_Torres_Rivas
+    baseSpeciesId: roble
+    speciesDisplayName: Roble
+    subspeciesId: 38
+    instanceId: roble_38
+    studentName: Maicol Stiven Torres Rivas
+    fase1ResourcePath: Modelos_3D/fase1/Roble_Maicol_Stiven_Torres_Rivas_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Roble_Maicol_Stiven_Torres_Rivas_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Roble_Maicol_Stiven_Torres_Rivas_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Roble_Maicol_Stiven_Torres_Rivas_fase_4
+  - modelKey: Sietecueros_Danna_Lucia_Plazas_Lara
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 39
+    instanceId: sietecueros_39
+    studentName: Danna Lucia Plazas Lara
+    fase1ResourcePath: Modelos_3D/fase1/Sietecueros_Danna_Lucia_Plazas_Lara_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Sietecueros_Danna_Lucia_Plazas_Lara_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Sietecueros_Danna_Lucia_Plazas_Lara_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Sietecueros_Danna_Lucia_Plazas_Lara_fase_4
+  - modelKey: "Sietecueros_Erick_Santiago_Rodr\xEDguez_Paez"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 40
+    instanceId: sietecueros_40
+    studentName: "Erick Santiago Rodr\xEDguez Paez"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Erick_Santiago_Rodr\xEDguez_Paez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Erick_Santiago_Rodr\xEDguez_Paez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Erick_Santiago_Rodr\xEDguez_Paez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Erick_Santiago_Rodr\xEDguez_Paez_fase_4"
+  - modelKey: Sietecueros_Fabian_Andres_Cetina_Rabon
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 41
+    instanceId: sietecueros_41
+    studentName: Fabian Andres Cetina Rabon
+    fase1ResourcePath: Modelos_3D/fase1/Sietecueros_Fabian_Andres_Cetina_Rabon_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Sietecueros_Fabian_Andres_Cetina_Rabon_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Sietecueros_Fabian_Andres_Cetina_Rabon_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Sietecueros_Fabian_Andres_Cetina_Rabon_fase_4
+  - modelKey: Sietecueros_Juan_Sebastian_Rocha_Ballen
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 42
+    instanceId: sietecueros_42
+    studentName: Juan Sebastian Rocha Ballen
+    fase1ResourcePath: Modelos_3D/fase1/Sietecueros_Juan_Sebastian_Rocha_Ballen_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Sietecueros_Juan_Sebastian_Rocha_Ballen_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Sietecueros_Juan_Sebastian_Rocha_Ballen_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Sietecueros_Juan_Sebastian_Rocha_Ballen_fase_4
+  - modelKey: Sietecueros_Karen_Daniela_Bustos_Valero
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 43
+    instanceId: sietecueros_43
+    studentName: Karen Daniela Bustos Valero
+    fase1ResourcePath: Modelos_3D/fase1/Sietecueros_Karen_Daniela_Bustos_Valero_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Sietecueros_Karen_Daniela_Bustos_Valero_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Sietecueros_Karen_Daniela_Bustos_Valero_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Sietecueros_Karen_Daniela_Bustos_Valero_fase_4
+  - modelKey: "Sietecueros_Karoll_Alexandra_Duran_V\xE1squez"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 44
+    instanceId: sietecueros_44
+    studentName: "Karoll Alexandra Duran V\xE1squez"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Karoll_Alexandra_Duran_V\xE1squez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Karoll_Alexandra_Duran_V\xE1squez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Karoll_Alexandra_Duran_V\xE1squez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Karoll_Alexandra_Duran_V\xE1squez_fase_4"
+  - modelKey: "Sietecueros_Laura_Daniela_Iba\xF1ez_Rodr\xEDguez"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 45
+    instanceId: sietecueros_45
+    studentName: "Laura Daniela Iba\xF1ez Rodr\xEDguez"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Laura_Daniela_Iba\xF1ez_Rodr\xEDguez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Laura_Daniela_Iba\xF1ez_Rodr\xEDguez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Laura_Daniela_Iba\xF1ez_Rodr\xEDguez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Laura_Daniela_Iba\xF1ez_Rodr\xEDguez_fase_4"
+  - modelKey: "Sietecueros_Liseth_Tatiana_Castro_Rodr\xEDguez"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 46
+    instanceId: sietecueros_46
+    studentName: "Liseth Tatiana Castro Rodr\xEDguez"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Liseth_Tatiana_Castro_Rodr\xEDguez_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Liseth_Tatiana_Castro_Rodr\xEDguez_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Liseth_Tatiana_Castro_Rodr\xEDguez_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Liseth_Tatiana_Castro_Rodr\xEDguez_fase_4"
+  - modelKey: "Sietecueros_Lyander_Anthony_Hern\xE1ndez_Acosta"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 47
+    instanceId: sietecueros_47
+    studentName: "Lyander Anthony Hern\xE1ndez Acosta"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Lyander_Anthony_Hern\xE1ndez_Acosta_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Lyander_Anthony_Hern\xE1ndez_Acosta_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Lyander_Anthony_Hern\xE1ndez_Acosta_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Lyander_Anthony_Hern\xE1ndez_Acosta_fase_4"
+  - modelKey: "Sietecueros_Maria_Jose_Casta\xF1o_Celis"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 48
+    instanceId: sietecueros_48
+    studentName: "Maria Jose Casta\xF1o Celis"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Maria_Jose_Casta\xF1o_Celis_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Maria_Jose_Casta\xF1o_Celis_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Maria_Jose_Casta\xF1o_Celis_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Maria_Jose_Casta\xF1o_Celis_fase_4"
+  - modelKey: "Sietecueros_Mateo_S\xE1nchez_Ramos"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 49
+    instanceId: sietecueros_49
+    studentName: "Mateo S\xE1nchez Ramos"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Mateo_S\xE1nchez_Ramos_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Mateo_S\xE1nchez_Ramos_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Mateo_S\xE1nchez_Ramos_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Mateo_S\xE1nchez_Ramos_fase_4"
+  - modelKey: "Sietecueros_Matilde_Berm\xFAdez_Baquero"
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 50
+    instanceId: sietecueros_50
+    studentName: "Matilde Berm\xFAdez Baquero"
+    fase1ResourcePath: "Modelos_3D/fase1/Sietecueros_Matilde_Berm\xFAdez_Baquero_fase_1"
+    fase2ResourcePath: "Modelos_3D/fase2/Sietecueros_Matilde_Berm\xFAdez_Baquero_fase_2"
+    fase3ResourcePath: "Modelos_3D/fase3/Sietecueros_Matilde_Berm\xFAdez_Baquero_fase_3"
+    fase4ResourcePath: "Modelos_3D/fase4/Sietecueros_Matilde_Berm\xFAdez_Baquero_fase_4"
+  - modelKey: Sietecueros_Sergio_Danilo_Palacios_Castillo
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 51
+    instanceId: sietecueros_51
+    studentName: Sergio Danilo Palacios Castillo
+    fase1ResourcePath: Modelos_3D/fase1/Sietecueros_Sergio_Danilo_Palacios_Castillo_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Sietecueros_Sergio_Danilo_Palacios_Castillo_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Sietecueros_Sergio_Danilo_Palacios_Castillo_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Sietecueros_Sergio_Danilo_Palacios_Castillo_fase_4
+  - modelKey: Sietecueros_Susan_Michelle_Doblado_Torres
+    baseSpeciesId: sietecueros
+    speciesDisplayName: Sietecueros
+    subspeciesId: 52
+    instanceId: sietecueros_52
+    studentName: Susan Michelle Doblado Torres
+    fase1ResourcePath: Modelos_3D/fase1/Sietecueros_Susan_Michelle_Doblado_Torres_fase_1
+    fase2ResourcePath: Modelos_3D/fase2/Sietecueros_Susan_Michelle_Doblado_Torres_fase_2
+    fase3ResourcePath: Modelos_3D/fase3/Sietecueros_Susan_Michelle_Doblado_Torres_fase_3
+    fase4ResourcePath: Modelos_3D/fase4/Sietecueros_Susan_Michelle_Doblado_Torres_fase_4

@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -18,12 +20,24 @@ public class ChallengeSystem : NetworkBehaviour
 
     private bool hasCurrentTarget;
     private ulong currentTargetClientId;
+    private TargetKind currentTargetKind = TargetKind.None;
+    private ulong currentBossNetworkObjectId;
 
     private bool hasNearbyRival;
     private ulong nearbyRivalClientId;
     private string nearbyRivalName;
+    private bool hasNearbyBoss;
+    private ulong nearbyBossNetworkObjectId;
+    private string nearbyBossName;
 
     private LocalState localState = LocalState.None;
+
+    private enum TargetKind
+    {
+        None,
+        Player,
+        Boss
+    }
 
     private enum LocalState
     {
@@ -71,6 +85,22 @@ public class ChallengeSystem : NetworkBehaviour
             return;
 
         PlayerNameDisplay rival = ResolveRival(other);
+        if (rival != null)
+        {
+            TryPreparePlayerChallenge(rival);
+            return;
+        }
+
+        BossZoneController boss = ResolveBoss(other);
+        if (boss != null)
+        {
+            TryPrepareBossChallenge(boss);
+            return;
+        }
+    }
+
+    private void TryPreparePlayerChallenge(PlayerNameDisplay rival)
+    {
         if (rival == null) return;
         if (rival.OwnerClientId == OwnerClientId) return;
 
@@ -86,18 +116,38 @@ public class ChallengeSystem : NetworkBehaviour
 
         if (myLoadout != null && !myLoadout.CanChallenge())
         {
-            Debug.Log("Tu planta aún no cumple el nivel mínimo para PvP.");
+            Debug.Log("Tu planta aÃºn no cumple el nivel mÃ­nimo para PvP.");
             return;
         }
 
         if (rivalLoadout != null && !rivalLoadout.CanChallenge())
         {
-            Debug.Log("La planta del rival aún no cumple el nivel mínimo para PvP.");
+            Debug.Log("La planta del rival aÃºn no cumple el nivel mÃ­nimo para PvP.");
             return;
         }
 
-
         ShowNearbyPrompt();
+    }
+
+    private void TryPrepareBossChallenge(BossZoneController boss)
+    {
+        if (boss == null) return;
+
+        NetworkObject bossNetworkObject = boss.GetComponentInParent<NetworkObject>();
+        if (bossNetworkObject == null) return;
+
+        hasNearbyBoss = true;
+        nearbyBossNetworkObjectId = bossNetworkObject.NetworkObjectId;
+        nearbyBossName = boss.BossDisplayName;
+
+        PlayerPlantLoadout myLoadout = GetComponent<PlayerPlantLoadout>();
+        if (myLoadout != null && !myLoadout.CanChallenge())
+        {
+            Debug.Log("Tu planta aÃºn no cumple el nivel mÃ­nimo para retar a un boss.");
+            return;
+        }
+
+        ShowNearbyBossPrompt();
     }
 
     private void OnTriggerExit(Collider other)
@@ -105,15 +155,31 @@ public class ChallengeSystem : NetworkBehaviour
         if (!IsOwner) return;
 
         PlayerNameDisplay rival = ResolveRival(other);
-        if (rival == null) return;
-
-        if (hasNearbyRival && rival.OwnerClientId == nearbyRivalClientId)
+        if (rival != null && hasNearbyRival && rival.OwnerClientId == nearbyRivalClientId)
         {
             hasNearbyRival = false;
             nearbyRivalClientId = 0;
             nearbyRivalName = "";
 
-            if (localState == LocalState.NearbyPrompt)
+            if (localState == LocalState.NearbyPrompt && currentTargetKind == TargetKind.Player)
+                HideUI();
+
+            return;
+        }
+
+        BossZoneController boss = ResolveBoss(other);
+        if (boss == null) return;
+
+        NetworkObject bossNetworkObject = boss.GetComponentInParent<NetworkObject>();
+        if (bossNetworkObject == null) return;
+
+        if (hasNearbyBoss && bossNetworkObject.NetworkObjectId == nearbyBossNetworkObjectId)
+        {
+            hasNearbyBoss = false;
+            nearbyBossNetworkObjectId = 0;
+            nearbyBossName = "";
+
+            if (localState == LocalState.NearbyPrompt && currentTargetKind == TargetKind.Boss)
                 HideUI();
         }
     }
@@ -130,6 +196,18 @@ public class ChallengeSystem : NetworkBehaviour
         return otherNetworkObject.GetComponentInChildren<PlayerNameDisplay>(true);
     }
 
+    private BossZoneController ResolveBoss(Collider other)
+    {
+        NetworkObject otherNetworkObject = other.GetComponentInParent<NetworkObject>();
+        if (otherNetworkObject == null && other.attachedRigidbody != null)
+            otherNetworkObject = other.attachedRigidbody.GetComponent<NetworkObject>();
+
+        if (otherNetworkObject == null)
+            return null;
+
+        return otherNetworkObject.GetComponentInChildren<BossZoneController>(true);
+    }
+
     private void ShowNearbyPrompt()
     {
         if (!hasNearbyRival) return;
@@ -137,9 +215,34 @@ public class ChallengeSystem : NetworkBehaviour
 
         hasCurrentTarget = true;
         currentTargetClientId = nearbyRivalClientId;
+        currentTargetKind = TargetKind.Player;
+        currentBossNetworkObjectId = 0;
         localState = LocalState.NearbyPrompt;
 
         rivalNameText.text = $"Retar a: {nearbyRivalName}";
+        SetButtonLabels("Retar", "Cerrar");
+
+        acceptButton.onClick.RemoveAllListeners();
+        rejectButton.onClick.RemoveAllListeners();
+
+        acceptButton.onClick.AddListener(SendCurrentChallenge);
+        rejectButton.onClick.AddListener(HideUI);
+
+        challengeUI.SetActive(true);
+    }
+
+    private void ShowNearbyBossPrompt()
+    {
+        if (!hasNearbyBoss) return;
+        if (localState != LocalState.None) return;
+
+        hasCurrentTarget = true;
+        currentTargetKind = TargetKind.Boss;
+        currentTargetClientId = 0;
+        currentBossNetworkObjectId = nearbyBossNetworkObjectId;
+        localState = LocalState.NearbyPrompt;
+
+        rivalNameText.text = $"Retar a Boss: {nearbyBossName}";
         SetButtonLabels("Retar", "Cerrar");
 
         acceptButton.onClick.RemoveAllListeners();
@@ -161,6 +264,8 @@ public class ChallengeSystem : NetworkBehaviour
     {
         hasCurrentTarget = false;
         currentTargetClientId = 0;
+        currentTargetKind = TargetKind.None;
+        currentBossNetworkObjectId = 0;
         localState = LocalState.None;
 
         if (acceptButton != null) acceptButton.onClick.RemoveAllListeners();
@@ -176,6 +281,9 @@ public class ChallengeSystem : NetworkBehaviour
         hasNearbyRival = false;
         nearbyRivalClientId = 0;
         nearbyRivalName = "";
+        hasNearbyBoss = false;
+        nearbyBossNetworkObjectId = 0;
+        nearbyBossName = "";
     }
 
     [ClientRpc]
@@ -189,12 +297,97 @@ public class ChallengeSystem : NetworkBehaviour
     {
         if (!hasCurrentTarget) return;
 
-        ulong target = currentTargetClientId;
-
         localState = LocalState.WaitingResponse;
         challengeUI.SetActive(false);
 
-        SendChallengeServerRpc(target);
+        if (currentTargetKind == TargetKind.Player)
+        {
+            ulong target = currentTargetClientId;
+            SendChallengeServerRpc(target);
+            return;
+        }
+
+        if (currentTargetKind == TargetKind.Boss)
+        {
+            ulong bossObjectId = currentBossNetworkObjectId;
+            SendBossChallengeServerRpc(bossObjectId);
+            return;
+        }
+
+        HideUI();
+    }
+
+    [ServerRpc]
+    private void SendBossChallengeServerRpc(ulong bossNetworkObjectId, ServerRpcParams rpcParams = default)
+    {
+        ulong challengerId = rpcParams.Receive.SenderClientId;
+
+        if (DuelArenaManager.Instance == null)
+        {
+            SendFailureToClient(challengerId, "No existe DuelArenaManager en la escena.");
+            return;
+        }
+
+        if (DuelArenaManager.Instance.IsPlayerBusy(challengerId))
+        {
+            SendFailureToClient(challengerId, "Ya estÃ¡s en un duelo.");
+            return;
+        }
+
+        if (NetworkManager.Singleton == null || NetworkManager.Singleton.SpawnManager == null)
+        {
+            SendFailureToClient(challengerId, "No existe NetworkManager o SpawnManager.");
+            return;
+        }
+
+        if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(bossNetworkObjectId, out NetworkObject bossNetworkObject))
+        {
+            SendFailureToClient(challengerId, "No se encontrÃ³ el boss seleccionado.");
+            return;
+        }
+
+        BossZoneController boss = bossNetworkObject.GetComponentInChildren<BossZoneController>(true);
+        if (boss == null)
+        {
+            SendFailureToClient(challengerId, "El objeto seleccionado no tiene BossZoneController.");
+            return;
+        }
+
+        if (!TryStartBossDuelThroughArenaManager(challengerId, bossNetworkObject, out int duelId))
+        {
+            SendFailureToClient(challengerId, "El flujo Player vs Boss todavÃ­a no estÃ¡ implementado en DuelArenaManager.");
+            return;
+        }
+
+        NotifyChallengeAcceptedClientRpc(boss.BossDisplayName, GetClientRpcParams(challengerId));
+        ResetLocalStateClientRpc(GetClientRpcParams(challengerId));
+    }
+
+    private bool TryStartBossDuelThroughArenaManager(ulong challengerId, NetworkObject bossNetworkObject, out int duelId)
+    {
+        duelId = -1;
+
+        if (DuelArenaManager.Instance == null)
+            return false;
+
+        MethodInfo method = typeof(DuelArenaManager).GetMethod(
+            "TryStartBossDuel",
+            BindingFlags.Instance | BindingFlags.Public,
+            null,
+            new[] { typeof(ulong), typeof(NetworkObject), typeof(int).MakeByRefType() },
+            null
+        );
+
+        if (method == null)
+            return false;
+
+        object[] parameters = { challengerId, bossNetworkObject, duelId };
+        object result = method.Invoke(DuelArenaManager.Instance, parameters);
+
+        if (parameters.Length >= 3 && parameters[2] is int returnedDuelId)
+            duelId = returnedDuelId;
+
+        return result is bool success && success;
     }
 
     [ServerRpc]
@@ -212,7 +405,7 @@ public class ChallengeSystem : NetworkBehaviour
             (DuelArenaManager.Instance.IsPlayerBusy(challengerId) ||
              DuelArenaManager.Instance.IsPlayerBusy(targetClientId)))
         {
-            SendFailureToClient(challengerId, "Uno de los jugadores ya está en un duelo.");
+            SendFailureToClient(challengerId, "Uno de los jugadores ya estï¿½ en un duelo.");
             return;
         }
 
@@ -228,7 +421,7 @@ public class ChallengeSystem : NetworkBehaviour
 
         if (challengerSystem == null || targetSystem == null)
         {
-            SendFailureToClient(challengerId, "No se encontró el sistema de reto.");
+            SendFailureToClient(challengerId, "No se encontrï¿½ el sistema de reto.");
             return;
         }
 
@@ -355,7 +548,7 @@ public class ChallengeSystem : NetworkBehaviour
     private void NotifyChallengeAcceptedClientRpc(string otherPlayerName, ClientRpcParams clientRpcParams = default)
     {
         if (!IsOwner) return;
-        Debug.Log($"{otherPlayerName} aceptó el reto.");
+        Debug.Log($"{otherPlayerName} aceptï¿½ el reto.");
     }
 
     [ClientRpc]
@@ -363,7 +556,7 @@ public class ChallengeSystem : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        Debug.Log($"{otherPlayerName} rechazó el reto.");
+        Debug.Log($"{otherPlayerName} rechazï¿½ el reto.");
         HideUI();
 
         if (hasNearbyRival)
@@ -481,7 +674,7 @@ public class ChallengeSystem : NetworkBehaviour
         InDuel
     }
 
-    // Servidor: quién retó a quién
+    // Servidor: quiï¿½n retï¿½ a quiï¿½n
     private static readonly Dictionary<ulong, ulong> pendingByChallenger = new(); // challenger -> target
     private static readonly Dictionary<ulong, ulong> pendingByTarget = new();      // target -> challenger
     private static readonly HashSet<ulong> duelLockedPlayers = new();              // jugadores ocupados en duelo
@@ -503,7 +696,7 @@ public class ChallengeSystem : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        //No permitir reto si ya están en duelo
+        //No permitir reto si ya estï¿½n en duelo
         if (DuelArenaManager.Instance != null && DuelArenaManager.Instance.IsPlayerBusy(OwnerClientId))
             return;
 
@@ -591,10 +784,10 @@ public class ChallengeSystem : NetworkBehaviour
         
         ulong challengerId = rpcParams.Receive.SenderClientId;
 
-        //No mandar retos si alguno ya está ocupado
+        //No mandar retos si alguno ya estï¿½ ocupado
         if (DuelArenaManager.Instance != null && (DuelArenaManager.Instance.IsPlayerBusy(challengerId) ||DuelArenaManager.Instance.IsPlayerBusy(targetClientId)))
         {
-            SendFailureToClient(challengerId, "Uno de los jugadores ya está en un duelo.");
+            SendFailureToClient(challengerId, "Uno de los jugadores ya estï¿½ en un duelo.");
             return;
         }
 
@@ -606,7 +799,7 @@ public class ChallengeSystem : NetworkBehaviour
 
         if (IsPlayerBusy(challengerId) || IsPlayerBusy(targetClientId))
         {
-            SendFailureToClient(challengerId, "Uno de los jugadores ya tiene un reto pendiente o está en duelo.");
+            SendFailureToClient(challengerId, "Uno de los jugadores ya tiene un reto pendiente o estï¿½ en duelo.");
             return;
         }
 
@@ -615,7 +808,7 @@ public class ChallengeSystem : NetworkBehaviour
 
         if (challengerSystem == null || targetSystem == null)
         {
-            SendFailureToClient(challengerId, "No se encontró el sistema de reto en uno de los jugadores.");
+            SendFailureToClient(challengerId, "No se encontrï¿½ el sistema de reto en uno de los jugadores.");
             return;
         }
 
@@ -687,7 +880,7 @@ public class ChallengeSystem : NetworkBehaviour
 
         if (!pendingByTarget.TryGetValue(responderId, out ulong registeredChallenger))
         {
-            Debug.LogWarning("No había un reto pendiente para este jugador.");
+            Debug.LogWarning("No habï¿½a un reto pendiente para este jugador.");
             return;
         }
 
@@ -705,7 +898,7 @@ public class ChallengeSystem : NetworkBehaviour
 
         if (challengerSystem == null || responderSystem == null)
         {
-            Debug.LogWarning("No se encontró ChallengeSystem en alguno de los jugadores.");
+            Debug.LogWarning("No se encontrï¿½ ChallengeSystem en alguno de los jugadores.");
             return;
         }
 
@@ -787,7 +980,7 @@ if (!accepted)
         if (!IsOwner) return;
 
         localState = LocalState.InDuel;
-        Debug.Log($"{otherPlayerName} aceptó el reto.");
+        Debug.Log($"{otherPlayerName} aceptï¿½ el reto.");
     }
 
     [ClientRpc]
@@ -795,7 +988,7 @@ if (!accepted)
     {
         if (!IsOwner) return;
 
-        Debug.Log($"{otherPlayerName} rechazó el reto.");
+        Debug.Log($"{otherPlayerName} rechazï¿½ el reto.");
         HideUI();
     }
 
