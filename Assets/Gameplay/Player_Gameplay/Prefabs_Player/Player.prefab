@@ -72,9 +72,10 @@ GameObject:
   - component: {fileID: -8731443607353370765}
   - component: {fileID: 953110513472578441}
   - component: {fileID: 3925117279716756862}
+  - component: {fileID: 8578356879952177775}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,10 +238,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
+  m_IsKinematic: 1
+  m_Interpolate: 1
   m_Constraints: 80
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!135 &151327021176227241
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -260,8 +261,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 4
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!114 &6437682298892411349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatUIBootstrap
   ShowTopMostFoldoutHeaderGroup: 1
-  combatUIPrefab: {fileID: 2554256253945257757, guid: 0bfff1fd2b26324408fa190be9aaa5dc, type: 3}
+  combatUIPrefab: {fileID: 7089662404172167597, guid: fa519acb41b1b48c8b0a79a3bc7b3680, type: 3}
 --- !u!114 &953110513472578441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,6 +507,23 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   playerNameDisplay: {fileID: 3142791613098488497}
   playerPlantLoadout: {fileID: 953110513472578441}
+--- !u!114 &8578356879952177775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3975381901614032375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &4513776537070824554
 GameObject:
   m_ObjectHideFlags: 0

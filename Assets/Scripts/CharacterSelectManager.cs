@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 using System.IO;
+using System.Text;
 
 public class CharacterSelectManager : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class CharacterSelectManager : MonoBehaviour
     private Dictionary<string, List<GameObject>> _modelsByPhase = new Dictionary<string, List<GameObject>>();
 
     private UserPlantDatabase _userPlantDatabase;
+    private Dictionary<string, PlantJsonData> _jsonPlantsByModelKey = new Dictionary<string, PlantJsonData>();
 
     private int _currentIndex = 0;
 
@@ -68,7 +70,7 @@ public class CharacterSelectManager : MonoBehaviour
 
         LoadModelsFromFolder();
         LoadUserDataFromJson();
-        BuildCarouselItemsFromJson();
+        BuildCarouselItemsFromModelFolders();
 
         SpawnCharacters();
 
@@ -110,7 +112,7 @@ public class CharacterSelectManager : MonoBehaviour
         planta.Sort((a, b) => string.Compare(a.name, b.name, System.StringComparison.OrdinalIgnoreCase));
         SortPhaseModelLists();
 
-        BuildCharactersFromLoadedModels();
+        // El carrusel se construye después de leer el JSON, usando la carpeta de modelos como fuente principal.
 
         Debug.Log($"Modelos cargados para el carrusel: {planta.Count}");
     }
@@ -156,7 +158,7 @@ public class CharacterSelectManager : MonoBehaviour
                 }
             }
 
-            Debug.Log($"Modelos .obj cargados desde AssetDatabase/{phaseFolder}: {guids.Length}");
+            Debug.Log($"Modelos .obj encontrados desde AssetDatabase/{phaseFolder}: {guids.Length}");
         }
 
         if (planta.Count == 0)
@@ -299,31 +301,84 @@ public class CharacterSelectManager : MonoBehaviour
         Debug.Log($"Datos de usuario cargados desde Resources/{userDataResourcePath}. Plantas en JSON: {_userPlantDatabase.plantas.Count}");
     }
 
-    private void BuildCarouselItemsFromJson()
+    private void BuildCarouselItemsFromModelFolders()
     {
         _characters.Clear();
         _modelDisplayData.Clear();
         _carouselItems.Clear();
+        _jsonPlantsByModelKey.Clear();
 
-        if (_userPlantDatabase == null || _userPlantDatabase.plantas == null || _userPlantDatabase.plantas.Count == 0)
+        BuildJsonPlantLookup();
+
+        List<ModelFolderEntry> modelEntries = BuildUniqueModelEntriesFromFolders();
+
+        if (modelEntries.Count == 0)
         {
-            Debug.LogWarning("No hay datos de plantas en el JSON. Se usará la lista de modelos cargados como respaldo.");
-            BuildCharactersFromLoadedModels();
-
-            for (int i = 0; i < planta.Count; i++)
-            {
-                _carouselItems.Add(new CarouselItemData
-                {
-                    prefab = planta[i],
-                    displayData = _modelDisplayData[i],
-                    estado = null,
-                    progreso = null,
-                    unlocked = true
-                });
-            }
-
+            Debug.LogWarning("No hay modelos en las carpetas fase1..fase4 para construir el carrusel.");
             return;
         }
+
+        for (int i = 0; i < modelEntries.Count; i++)
+        {
+            ModelFolderEntry modelEntry = modelEntries[i];
+            PlantJsonData jsonPlant = FindJsonPlantForModel(modelEntry.displayData);
+
+            bool hasJson = jsonPlant != null;
+            string targetPhase = hasJson
+                ? GetPhaseFolderFromPlantState(jsonPlant.estado)
+                : "fase4";
+
+            GameObject selectedPrefab = GetModelForEntryAndPhase(modelEntry, targetPhase);
+
+            if (selectedPrefab == null)
+                selectedPrefab = modelEntry.fallbackPrefab;
+
+            ModelDisplayData displayData = new ModelDisplayData
+            {
+                speciesName = hasJson && !string.IsNullOrWhiteSpace(jsonPlant.nombre_especie)
+                    ? jsonPlant.nombre_especie
+                    : modelEntry.displayData.speciesName,
+                studentName = hasJson && !string.IsNullOrWhiteSpace(jsonPlant.nombre_estudiante)
+                    ? jsonPlant.nombre_estudiante
+                    : modelEntry.displayData.studentName,
+                fullDisplayName = hasJson && !string.IsNullOrWhiteSpace(jsonPlant.nombre_especie) && !string.IsNullOrWhiteSpace(jsonPlant.nombre_estudiante)
+                    ? $"{jsonPlant.nombre_especie} - {jsonPlant.nombre_estudiante}"
+                    : modelEntry.displayData.fullDisplayName
+            };
+
+            CarouselItemData item = new CarouselItemData
+            {
+                prefab = selectedPrefab,
+                displayData = displayData,
+                estado = hasJson ? jsonPlant.estado : null,
+                progreso = hasJson ? jsonPlant.progreso : null,
+                unlocked = true,
+                hasJsonData = hasJson,
+                selectedPhase = targetPhase,
+                plantId = hasJson ? jsonPlant.id : modelEntry.modelKey,
+                baseSpeciesId = hasJson ? jsonPlant.id_base_especie : modelEntry.displayData.speciesName,
+                instanceId = hasJson ? jsonPlant.id_instancia : modelEntry.modelKey,
+                subspeciesId = hasJson ? jsonPlant.id_subespecie : 0
+            };
+
+            _carouselItems.Add(item);
+            _modelDisplayData.Add(displayData);
+
+            _characters.Add(new CarouselCharacterData
+            {
+                characterName = displayData.fullDisplayName,
+                characterId = _characters.Count + 1
+            });
+        }
+
+        Debug.Log($"Items construidos para el carrusel desde carpetas de modelos: {_carouselItems.Count}");
+    }
+
+
+    private void BuildJsonPlantLookup()
+    {
+        if (_userPlantDatabase == null || _userPlantDatabase.plantas == null)
+            return;
 
         for (int i = 0; i < _userPlantDatabase.plantas.Count; i++)
         {
@@ -332,95 +387,107 @@ public class CharacterSelectManager : MonoBehaviour
             if (plantData == null)
                 continue;
 
-            AddCarouselItemFromJsonPlant(plantData);
+            string speciesName = !string.IsNullOrWhiteSpace(plantData.nombre_especie)
+                ? plantData.nombre_especie
+                : plantData.id;
+
+            string studentName = plantData.nombre_estudiante;
+            string key = BuildModelKey(speciesName, studentName);
+
+            if (!string.IsNullOrWhiteSpace(key) && !_jsonPlantsByModelKey.ContainsKey(key))
+                _jsonPlantsByModelKey.Add(key, plantData);
+        }
+    }
+
+    private List<ModelFolderEntry> BuildUniqueModelEntriesFromFolders()
+    {
+        Dictionary<string, ModelFolderEntry> entriesByKey = new Dictionary<string, ModelFolderEntry>();
+
+        foreach (KeyValuePair<string, List<GameObject>> phaseModels in _modelsByPhase)
+        {
+            string phase = NormalizePhaseFolderName(phaseModels.Key);
+            List<GameObject> models = phaseModels.Value;
+
+            if (models == null)
+                continue;
+
+            for (int i = 0; i < models.Count; i++)
+            {
+                GameObject model = models[i];
+
+                if (model == null)
+                    continue;
+
+                ModelDisplayData displayData = ExtractModelDisplayData(model.name);
+                string modelKey = BuildModelKey(displayData.speciesName, displayData.studentName);
+
+                if (string.IsNullOrWhiteSpace(modelKey))
+                    continue;
+
+                if (!entriesByKey.TryGetValue(modelKey, out ModelFolderEntry entry))
+                {
+                    entry = new ModelFolderEntry
+                    {
+                        modelKey = modelKey,
+                        displayData = displayData,
+                        fallbackPrefab = model,
+                        modelsByPhase = new Dictionary<string, GameObject>()
+                    };
+
+                    entriesByKey.Add(modelKey, entry);
+                }
+
+                if (!entry.modelsByPhase.ContainsKey(phase))
+                    entry.modelsByPhase.Add(phase, model);
+
+                if (phase == "fase4")
+                    entry.fallbackPrefab = model;
+            }
         }
 
-        Debug.Log($"Items construidos para el carrusel desde JSON: {_carouselItems.Count}");
+        List<ModelFolderEntry> entries = new List<ModelFolderEntry>(entriesByKey.Values);
+        entries.Sort((a, b) => string.Compare(a.displayData.fullDisplayName, b.displayData.fullDisplayName, System.StringComparison.OrdinalIgnoreCase));
+        return entries;
     }
 
-    private void AddCarouselItemFromJsonPlant(PlantJsonData plantData)
+    private PlantJsonData FindJsonPlantForModel(ModelDisplayData displayData)
     {
-        string speciesName = !string.IsNullOrWhiteSpace(plantData.nombre_especie)
-            ? plantData.nombre_especie
-            : FormatTextForUI(plantData.id);
-
-        string studentName = !string.IsNullOrWhiteSpace(plantData.nombre_estudiante)
-            ? plantData.nombre_estudiante
-            : "Sin modelo asignado";
-
-        bool isUnlocked = plantData.desbloqueada;
-
-        GameObject prefab = isUnlocked
-            ? FindPrefabForJsonItem(plantData.id, speciesName, studentName, plantData.estado)
-            : null;
-
-        ModelDisplayData displayData = new ModelDisplayData
-        {
-            speciesName = speciesName,
-            studentName = studentName,
-            fullDisplayName = $"{speciesName} - {studentName}"
-        };
-
-        CarouselItemData item = new CarouselItemData
-        {
-            prefab = prefab,
-            displayData = displayData,
-            estado = plantData.estado,
-            progreso = plantData.progreso,
-            unlocked = isUnlocked,
-            plantId = plantData.id,
-            baseSpeciesId = plantData.id_base_especie,
-            instanceId = plantData.id_instancia,
-            subspeciesId = plantData.id_subespecie
-        };
-
-        _carouselItems.Add(item);
-        _modelDisplayData.Add(displayData);
-
-        _characters.Add(new CarouselCharacterData
-        {
-            characterName = displayData.fullDisplayName,
-            characterId = _characters.Count + 1
-        });
-    }
-
-    private GameObject FindPrefabForJsonItem(string plantId, string speciesName, string studentName, PlantStateJsonData estado)
-    {
-        string phaseFolder = GetPhaseFolderFromPlantState(estado);
-
-        string normalizedPlantId = NormalizeForMatching(plantId);
-        string normalizedSpeciesName = NormalizeForMatching(speciesName);
-        string normalizedStudentName = NormalizeForMatching(studentName);
-
-        if (!_modelsByPhase.TryGetValue(phaseFolder, out List<GameObject> phaseModels) || phaseModels == null || phaseModels.Count == 0)
-        {
-            Debug.LogWarning($"No hay modelos cargados para la fase '{phaseFolder}'. Especie '{speciesName}', estudiante '{studentName}'.");
+        if (displayData == null)
             return null;
-        }
 
-        for (int i = 0; i < phaseModels.Count; i++)
-        {
-            ModelDisplayData modelData = ExtractModelDisplayData(phaseModels[i].name);
+        string key = BuildModelKey(displayData.speciesName, displayData.studentName);
 
-            string modelSpecies = NormalizeForMatching(modelData.speciesName);
-            string modelStudent = NormalizeForMatching(modelData.studentName);
-            string modelRawName = NormalizeForMatching(phaseModels[i].name);
+        if (_jsonPlantsByModelKey.TryGetValue(key, out PlantJsonData plantData))
+            return plantData;
 
-            bool speciesMatches =
-                modelSpecies == normalizedSpeciesName ||
-                modelSpecies == normalizedPlantId ||
-                modelRawName.Contains(normalizedPlantId);
-
-            bool studentMatches =
-                !string.IsNullOrWhiteSpace(normalizedStudentName) &&
-                modelStudent == normalizedStudentName;
-
-            if (speciesMatches && studentMatches)
-                return phaseModels[i];
-        }
-
-        Debug.LogWarning($"No se encontró prefab en '{phaseFolder}' para especie '{speciesName}' y estudiante '{studentName}'. El item aparecerá sin modelo.");
         return null;
+    }
+
+    private GameObject GetModelForEntryAndPhase(ModelFolderEntry modelEntry, string phase)
+    {
+        if (modelEntry == null || modelEntry.modelsByPhase == null)
+            return null;
+
+        string normalizedPhase = NormalizePhaseFolderName(phase);
+
+        if (modelEntry.modelsByPhase.TryGetValue(normalizedPhase, out GameObject model) && model != null)
+            return model;
+
+        if (modelEntry.modelsByPhase.TryGetValue("fase4", out GameObject phase4Model) && phase4Model != null)
+            return phase4Model;
+
+        return null;
+    }
+
+    private string BuildModelKey(string speciesName, string studentName)
+    {
+        string normalizedSpecies = NormalizeForMatching(speciesName);
+        string normalizedStudent = NormalizeForMatching(studentName);
+
+        if (string.IsNullOrWhiteSpace(normalizedSpecies) && string.IsNullOrWhiteSpace(normalizedStudent))
+            return string.Empty;
+
+        return $"{normalizedSpecies}|{normalizedStudent}";
     }
 
     #endregion
@@ -522,6 +589,26 @@ public class CharacterSelectManager : MonoBehaviour
 
     #region UI e interacción
 
+    private bool CanPlayCurrentItem()
+    {
+        if (_carouselItems.Count == 0)
+            return false;
+
+        if (_currentIndex < 0 || _currentIndex >= _carouselItems.Count)
+            return false;
+
+        CarouselItemData currentItem = _carouselItems[_currentIndex];
+
+        if (currentItem == null)
+            return false;
+
+        if (!currentItem.hasJsonData)
+            return false;
+
+        string phase = NormalizePhaseFolderName(currentItem.selectedPhase);
+        return phase == "fase4";
+    }
+
     private void HandleSwipe()
     {
         if (Touchscreen.current != null)
@@ -598,7 +685,7 @@ public class CharacterSelectManager : MonoBehaviour
         SetButtons(
             _currentIndex > 0,
             _currentIndex < _characters.Count - 1,
-            true
+            CanPlayCurrentItem()
         );
     }
 
@@ -623,7 +710,7 @@ public class CharacterSelectManager : MonoBehaviour
     private string FormatEstadoText(PlantStateJsonData estado)
     {
         if (estado == null)
-            return "Estado: sin información";
+            return "Estado\nFase: N/A\nSalud: N/A\nHP: N/A";
 
         return $"Estado\nFase: {estado.fase}\nSalud: {estado.salud}\nHP: {estado.hp_actual}";
     }
@@ -631,13 +718,19 @@ public class CharacterSelectManager : MonoBehaviour
     private string FormatProgresoText(PlantProgressJsonData progreso)
     {
         if (progreso == null)
-            return "Progreso: sin información";
+            return "Progreso\nNivel: N/A\nXP: N/A";
 
         return $"Progreso\nNivel: {progreso.nivel}\nXP: {progreso.xp}";
     }
 
     private void OnPlay()
     {
+        if (!CanPlayCurrentItem())
+        {
+            Debug.LogWarning("No se puede iniciar. Solo los modelos de fase4 que existen en el JSON pueden habilitar Play.");
+            return;
+        }
+
         _isLeaving = true;
 
         if (_characters.Count == 0)
@@ -660,6 +753,8 @@ public class CharacterSelectManager : MonoBehaviour
             PlayerPrefs.SetString("SelectedBaseSpeciesId", selectedItem.baseSpeciesId);
             PlayerPrefs.SetString("SelectedInstanceId", selectedItem.instanceId);
             PlayerPrefs.SetInt("SelectedSubspeciesId", selectedItem.subspeciesId);
+            PlayerPrefs.SetString("SelectedPhase", selectedItem.selectedPhase);
+            PlayerPrefs.SetInt("SelectedHasJsonData", selectedItem.hasJsonData ? 1 : 0);
         }
 
         SceneManager.LoadScene(1);
@@ -790,6 +885,7 @@ public class CharacterSelectManager : MonoBehaviour
         if (string.IsNullOrWhiteSpace(text))
             return string.Empty;
 
+        text = text.Normalize(System.Text.NormalizationForm.FormC);
         text = text.ToLowerInvariant();
         text = text.Replace("_", " ");
         text = text.Trim();
@@ -826,6 +922,8 @@ public class CarouselItemData
     public PlantStateJsonData estado;
     public PlantProgressJsonData progreso;
     public bool unlocked;
+    public bool hasJsonData;
+    public string selectedPhase;
     public string plantId;
     public string baseSpeciesId;
     public string instanceId;
@@ -918,4 +1016,12 @@ public class AppliedResourcesJsonData
     public int agua;
     public int sol;
     public int composta;
+}
+[System.Serializable]
+public class ModelFolderEntry
+{
+    public string modelKey;
+    public ModelDisplayData displayData;
+    public GameObject fallbackPrefab;
+    public Dictionary<string, GameObject> modelsByPhase;
 }
