@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4145066144
+  GlobalObjectIdHash: 3037552628
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -294,7 +294,7 @@ MonoBehaviour:
   defenseName: Alas protectoras
   specialAttackName: Vuelo templado
   basicAttackVfxPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
-  specialAttackVfxPrefab: {fileID: 8287039742685769614, guid: 165cac302b0c16b478fa11fe5cf0b642, type: 3}
+  specialAttackVfxPrefab: {fileID: 9110354499124891501, guid: c5d6fe0d019476e4b8289893081b334c, type: 3}
   defenseVfxPrefab: {fileID: 8080156424910990937, guid: a4a854a599000554ea07ead6681e648f, type: 3}
   impactVfxPrefab: {fileID: 8487402871801164198, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
   basicVfxTravelsToTarget: 1
@@ -1260,7 +1260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1677702893
+  GlobalObjectIdHash: 3093123364
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   defenseName: "Blindaje de monta\xF1a"
   specialAttackName: Avalancha
   basicAttackVfxPrefab: {fileID: 2504214343621411470, guid: 3ed0d324122d7b24eaec75c55c74aafc, type: 3}
-  specialAttackVfxPrefab: {fileID: 9110354499124891501, guid: c5d6fe0d019476e4b8289893081b334c, type: 3}
+  specialAttackVfxPrefab: {fileID: 6168184190451578026, guid: 952b3b2d104ddfd47ba6d824d0c79475, type: 3}
   defenseVfxPrefab: {fileID: 6250980056565218578, guid: b6420388280cfe84e8fe0f107c4db60d, type: 3}
   impactVfxPrefab: {fileID: 3432958286849152088, guid: 87ee7299dd44ed747af24dbb91bcd33b, type: 3}
   basicVfxTravelsToTarget: 1
@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 645943857
+  GlobalObjectIdHash: 2568090277
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1540,7 +1540,7 @@ MonoBehaviour:
   defenseName: "Estrategia acad\xE9mica"
   specialAttackName: Examen sorpresa
   basicAttackVfxPrefab: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5, type: 3}
-  specialAttackVfxPrefab: {fileID: 4905296982706481291, guid: 6d21e44e560941d449bab8aff6e00701, type: 3}
+  specialAttackVfxPrefab: {fileID: 811445109454079216, guid: 6faa8b6076115314a803c476cd392cb6, type: 3}
   defenseVfxPrefab: {fileID: 4772634663576830964, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
   impactVfxPrefab: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e, type: 3}
   basicVfxTravelsToTarget: 1
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1595700403
+  GlobalObjectIdHash: 3930510958
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1969,7 +1969,7 @@ MonoBehaviour:
   defenseName: Brillo Protector
   specialAttackName: "Explosi\xF3n Solar"
   basicAttackVfxPrefab: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
-  specialAttackVfxPrefab: {fileID: 7607841488155974854, guid: ba3421ba5a7c1654cbf175aa232f24b8, type: 3}
+  specialAttackVfxPrefab: {fileID: 3806039598199004532, guid: bd1386d4ee3726342be61ab90aefa917, type: 3}
   defenseVfxPrefab: {fileID: 8620588918006998808, guid: 7f906c77905876d488e88e99d13c3d7d, type: 3}
   impactVfxPrefab: {fileID: 8791802859087666345, guid: ae07f2a45f14a82428409cfe410e6002, type: 3}
   basicVfxTravelsToTarget: 1
@@ -2125,7 +2125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 4218068244
+  GlobalObjectIdHash: 1057036258
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2163,7 +2163,7 @@ MonoBehaviour:
   defenseName: "Plumas H\xFAmedas"
   specialAttackName: Oleaje del Humedal
   basicAttackVfxPrefab: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
-  specialAttackVfxPrefab: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  specialAttackVfxPrefab: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
   defenseVfxPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
   impactVfxPrefab: {fileID: 4364354964670000192, guid: 3801a320e9ae1bf44a14efa194c86c3f, type: 3}
   basicVfxTravelsToTarget: 1
@@ -2698,7 +2698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 825786899
+  GlobalObjectIdHash: 1514835768
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2736,7 +2736,7 @@ MonoBehaviour:
   defenseName: Honor del campus
   specialAttackName: Juramento del centinela
   basicAttackVfxPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
-  specialAttackVfxPrefab: {fileID: 3696007233179127096, guid: c248f95ffea8b8543bc7ad0fffe0216d, type: 3}
+  specialAttackVfxPrefab: {fileID: 3806039598199004532, guid: bd1386d4ee3726342be61ab90aefa917, type: 3}
   defenseVfxPrefab: {fileID: 2991089705975865380, guid: 3b12c35ac57f73541b5ac5e30251fe6f, type: 3}
   impactVfxPrefab: {fileID: 2360655870356088562, guid: 57a776ff377f3c44e8403e2067a4d41f, type: 3}
   basicVfxTravelsToTarget: 1
@@ -3440,6 +3440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetworkBootstrapUI
   port: 7777
   serverAddress: 127.0.0.1
+  autoStartDedicatedServerInBatchMode: 1
+  dedicatedServerBindAddress: 0.0.0.0
   dataSourceMode: 0
   resourcesUserDataPath: Data/Data_user
   androidUserDataPath: /storage/emulated/0/Documents/IMAGINATIO/Data_user.tree
@@ -4109,7 +4111,6 @@ GameObject:
   - component: {fileID: 2051827014}
   - component: {fileID: 2051827013}
   - component: {fileID: 2051827012}
-  - component: {fileID: 2051827016}
   - component: {fileID: 2051827018}
   - component: {fileID: 2051827020}
   m_Layer: 0
@@ -4132,7 +4133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Transports.UTP.UnityTransport
   m_ProtocolType: 0
-  m_UseWebSockets: 0
+  m_UseWebSockets: 1
   m_UseEncryption: 0
   m_MaxPacketQueueSize: 128
   m_MaxPayloadSize: 6144
@@ -4143,7 +4144,7 @@ MonoBehaviour:
   ConnectionData:
     Address: 127.0.0.1
     Port: 7777
-    ServerListenAddress: 127.0.0.1
+    ServerListenAddress: 0.0.0.0
   DebugSimulator:
     PacketDelayMS: 0
     PacketJitterMS: 0
@@ -4205,21 +4206,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2051827016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051827011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6741d5bd9b974d4c9054272525bdee5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Agones::Agones.AgonesSdk
-  healthIntervalSecond: 5
-  healthEnabled: 1
-  logEnabled: 1
 --- !u!114 &2051827018
 MonoBehaviour:
   m_ObjectHideFlags: 0

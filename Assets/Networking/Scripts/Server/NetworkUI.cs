@@ -17,6 +17,12 @@ public class NetworkUI : MonoBehaviour
     [SerializeField] private bool autoStartDedicatedServerInBatchMode = true;
     [SerializeField] private string dedicatedServerBindAddress = "0.0.0.0";
 
+    [Header("WebGL Client")]
+    [SerializeField] private bool autoConnectClientOnWebGL = true;
+    [SerializeField] private bool hideGuiOnWebGL = true;
+    [SerializeField] private string fixedWebGLServerAddress = "142.93.60.198";
+    [SerializeField] private float webGLAutoConnectDelay = 1f;
+
     [Header("Data User")]
     [SerializeField] private UserDataSourceMode dataSourceMode = UserDataSourceMode.Auto;
     [SerializeField] private string resourcesUserDataPath = "Data/Data_user";
@@ -35,6 +41,8 @@ public class NetworkUI : MonoBehaviour
     private string selectedPlantId = "aliso";
     private string selectedPlantLevel = "1";
     private string selectedPlantInstanceId = "";
+    private bool callbacksRegistered;
+    private bool clientStartRequested;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
@@ -52,6 +60,8 @@ public class NetworkUI : MonoBehaviour
 
     private void Start()
     {
+        RegisterNetworkCallbacks();
+
         if (NetworkManager.Singleton == null)
         {
             Debug.LogWarning("NetworkManager.Singleton no existe.");
@@ -66,6 +76,77 @@ public class NetworkUI : MonoBehaviour
 
         LoadNetworkDefaults();
         LoadPlayerDataFromTreeOrPrefs();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (autoConnectClientOnWebGL)
+        {
+            serverAddress = fixedWebGLServerAddress;
+            StartCoroutine(CoAutoConnectWebGLClient());
+        }
+#endif
+    }
+
+    private void OnDestroy()
+    {
+        UnregisterNetworkCallbacks();
+    }
+
+    private void RegisterNetworkCallbacks()
+    {
+        if (callbacksRegistered || NetworkManager.Singleton == null)
+            return;
+
+        NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
+        NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnected;
+        callbacksRegistered = true;
+    }
+
+    private void UnregisterNetworkCallbacks()
+    {
+        if (!callbacksRegistered || NetworkManager.Singleton == null)
+            return;
+
+        NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
+        NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnected;
+        callbacksRegistered = false;
+    }
+
+    private void HandleClientConnected(ulong clientId)
+    {
+        Debug.Log($"NETCODE: Cliente conectado. ClientId={clientId}. LocalClientId={NetworkManager.Singleton.LocalClientId}");
+    }
+
+    private void HandleClientDisconnected(ulong clientId)
+    {
+        string disconnectReason = string.Empty;
+
+        if (NetworkManager.Singleton != null)
+            disconnectReason = NetworkManager.Singleton.DisconnectReason;
+
+        Debug.LogWarning(
+            string.IsNullOrWhiteSpace(disconnectReason)
+                ? $"NETCODE: Cliente desconectado. ClientId={clientId}. LocalClientId={NetworkManager.Singleton.LocalClientId}. Sin razón explícita de desconexión."
+                : $"NETCODE: Cliente desconectado. ClientId={clientId}. LocalClientId={NetworkManager.Singleton.LocalClientId}. Razón: {disconnectReason}"
+        );
+
+        clientStartRequested = false;
+    }
+
+    private IEnumerator CoAutoConnectWebGLClient()
+    {
+        yield return new WaitForSeconds(webGLAutoConnectDelay);
+
+        if (NetworkManager.Singleton == null)
+        {
+            Debug.LogError("NetworkUI: No se puede autoconectar WebGL porque NetworkManager.Singleton es null.");
+            yield break;
+        }
+
+        if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer || clientStartRequested)
+            yield break;
+
+        Debug.Log($"NetworkUI: autoconexión WebGL hacia {serverAddress}:{port}.");
+        StartClient();
     }
 
     private void StartDedicatedServerIfNeeded()
@@ -101,6 +182,10 @@ public class NetworkUI : MonoBehaviour
 
     private void OnGUI()
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (hideGuiOnWebGL)
+            return;
+#endif
 #if !UNITY_EDITOR && !DEVELOPMENT_BUILD
         return;
 #endif
@@ -390,6 +475,13 @@ public class NetworkUI : MonoBehaviour
             return;
         }
 
+        if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer || clientStartRequested)
+        {
+            Debug.LogWarning("NetworkUI: StartClient ignorado porque NetworkManager ya está conectado o ya se solicitó conexión.");
+            return;
+        }
+
+        clientStartRequested = true;
         SavePlayerData();
 
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
@@ -400,8 +492,23 @@ public class NetworkUI : MonoBehaviour
         }
 
         transport.SetConnectionData(serverAddress, port);
-        NetworkManager.Singleton.StartClient();
-        StartCoroutine(AssignCameraWhenPlayerExists());
+        Debug.Log($"NetworkUI: intentando iniciar cliente hacia {serverAddress}:{port}.");
+
+        bool started = NetworkManager.Singleton.StartClient();
+        Debug.Log(started
+            ? "NetworkUI: StartClient ejecutado correctamente. Esperando callback de conexión."
+            : "NetworkUI: StartClient devolvió false. No se pudo iniciar el cliente.");
+
+        if (!started)
+        {
+            clientStartRequested = false;
+            return;
+        }
+
+        if (cameraFollow != null)
+            StartCoroutine(AssignCameraWhenPlayerExists());
+        else
+            Debug.Log("NetworkUI: Cliente iniciado sin asignación automática de cámara.");
     }
 
     private IEnumerator AssignCameraWhenPlayerExists()
