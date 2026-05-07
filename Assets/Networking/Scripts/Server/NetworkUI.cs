@@ -13,6 +13,10 @@ public class NetworkUI : MonoBehaviour
     [SerializeField] private ushort port = 7777;
     [SerializeField] private string serverAddress = "127.0.0.1";
 
+    [Header("Dedicated Server")]
+    [SerializeField] private bool autoStartDedicatedServerInBatchMode = true;
+    [SerializeField] private string dedicatedServerBindAddress = "0.0.0.0";
+
     [Header("Data User")]
     [SerializeField] private UserDataSourceMode dataSourceMode = UserDataSourceMode.Auto;
     [SerializeField] private string resourcesUserDataPath = "Data/Data_user";
@@ -48,20 +52,51 @@ public class NetworkUI : MonoBehaviour
 
     private void Start()
     {
-        LoadNetworkDefaults();
-        LoadPlayerDataFromTreeOrPrefs();
-
         if (NetworkManager.Singleton == null)
         {
             Debug.LogWarning("NetworkManager.Singleton no existe.");
             return;
         }
 
-        if (Application.isBatchMode && !NetworkManager.Singleton.IsServer)
+        if (Application.isBatchMode && autoStartDedicatedServerInBatchMode)
         {
-            Debug.Log("Iniciando servidor dedicado automáticamente...");
-            NetworkManager.Singleton.StartServer();
+            StartDedicatedServerIfNeeded();
+            return;
         }
+
+        LoadNetworkDefaults();
+        LoadPlayerDataFromTreeOrPrefs();
+    }
+
+    private void StartDedicatedServerIfNeeded()
+    {
+        if (NetworkManager.Singleton == null)
+        {
+            Debug.LogWarning("NetworkUI: No se puede iniciar servidor dedicado porque NetworkManager.Singleton es null.");
+            return;
+        }
+
+        if (NetworkManager.Singleton.IsServer || NetworkManager.Singleton.IsClient)
+        {
+            Debug.Log("NetworkUI: El servidor dedicado ya estaba iniciado o el NetworkManager ya está conectado.");
+            return;
+        }
+
+        UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+        if (transport != null)
+        {
+            transport.SetConnectionData(dedicatedServerBindAddress, port);
+            Debug.Log($"NetworkUI: servidor dedicado configurado en {dedicatedServerBindAddress}:{port}.");
+        }
+        else
+        {
+            Debug.LogWarning("NetworkUI: No se encontró UnityTransport. Se intentará iniciar el servidor con la configuración actual del NetworkManager.");
+        }
+
+        bool started = NetworkManager.Singleton.StartServer();
+        Debug.Log(started
+            ? "NetworkUI: servidor dedicado iniciado correctamente."
+            : "NetworkUI: no fue posible iniciar el servidor dedicado.");
     }
 
     private void OnGUI()
