@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a619400af9f074387a4cf7a19179ad, type: 3}
+  m_Name: Ability_cedrillo_Special
+  m_EditorClassIdentifier: 
+  abilityId: cedrillo_special
+  displayName: "Restauraci\xF3n ecol\xF3gica"
+  abilityKind: 2
+  description: Ataque especial de la especie.
+  power: 210
+  cooldownSeconds: 5
+  maxUsesPerBattle: -1
+  grantsShield: 0
+  shieldValue: 0
+  heals: 0
+  healValue: 0
+  healDurationTurns: 0
+  buffsAttack: 0
+  attackBuffPercent: 0
+  buffDurationTurns: 0
+  reducesIncomingDamage: 0
+  damageReductionPercent: 0
+  stealsTurn: 0
+  disablesShield: 0
+  disablesShieldDurationTurns: 0
+  vfxPrefab: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  impactVfxPrefab: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e, type: 3}
+  vfxTravelsToTarget: 1
+  vfxMoveSpeed: 9
+  vfxLifetime: 5
+  orientVfxToTarget: 1

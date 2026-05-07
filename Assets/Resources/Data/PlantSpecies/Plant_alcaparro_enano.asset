@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: 8f9c50ddebe404e28b1bade883c02fe8, type: 2}
+  defenseSkill: {fileID: 11400000, guid: 48e88a21ac47e40ddbb0626e0826c76b, type: 2}
+  specialSkill: {fileID: 11400000, guid: d87fe7e38cacd45febea4f0b351821a1, type: 2}
   basicAttackDisplayName: Espinas
   defenseDisplayName: Corteza resistente
   specialDisplayName: "Adaptaci\xF3n extrema"

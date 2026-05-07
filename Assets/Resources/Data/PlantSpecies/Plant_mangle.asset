@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: 4b5172c6a89ed47939e869c68d42c860, type: 2}
+  defenseSkill: {fileID: 11400000, guid: 18b82453524b246d6835149f62b3650b, type: 2}
+  specialSkill: {fileID: 11400000, guid: caa4cb3806b3f43c5a264126a6c73814, type: 2}
   basicAttackDisplayName: Crecimiento
   defenseDisplayName: Equilibrio natural
   specialDisplayName: "Adaptaci\xF3n ambiental"

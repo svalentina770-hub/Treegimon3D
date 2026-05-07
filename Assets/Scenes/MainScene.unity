@@ -293,6 +293,26 @@ MonoBehaviour:
   basicAttackName: "Picada a\xE9rea"
   defenseName: Alas protectoras
   specialAttackName: Vuelo templado
+  basicAttackVfxPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
+  specialAttackVfxPrefab: {fileID: 8287039742685769614, guid: 165cac302b0c16b478fa11fe5cf0b642, type: 3}
+  defenseVfxPrefab: {fileID: 8080156424910990937, guid: a4a854a599000554ea07ead6681e648f, type: 3}
+  impactVfxPrefab: {fileID: 8487402871801164198, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
+  basicVfxTravelsToTarget: 1
+  specialVfxTravelsToTarget: 1
+  defenseVfxTravelsToTarget: 0
+  basicVfxMoveSpeed: 12
+  specialVfxMoveSpeed: 9
+  defenseVfxMoveSpeed: 0
+  basicVfxLifetime: 5
+  specialVfxLifetime: 5
+  defenseVfxLifetime: 2.5
+  orientAttackVfxToTarget: 1
+  orientDefenseVfxToTarget: 0
+  autoAssignVfxFromFolders: 1
+  basicAttacksFolder: Assets/Resources/VFX/Combat/BasicAttacks
+  defensesFolder: Assets/Resources/VFX/Combat/Defenses
+  specialAttacksFolder: Assets/Resources/VFX/Combat/SpecialAttacks
+  impactsFolder: Assets/Resources/VFX/Combat/Impacts
 --- !u!1 &144769878
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +345,114 @@ Transform:
   - {fileID: 979709902}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &219055607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 219055608}
+  - component: {fileID: 219055611}
+  - component: {fileID: 219055610}
+  - component: {fileID: 219055609}
+  m_Layer: 5
+  m_Name: JoystickBackground (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &219055608
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219055607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.249279, y: 1.249279, z: 1.249279}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 714989809}
+  m_Father: {fileID: 1602188129}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -841, y: 134}
+  m_SizeDelta: {x: -1770, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &219055609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219055607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822a4dab0235e474b822dd987acad1c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VirtualJoystick
+  background: {fileID: 219055608}
+  handle: {fileID: 714989809}
+  player: {fileID: 0}
+  joystickPurpose: 1
+  autoFindPlayer: 1
+  playerTag: Player
+  playerObjectName: Player
+  searchInterval: 0.25
+  maxSearchTime: 20
+  handleRange: 1
+  invertMovementX: 0
+  invertMovementY: 0
+  movementInputMultiplier: 1
+  clampMovementInput: 1
+  horizontalOnlyForRotation: 1
+  invertRotationX: 1
+  rotationDeadZone: 0.15
+  rotationInputMultiplier: 1
+  clampRotationInput: 1
+--- !u!114 &219055610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219055607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.18039213, g: 0.62352943, b: 0.19692776, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 4cbc879550e5e374a925e2e0a84d6f3c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &219055611
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219055607}
+  m_CullTransparentMesh: 1
 --- !u!1 &315321901
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,9 +514,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4dbe434a894f2c4abf24ca883d5614d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DuelCombatManager
+  ShowTopMostFoldoutHeaderGroup: 1
   turnDurationSeconds: 5
   postFinishDelaySeconds: 2
   biomeDamageBonusPercent: 10
+  plantDataBase: {fileID: 0}
+  rewardPlantByCombatBiome: 1
+  grantPlantRewardOnPlayerVictory: 1
+  defaultBossMaxHP: 1500
+  defaultBossBasicDamage: 100
+  defaultBossSpecialDamage: 180
+  defaultBossDefenseValue: 20
+  defaultBossDefensePercent: 0.25
+  bossDefenseUses: 2
+  bossSpecialEveryTurns: 3
 --- !u!4 &358230389
 Transform:
   m_ObjectHideFlags: 0
@@ -878,6 +1017,81 @@ Transform:
   - {fileID: 767124060}
   m_Father: {fileID: 924368881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &714989808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 714989809}
+  - component: {fileID: 714989811}
+  - component: {fileID: 714989810}
+  m_Layer: 5
+  m_Name: JoystickHandle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &714989809
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714989808}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 219055608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 60, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &714989810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714989808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.80451226, g: 0.9528302, b: 0.80804616, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3a74f678ee8f3bd49aacf3de1ae4bcaa, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &714989811
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714989808}
+  m_CullTransparentMesh: 1
 --- !u!1 &743023988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,6 +1345,26 @@ MonoBehaviour:
   basicAttackName: Embestida pesada
   defenseName: "Blindaje de monta\xF1a"
   specialAttackName: Avalancha
+  basicAttackVfxPrefab: {fileID: 2504214343621411470, guid: 3ed0d324122d7b24eaec75c55c74aafc, type: 3}
+  specialAttackVfxPrefab: {fileID: 9110354499124891501, guid: c5d6fe0d019476e4b8289893081b334c, type: 3}
+  defenseVfxPrefab: {fileID: 6250980056565218578, guid: b6420388280cfe84e8fe0f107c4db60d, type: 3}
+  impactVfxPrefab: {fileID: 3432958286849152088, guid: 87ee7299dd44ed747af24dbb91bcd33b, type: 3}
+  basicVfxTravelsToTarget: 1
+  specialVfxTravelsToTarget: 1
+  defenseVfxTravelsToTarget: 0
+  basicVfxMoveSpeed: 12
+  specialVfxMoveSpeed: 9
+  defenseVfxMoveSpeed: 0
+  basicVfxLifetime: 5
+  specialVfxLifetime: 5
+  defenseVfxLifetime: 2.5
+  orientAttackVfxToTarget: 1
+  orientDefenseVfxToTarget: 0
+  autoAssignVfxFromFolders: 1
+  basicAttacksFolder: Assets/Resources/VFX/Combat/BasicAttacks
+  defensesFolder: Assets/Resources/VFX/Combat/Defenses
+  specialAttacksFolder: Assets/Resources/VFX/Combat/SpecialAttacks
+  impactsFolder: Assets/Resources/VFX/Combat/Impacts
 --- !u!1 &752385414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,6 +1539,26 @@ MonoBehaviour:
   basicAttackName: "Lecci\xF3n espinosa"
   defenseName: "Estrategia acad\xE9mica"
   specialAttackName: Examen sorpresa
+  basicAttackVfxPrefab: {fileID: 8172849020266659018, guid: 2af5562ce69fc2d448481a1587a352a5, type: 3}
+  specialAttackVfxPrefab: {fileID: 4905296982706481291, guid: 6d21e44e560941d449bab8aff6e00701, type: 3}
+  defenseVfxPrefab: {fileID: 4772634663576830964, guid: e1385af346f4e624eb313ec1ea4fcd7e, type: 3}
+  impactVfxPrefab: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e, type: 3}
+  basicVfxTravelsToTarget: 1
+  specialVfxTravelsToTarget: 1
+  defenseVfxTravelsToTarget: 0
+  basicVfxMoveSpeed: 12
+  specialVfxMoveSpeed: 9
+  defenseVfxMoveSpeed: 0
+  basicVfxLifetime: 5
+  specialVfxLifetime: 5
+  defenseVfxLifetime: 2.5
+  orientAttackVfxToTarget: 1
+  orientDefenseVfxToTarget: 0
+  autoAssignVfxFromFolders: 1
+  basicAttacksFolder: Assets/Resources/VFX/Combat/BasicAttacks
+  defensesFolder: Assets/Resources/VFX/Combat/Defenses
+  specialAttacksFolder: Assets/Resources/VFX/Combat/SpecialAttacks
+  impactsFolder: Assets/Resources/VFX/Combat/Impacts
 --- !u!1001 &767124059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1417,10 +1671,10 @@ RectTransform:
   - {fileID: 1108666150}
   m_Father: {fileID: 1602188129}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -150, y: 134}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: 810, y: 134}
+  m_SizeDelta: {x: -1770, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &798996272
 MonoBehaviour:
@@ -1436,7 +1690,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VirtualJoystick
   background: {fileID: 798996271}
   handle: {fileID: 1108666150}
+  player: {fileID: 0}
+  joystickPurpose: 0
+  autoFindPlayer: 1
+  playerTag: Player
+  playerObjectName: Player
+  searchInterval: 0.25
+  maxSearchTime: 20
   handleRange: 1
+  invertMovementX: 0
+  invertMovementY: 1
+  movementInputMultiplier: 2
+  clampMovementInput: 1
+  horizontalOnlyForRotation: 1
+  invertRotationX: 0
+  rotationDeadZone: 0.15
+  rotationInputMultiplier: 1
+  clampRotationInput: 1
 --- !u!114 &798996273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,6 +1968,26 @@ MonoBehaviour:
   basicAttackName: Rebote solar
   defenseName: Brillo Protector
   specialAttackName: "Explosi\xF3n Solar"
+  basicAttackVfxPrefab: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
+  specialAttackVfxPrefab: {fileID: 7607841488155974854, guid: ba3421ba5a7c1654cbf175aa232f24b8, type: 3}
+  defenseVfxPrefab: {fileID: 8620588918006998808, guid: 7f906c77905876d488e88e99d13c3d7d, type: 3}
+  impactVfxPrefab: {fileID: 8791802859087666345, guid: ae07f2a45f14a82428409cfe410e6002, type: 3}
+  basicVfxTravelsToTarget: 1
+  specialVfxTravelsToTarget: 1
+  defenseVfxTravelsToTarget: 0
+  basicVfxMoveSpeed: 12
+  specialVfxMoveSpeed: 9
+  defenseVfxMoveSpeed: 0
+  basicVfxLifetime: 5
+  specialVfxLifetime: 5
+  defenseVfxLifetime: 2.5
+  orientAttackVfxToTarget: 1
+  orientDefenseVfxToTarget: 0
+  autoAssignVfxFromFolders: 1
+  basicAttacksFolder: Assets/Resources/VFX/Combat/BasicAttacks
+  defensesFolder: Assets/Resources/VFX/Combat/Defenses
+  specialAttacksFolder: Assets/Resources/VFX/Combat/SpecialAttacks
+  impactsFolder: Assets/Resources/VFX/Combat/Impacts
 --- !u!1 &938929215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +2162,26 @@ MonoBehaviour:
   basicAttackName: Picotazo de agua
   defenseName: "Plumas H\xFAmedas"
   specialAttackName: Oleaje del Humedal
+  basicAttackVfxPrefab: {fileID: 1141330259687333427, guid: 6718dc24203da53468af9ada8fef7d6d, type: 3}
+  specialAttackVfxPrefab: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  defenseVfxPrefab: {fileID: 4553287630450876385, guid: 15483e51212e3d74886ea57291f4639a, type: 3}
+  impactVfxPrefab: {fileID: 4364354964670000192, guid: 3801a320e9ae1bf44a14efa194c86c3f, type: 3}
+  basicVfxTravelsToTarget: 1
+  specialVfxTravelsToTarget: 1
+  defenseVfxTravelsToTarget: 0
+  basicVfxMoveSpeed: 12
+  specialVfxMoveSpeed: 9
+  defenseVfxMoveSpeed: 0
+  basicVfxLifetime: 5
+  specialVfxLifetime: 5
+  defenseVfxLifetime: 2.5
+  orientAttackVfxToTarget: 1
+  orientDefenseVfxToTarget: 0
+  autoAssignVfxFromFolders: 1
+  basicAttacksFolder: Assets/Resources/VFX/Combat/BasicAttacks
+  defensesFolder: Assets/Resources/VFX/Combat/Defenses
+  specialAttacksFolder: Assets/Resources/VFX/Combat/SpecialAttacks
+  impactsFolder: Assets/Resources/VFX/Combat/Impacts
 --- !u!1 &942729077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2735,26 @@ MonoBehaviour:
   basicAttackName: Carga ecuestre
   defenseName: Honor del campus
   specialAttackName: Juramento del centinela
+  basicAttackVfxPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
+  specialAttackVfxPrefab: {fileID: 3696007233179127096, guid: c248f95ffea8b8543bc7ad0fffe0216d, type: 3}
+  defenseVfxPrefab: {fileID: 2991089705975865380, guid: 3b12c35ac57f73541b5ac5e30251fe6f, type: 3}
+  impactVfxPrefab: {fileID: 2360655870356088562, guid: 57a776ff377f3c44e8403e2067a4d41f, type: 3}
+  basicVfxTravelsToTarget: 1
+  specialVfxTravelsToTarget: 1
+  defenseVfxTravelsToTarget: 0
+  basicVfxMoveSpeed: 12
+  specialVfxMoveSpeed: 9
+  defenseVfxMoveSpeed: 0
+  basicVfxLifetime: 5
+  specialVfxLifetime: 5
+  defenseVfxLifetime: 2.5
+  orientAttackVfxToTarget: 1
+  orientDefenseVfxToTarget: 0
+  autoAssignVfxFromFolders: 1
+  basicAttacksFolder: Assets/Resources/VFX/Combat/BasicAttacks
+  defensesFolder: Assets/Resources/VFX/Combat/Defenses
+  specialAttacksFolder: Assets/Resources/VFX/Combat/SpecialAttacks
+  impactsFolder: Assets/Resources/VFX/Combat/Impacts
 --- !u!1 &1181436872
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,6 +3440,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetworkBootstrapUI
   port: 7777
   serverAddress: 127.0.0.1
+  dataSourceMode: 0
+  resourcesUserDataPath: Data/Data_user
+  androidUserDataPath: /storage/emulated/0/Documents/IMAGINATIO/Data_user.tree
+  webglLocalStorageKey: imaginatio_tree_data
   cameraFollow: {fileID: 0}
   maxCameraSearchTime: 10
   mostrarBotonesHostYServer: 1
@@ -3209,6 +3543,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 798996271}
+  - {fileID: 219055608}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6033,7 +6368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2561199408682796592
 GameObject:
   m_ObjectHideFlags: 0
@@ -10114,7 +10449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6704279578233814553
 GameObject:
   m_ObjectHideFlags: 0

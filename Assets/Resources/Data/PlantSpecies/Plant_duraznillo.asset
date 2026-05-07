@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: 1abc13da555c747cc9c78d71c343e0d5, type: 2}
+  defenseSkill: {fileID: 11400000, guid: ee020c75aed134666aa68fb856748c6b, type: 2}
+  specialSkill: {fileID: 11400000, guid: 635c21d26a7c94b0bb0812a05e3d1a6e, type: 2}
   basicAttackDisplayName: Golpe de tronco
   defenseDisplayName: "Ra\xEDces profundas"
   specialDisplayName: Flor andina

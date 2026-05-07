@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: 7c3152aeca86a41aebf7423839699472, type: 2}
+  defenseSkill: {fileID: 11400000, guid: f6cc9ced6052e4be78d4440fd9998812, type: 2}
+  specialSkill: {fileID: 11400000, guid: 333ab56f9004f4c58bf5f8f1a63d0042, type: 2}
   basicAttackDisplayName: Espinas
   defenseDisplayName: Reserva de agua
   specialDisplayName: "Sequ\xEDa adaptativa"

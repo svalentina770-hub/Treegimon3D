@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: f86d3fe08a9b448f392aa6ca0ba3ceb6, type: 2}
+  defenseSkill: {fileID: 11400000, guid: aecaf818625db4213b5323f6efd1a67f, type: 2}
+  specialSkill: {fileID: 11400000, guid: 1f501d7538afa42929e0267ae0111482, type: 2}
   basicAttackDisplayName: Rayo solar
   defenseDisplayName: "Fotos\xEDntesis"
   specialDisplayName: Defensa espinosa

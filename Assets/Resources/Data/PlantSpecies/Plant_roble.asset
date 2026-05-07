@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: 974a23da984b9404d9252d078425f546, type: 2}
+  defenseSkill: {fileID: 11400000, guid: e723c861c07364dbabd8b8b49e595a06, type: 2}
+  specialSkill: {fileID: 11400000, guid: 3419853fc36524b3399b80415c006170, type: 2}
   basicAttackDisplayName: Golpe de tronco
   defenseDisplayName: "Ra\xEDces profundas"
   specialDisplayName: Bosque protector

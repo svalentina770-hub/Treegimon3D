@@ -57,7 +57,7 @@ public class PlayerCombatBridge : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        CombatUIController.LocalInstance?.ShowCombatUI(
+        StartCoroutine(CoShowCombatUIWhenReady(
             myName,
             rivalName,
             myCurrentHP,
@@ -67,7 +67,7 @@ public class PlayerCombatBridge : NetworkBehaviour
             basicAttackName,
             defenseSkillName,
             specialSkillName
-        );
+        ));
     }
 
     [ClientRpc]
@@ -88,7 +88,80 @@ public class PlayerCombatBridge : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        CombatUIController.LocalInstance?.UpdateCombatState(
+        StartCoroutine(CoUpdateCombatUIWhenReady(
+            myCurrentHP,
+            myMaxHP,
+            rivalCurrentHP,
+            rivalMaxHP,
+            secondsRemaining,
+            canBasic,
+            canDefense,
+            canSpecial,
+            basicCooldownSeconds,
+            specialCooldownSeconds,
+            defenseUsesRemaining,
+            statusMessage
+        ));
+    }
+
+    [ClientRpc]
+    public void HideCombatUIClientRpc(ClientRpcParams clientRpcParams = default)
+    {
+        if (!IsOwner) return;
+        StartCoroutine(CoHideCombatUIWhenReady());
+    }
+
+    private IEnumerator CoShowCombatUIWhenReady(
+        string myName,
+        string rivalName,
+        int myCurrentHP,
+        int myMaxHP,
+        int rivalCurrentHP,
+        int rivalMaxHP,
+        string basicAttackName,
+        string defenseSkillName,
+        string specialSkillName)
+    {
+        yield return WaitForLocalCombatUI();
+
+        if (CombatUIController.LocalInstance == null)
+            yield break;
+
+        CombatUIController.LocalInstance.BindBridge(this);
+        CombatUIController.LocalInstance.ShowCombatUI(
+            myName,
+            rivalName,
+            myCurrentHP,
+            myMaxHP,
+            rivalCurrentHP,
+            rivalMaxHP,
+            basicAttackName,
+            defenseSkillName,
+            specialSkillName
+        );
+    }
+
+    private IEnumerator CoUpdateCombatUIWhenReady(
+        int myCurrentHP,
+        int myMaxHP,
+        int rivalCurrentHP,
+        int rivalMaxHP,
+        int secondsRemaining,
+        bool canBasic,
+        bool canDefense,
+        bool canSpecial,
+        int basicCooldownSeconds,
+        int specialCooldownSeconds,
+        int defenseUsesRemaining,
+        string statusMessage)
+    {
+        yield return WaitForLocalCombatUI();
+
+        if (CombatUIController.LocalInstance == null)
+            yield break;
+
+        CombatUIController.LocalInstance.BindBridge(this);
+        CombatUIController.LocalInstance.UpdateCombatState(
             myCurrentHP,
             myMaxHP,
             rivalCurrentHP,
@@ -104,11 +177,26 @@ public class PlayerCombatBridge : NetworkBehaviour
         );
     }
 
-    [ClientRpc]
-    public void HideCombatUIClientRpc(ClientRpcParams clientRpcParams = default)
+    private IEnumerator CoHideCombatUIWhenReady()
     {
-        if (!IsOwner) return;
-        CombatUIController.LocalInstance?.HideCombatUI();
+        yield return WaitForLocalCombatUI();
+
+        if (CombatUIController.LocalInstance == null)
+            yield break;
+
+        CombatUIController.LocalInstance.HideCombatUI();
+    }
+
+    private IEnumerator WaitForLocalCombatUI()
+    {
+        float timeout = 3f;
+        float elapsed = 0f;
+
+        while (CombatUIController.LocalInstance == null && elapsed < timeout)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
     }
 
     public string GetDisplayName()

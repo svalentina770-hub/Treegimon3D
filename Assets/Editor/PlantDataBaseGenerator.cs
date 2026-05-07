@@ -152,6 +152,59 @@ public static class PlantDataBaseGenerator
         species.defenseDisplayName = defense;
         species.specialDisplayName = special;
 
+        species.basicAttack = CreateOrUpdateAbility(
+            id,
+            "BasicAttack",
+            $"{id}_basic",
+            basicAttack,
+            GetAbilityKind("BasicAttack"),
+            "Ataque básico de la especie.",
+            Mathf.RoundToInt(hp * 0.08f),
+            1f,
+            false,
+            0,
+            false,
+            true,
+            12f,
+            5f
+        );
+
+        species.defenseSkill = CreateOrUpdateAbility(
+            id,
+            "Defense",
+            $"{id}_defense",
+            defense,
+            GetAbilityKind("Defense"),
+            "Defensa de la especie.",
+            0,
+            1f,
+            true,
+            30,
+            true,
+            false,
+            0f,
+            2.5f
+        );
+
+        species.specialSkill = CreateOrUpdateAbility(
+            id,
+            "Special",
+            $"{id}_special",
+            special,
+            GetAbilityKind("SpecialAttack"),
+            "Ataque especial de la especie.",
+            Mathf.RoundToInt(hp * 0.14f),
+            5f,
+            false,
+            0,
+            false,
+            true,
+            9f,
+            5f
+        );
+
+        CreateOrUpdateHitAbility(id, displayName);
+
         species.combatRole = "Balanceado";
         species.generalDescription = $"Especie nativa: {displayName}.";
         species.careDescription = "Requiere cuidado según su bioma y estado de crecimiento.";
@@ -159,6 +212,222 @@ public static class PlantDataBaseGenerator
 
         EditorUtility.SetDirty(species);
         return species;
+    }
+
+    private static AbilityData CreateOrUpdateAbility(
+        string speciesId,
+        string suffix,
+        string abilityId,
+        string displayName,
+        AbilityKind abilityKind,
+        string description,
+        int power,
+        float cooldownSeconds,
+        bool grantsShield,
+        int shieldValue,
+        bool reducesIncomingDamage,
+        bool travelsToTarget,
+        float vfxMoveSpeed,
+        float vfxLifetime)
+    {
+        string folderPath = "Assets/Resources/Data/Abilities";
+
+        if (!AssetDatabase.IsValidFolder(folderPath))
+        {
+            if (!AssetDatabase.IsValidFolder("Assets/Resources/Data"))
+            {
+                Debug.LogWarning("PlantDataBaseGenerator: No existe Assets/Resources/Data. No se pudieron crear las habilidades.");
+                return null;
+            }
+
+            AssetDatabase.CreateFolder("Assets/Resources/Data", "Abilities");
+        }
+
+        string assetPath = $"{folderPath}/Ability_{speciesId}_{suffix}.asset";
+        AbilityData ability = AssetDatabase.LoadAssetAtPath<AbilityData>(assetPath);
+
+        if (ability == null)
+        {
+            ability = ScriptableObject.CreateInstance<AbilityData>();
+            AssetDatabase.CreateAsset(ability, assetPath);
+        }
+
+        ability.abilityId = abilityId;
+        ability.displayName = displayName;
+        ability.abilityKind = abilityKind;
+        ability.description = description;
+        ability.power = power;
+        ability.cooldownSeconds = cooldownSeconds;
+        ability.maxUsesPerBattle = -1;
+
+        ability.grantsShield = grantsShield;
+        ability.shieldValue = shieldValue;
+        ability.heals = false;
+        ability.healValue = 0;
+        ability.healDurationTurns = 0;
+        ability.buffsAttack = false;
+        ability.attackBuffPercent = 0;
+        ability.buffDurationTurns = 0;
+        ability.reducesIncomingDamage = reducesIncomingDamage;
+        ability.damageReductionPercent = reducesIncomingDamage ? 0.25f : 0f;
+        ability.stealsTurn = false;
+        ability.disablesShield = false;
+        ability.disablesShieldDurationTurns = 0;
+
+        ability.vfxTravelsToTarget = travelsToTarget;
+        ability.vfxMoveSpeed = vfxMoveSpeed;
+        ability.vfxLifetime = vfxLifetime;
+        ability.orientVfxToTarget = travelsToTarget;
+
+        GameObject generatedVfxPrefab = LoadVfxPrefabForAbility(speciesId, suffix);
+        if (generatedVfxPrefab != null)
+            ability.vfxPrefab = generatedVfxPrefab;
+
+        GameObject generatedImpactPrefab = LoadImpactVfxPrefabForSpecies(speciesId);
+        if (generatedImpactPrefab != null && suffix != "Defense")
+            ability.impactVfxPrefab = generatedImpactPrefab;
+
+        EditorUtility.SetDirty(ability);
+        return ability;
+    }
+
+    private static void CreateOrUpdateHitAbility(string speciesId, string displayName)
+    {
+        string folderPath = "Assets/Resources/Data/Abilities";
+
+        if (!AssetDatabase.IsValidFolder(folderPath))
+        {
+            if (!AssetDatabase.IsValidFolder("Assets/Resources/Data"))
+                return;
+
+            AssetDatabase.CreateFolder("Assets/Resources/Data", "Abilities");
+        }
+
+        string assetPath = $"{folderPath}/Ability_{speciesId}_Hit.asset";
+        AbilityData hitAbility = AssetDatabase.LoadAssetAtPath<AbilityData>(assetPath);
+
+        if (hitAbility == null)
+        {
+            hitAbility = ScriptableObject.CreateInstance<AbilityData>();
+            AssetDatabase.CreateAsset(hitAbility, assetPath);
+        }
+
+        hitAbility.abilityId = $"{speciesId}_hit";
+        hitAbility.displayName = $"Impacto {displayName}";
+        hitAbility.abilityKind = GetAbilityKind("SpecialAttack");
+        hitAbility.description = "Asset auxiliar para vincular el efecto visual de impacto de la especie. No se asigna directamente a PlantSpeciesData.";
+        hitAbility.power = 0;
+        hitAbility.cooldownSeconds = 0f;
+        hitAbility.maxUsesPerBattle = -1;
+        hitAbility.grantsShield = false;
+        hitAbility.shieldValue = 0;
+        hitAbility.heals = false;
+        hitAbility.healValue = 0;
+        hitAbility.healDurationTurns = 0;
+        hitAbility.buffsAttack = false;
+        hitAbility.attackBuffPercent = 0;
+        hitAbility.buffDurationTurns = 0;
+        hitAbility.reducesIncomingDamage = false;
+        hitAbility.damageReductionPercent = 0f;
+        hitAbility.stealsTurn = false;
+        hitAbility.disablesShield = false;
+        hitAbility.disablesShieldDurationTurns = 0;
+        hitAbility.vfxTravelsToTarget = false;
+        hitAbility.vfxMoveSpeed = 0f;
+        hitAbility.vfxLifetime = 1.5f;
+        hitAbility.orientVfxToTarget = false;
+
+        GameObject generatedImpactPrefab = LoadImpactVfxPrefabForSpecies(speciesId);
+        if (generatedImpactPrefab != null)
+            hitAbility.vfxPrefab = generatedImpactPrefab;
+
+        EditorUtility.SetDirty(hitAbility);
+    }
+
+    private static GameObject LoadVfxPrefabForAbility(string speciesId, string suffix)
+    {
+        string folder = GetVfxFolderForAbilitySuffix(suffix);
+
+        if (string.IsNullOrWhiteSpace(folder))
+            return null;
+
+        return LoadRandomPrefabFromFolder(folder, $"{speciesId}_{suffix}");
+    }
+
+    private static GameObject LoadImpactVfxPrefabForSpecies(string speciesId)
+    {
+        string folder = "Assets/Prefabs/VFX/Combat/Impacts";
+        return LoadRandomPrefabFromFolder(folder, $"{speciesId}_Hit");
+    }
+
+    private static string GetVfxFolderForAbilitySuffix(string suffix)
+    {
+        switch (suffix)
+        {
+            case "BasicAttack":
+                return "Assets/Prefabs/VFX/Combat/BasicAttacks";
+
+            case "Defense":
+                return "Assets/Prefabs/VFX/Combat/Defenses";
+
+            case "Special":
+                return "Assets/Prefabs/VFX/Combat/SpecialAttacks";
+
+            default:
+                return string.Empty;
+        }
+    }
+
+    private static GameObject LoadRandomPrefabFromFolder(string folder, string stableSeed)
+    {
+        if (!AssetDatabase.IsValidFolder(folder))
+            return null;
+
+        string[] guids = AssetDatabase.FindAssets("t:Prefab", new[] { folder });
+
+        if (guids == null || guids.Length == 0)
+            return null;
+
+        Array.Sort(guids, StringComparer.Ordinal);
+
+        int hash = string.IsNullOrWhiteSpace(stableSeed) ? 0 : stableSeed.GetHashCode();
+        int index = Mathf.Abs(hash) % guids.Length;
+
+        string prefabPath = AssetDatabase.GUIDToAssetPath(guids[index]);
+        return AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+    }
+
+    private static AbilityKind GetAbilityKind(string abilityKindName)
+    {
+        string[] candidates;
+
+        switch (abilityKindName)
+        {
+            case "BasicAttack":
+                candidates = new[] { "BasicAttack", "Basic", "Attack", "Ataque", "AtaqueBasico", "AtaqueBásico" };
+                break;
+
+            case "Defense":
+                candidates = new[] { "Defense", "Defensa", "Shield", "Escudo" };
+                break;
+
+            case "SpecialAttack":
+                candidates = new[] { "SpecialAttack", "Special", "Especial", "AtaqueEspecial" };
+                break;
+
+            default:
+                candidates = new[] { abilityKindName };
+                break;
+        }
+
+        for (int i = 0; i < candidates.Length; i++)
+        {
+            if (Enum.TryParse(candidates[i], true, out AbilityKind parsed))
+                return parsed;
+        }
+
+        Array values = Enum.GetValues(typeof(AbilityKind));
+        return values.Length > 0 ? (AbilityKind)values.GetValue(0) : default;
     }
 
     private static void AddModelVariants(SerializedProperty variantsProperty)

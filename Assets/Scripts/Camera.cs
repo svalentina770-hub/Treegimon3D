@@ -17,6 +17,7 @@ public class SmoothCameraFollow : MonoBehaviour
 
     private Vector3 currentVelocity = Vector3.zero;
     private Vector3 offset;
+    private float orbitYaw;
 
     private Transform fixedAnchor;
     private bool usingFixedAnchor;
@@ -24,6 +25,7 @@ public class SmoothCameraFollow : MonoBehaviour
     private void Awake()
     {
         offset = cameraOffset;
+        orbitYaw = 0f;
 
         if (target != null)
             CenterCameraOnTarget();
@@ -108,6 +110,7 @@ public class SmoothCameraFollow : MonoBehaviour
 
         target = newTarget;
         offset = cameraOffset;
+        orbitYaw = 0f;
 
         if (snap)
             SnapNow();
@@ -149,8 +152,28 @@ public class SmoothCameraFollow : MonoBehaviour
         if (target == null)
             return;
 
-        offset = cameraOffset;
+        offset = Quaternion.Euler(0f, orbitYaw, 0f) * cameraOffset;
         transform.position = target.position + offset;
+        RotateTowardsTarget();
+    }
+
+    public void RotateAroundCurrentTarget(float rotationAmount, bool snap = false)
+    {
+        if (usingFixedAnchor && fixedAnchor != null)
+            return;
+
+        if (target == null)
+            return;
+
+        orbitYaw += rotationAmount;
+        offset = Quaternion.Euler(0f, orbitYaw, 0f) * cameraOffset;
+
+        if (snap)
+        {
+            transform.position = target.position + offset;
+            currentVelocity = Vector3.zero;
+        }
+
         RotateTowardsTarget();
     }
 

@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: ad1b565f2344d49adb761510759d2cdc, type: 2}
+  defenseSkill: {fileID: 11400000, guid: 02c5cbd2f6b744fe5a5fef0578791917, type: 2}
+  specialSkill: {fileID: 11400000, guid: e50e681d3bbd3480f88c68f537954e25, type: 2}
   basicAttackDisplayName: Rayo solar
   defenseDisplayName: "Fotos\xEDntesis"
   specialDisplayName: Resina ardiente

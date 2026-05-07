@@ -5,6 +5,9 @@ using System.Runtime.InteropServices;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class PlayerPlantLoadout : NetworkBehaviour
 {
@@ -63,6 +66,9 @@ public class PlayerPlantLoadout : NetworkBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
     private static extern string GetLocalStorageItem(string key);
+
+    [DllImport("__Internal")]
+    private static extern void SetLocalStorageItem(string key, string value);
 #endif
 
     public override void OnNetworkSpawn()
@@ -336,6 +342,236 @@ public class PlayerPlantLoadout : NetworkBehaviour
         return fallback;
     }
 
+    public bool TryAddRewardPlant(PlantSpeciesData rewardSpecies, PlantModelVariantData rewardVariant, out string rewardPlantDisplayName)
+    {
+        rewardPlantDisplayName = string.Empty;
+
+        if (rewardSpecies == null)
+        {
+            Debug.LogWarning("PlayerPlantLoadout: No se pudo agregar recompensa porque rewardSpecies es null.");
+            return false;
+        }
+
+        string json = LoadUserDataJson();
+        UserTreeData userData = null;
+
+        if (!string.IsNullOrWhiteSpace(json))
+        {
+            try
+            {
+                userData = JsonUtility.FromJson<UserTreeData>(json);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"PlayerPlantLoadout: No se pudo parsear el archivo de usuario para agregar recompensa. Se creará una estructura nueva. Error: {exception.Message}");
+            }
+        }
+
+        if (userData == null)
+            userData = CreateEmptyUserTreeData();
+
+        if (userData.plantas == null)
+            userData.plantas = new List<UserTreePlant>();
+
+        UserTreePlant rewardPlant = BuildRewardUserTreePlant(rewardSpecies, rewardVariant);
+        userData.plantas.Add(rewardPlant);
+
+        string updatedJson = JsonUtility.ToJson(userData, true);
+
+        if (!SaveUserDataJson(updatedJson))
+        {
+            Debug.LogWarning("PlayerPlantLoadout: No fue posible guardar la planta recompensa en el archivo .tree/.json.");
+            return false;
+        }
+
+        rewardPlantDisplayName = FirstNonEmpty(rewardPlant.nombre_especie, rewardSpecies.displayName, rewardSpecies.plantId);
+        Debug.Log($"PlayerPlantLoadout: Planta recompensa agregada al usuario: {rewardPlantDisplayName} ({rewardPlant.id_instancia}).");
+        return true;
+    }
+
+    private UserTreeData CreateEmptyUserTreeData()
+    {
+        return new UserTreeData
+        {
+            version = 2,
+            usuario = new UserTreeUser
+            {
+                id = "local_user",
+                nombre = "Usuario local",
+                nivel = 1,
+                xp = 0
+            },
+            plantas = new List<UserTreePlant>()
+        };
+    }
+
+    private UserTreePlant BuildRewardUserTreePlant(PlantSpeciesData rewardSpecies, PlantModelVariantData rewardVariant)
+    {
+        string baseSpeciesId = rewardSpecies.plantId;
+        string speciesName = FirstNonEmpty(rewardSpecies.displayName, baseSpeciesId);
+        string studentName = string.Empty;
+        string modelKey = string.Empty;
+        int subspeciesId = 1;
+
+        if (rewardVariant != null)
+        {
+            baseSpeciesId = FirstNonEmpty(rewardVariant.baseSpeciesId, baseSpeciesId);
+            speciesName = FirstNonEmpty(rewardVariant.speciesDisplayName, speciesName);
+            studentName = FirstNonEmpty(rewardVariant.studentName, rewardVariant.modelKey);
+            modelKey = rewardVariant.modelKey;
+            subspeciesId = rewardVariant.subspeciesId > 0 ? rewardVariant.subspeciesId : 1;
+        }
+
+        string normalizedSpeciesId = PlantDataBase.NormalizeKey(baseSpeciesId);
+        string instanceId = $"{normalizedSpeciesId}_reward_{DateTime.UtcNow:yyyyMMddHHmmssfff}_{UnityEngine.Random.Range(1000, 9999)}";
+        int initialHp = Mathf.Max(1, rewardSpecies.baseHP);
+
+        return new UserTreePlant
+        {
+            id = normalizedSpeciesId,
+            instance_id = instanceId,
+            subid = studentName,
+            desbloqueada = true,
+
+            nombre_especie = speciesName,
+            nombre_cientifico = string.Empty,
+            id_base_especie = normalizedSpeciesId,
+            id_subespecie = subspeciesId,
+            id_instancia = instanceId,
+            nombre_estudiante = studentName,
+            model_key = modelKey,
+
+            estado = new UserTreePlantEstado
+            {
+                fase = "semilla",
+                salud = "saludable",
+                hp_actual = initialHp
+            },
+
+            progreso = new UserTreePlantProgreso
+            {
+                nivel = 1,
+                xp = 0
+            },
+
+            visual_estado = new UserTreePlantVisualEstado
+            {
+                skin = "default",
+                variacion = "normal"
+            },
+
+            uso = new UserTreePlantUso
+            {
+                seleccionada = false,
+                en_combate = false
+            },
+
+            recursos_aplicados = new UserTreeAppliedResources
+            {
+                agua = 0,
+                sol = 0,
+                composta = 0
+            }
+        };
+    }
+
+    private bool SaveUserDataJson(string json)
+    {
+        if (string.IsNullOrWhiteSpace(json))
+            return false;
+
+        UserDataSourceMode mode = dataSourceMode == UserDataSourceMode.Auto ? GetAutoDataSourceMode() : dataSourceMode;
+
+        switch (mode)
+        {
+            case UserDataSourceMode.AndroidTreeFile:
+                return SaveToAndroidFile(json);
+
+            case UserDataSourceMode.WebGLLocalStorage:
+                return SaveToWebGLLocalStorage(json);
+
+            case UserDataSourceMode.ResourcesTextAsset:
+                return SaveToResourcesFileInEditor(json);
+
+            case UserDataSourceMode.PlayerPrefsOnly:
+                return SaveToPlayerPrefsFallback(json);
+
+            default:
+                return SaveToResourcesFileInEditor(json);
+        }
+    }
+
+    private bool SaveToAndroidFile(string json)
+    {
+        try
+        {
+            string directory = Path.GetDirectoryName(androidUserDataPath);
+            if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            File.WriteAllText(androidUserDataPath, json);
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"PlayerPlantLoadout: Error escribiendo archivo Android '{androidUserDataPath}': {exception.Message}");
+            return false;
+        }
+    }
+
+    private bool SaveToWebGLLocalStorage(string json)
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        try
+        {
+            SetLocalStorageItem(webglLocalStorageKey, json);
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"PlayerPlantLoadout: Error escribiendo LocalStorage key '{webglLocalStorageKey}': {exception.Message}");
+            return false;
+        }
+#else
+        return SaveToPlayerPrefsFallback(json);
+#endif
+    }
+
+    private bool SaveToResourcesFileInEditor(string json)
+    {
+#if UNITY_EDITOR
+        try
+        {
+            string relativePathWithoutExtension = $"Assets/Resources/{resourcesUserDataPath}";
+            string treePath = relativePathWithoutExtension + ".tree";
+            string jsonPath = relativePathWithoutExtension + ".json";
+            string targetPath = File.Exists(treePath) ? treePath : jsonPath;
+
+            string directory = Path.GetDirectoryName(targetPath);
+            if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            File.WriteAllText(targetPath, json);
+            AssetDatabase.Refresh();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"PlayerPlantLoadout: Error escribiendo archivo Resources '{resourcesUserDataPath}': {exception.Message}");
+            return false;
+        }
+#else
+        return SaveToPlayerPrefsFallback(json);
+#endif
+    }
+
+    private bool SaveToPlayerPrefsFallback(string json)
+    {
+        PlayerPrefs.SetString("imaginatio_tree_data_runtime_cache", json);
+        PlayerPrefs.Save();
+        return true;
+    }
+
     private string LoadUserDataJson()
     {
         UserDataSourceMode mode = dataSourceMode == UserDataSourceMode.Auto ? GetAutoDataSourceMode() : dataSourceMode;
@@ -539,6 +775,7 @@ public class PlayerPlantLoadout : NetworkBehaviour
         public int id_subespecie;
         public string id_instancia;
         public string nombre_estudiante;
+        public string model_key;
 
         public UserTreePlantEstado estado;
         public UserTreePlantProgreso progreso;

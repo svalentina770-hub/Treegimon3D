@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: f6bfdf4329348491880b1b74d0f74eb5, type: 2}
+  defenseSkill: {fileID: 11400000, guid: 7d02c1ed0be0e4bc0a1d15470afa7dbb, type: 2}
+  specialSkill: {fileID: 11400000, guid: 91152e7e5aff84bf5bffb557b69af7e3, type: 2}
   basicAttackDisplayName: Corriente de agua
   defenseDisplayName: "Ra\xEDces hidratadas"
   specialDisplayName: "Restauraci\xF3n ecol\xF3gica"

@@ -1,20 +1,26 @@
 mergeInto(LibraryManager.library, {
     GetLocalStorageItem: function (keyPtr) {
         var key = UTF8ToString(keyPtr);
+        var value = "";
 
         try {
-            var value = window.localStorage.getItem(key);
+            var storedValue = window.localStorage.getItem(key);
 
-            if (value === null || value === undefined) {
+            if (storedValue === null || storedValue === undefined) {
                 console.warn("[LocalStorageBridge] No existe la clave en localStorage:", key);
-                return stringToNewUTF8("");
+                value = "";
+            } else {
+                value = storedValue;
             }
-
-            return stringToNewUTF8(value);
         } catch (error) {
             console.error("[LocalStorageBridge] Error leyendo localStorage:", error);
-            return stringToNewUTF8("");
+            value = "";
         }
+
+        var lengthBytes = lengthBytesUTF8(value) + 1;
+        var stringOnWasmHeap = _malloc(lengthBytes);
+        stringToUTF8(value, stringOnWasmHeap, lengthBytes);
+        return stringOnWasmHeap;
     },
 
     SetLocalStorageItem: function (keyPtr, valuePtr) {
@@ -23,6 +29,7 @@ mergeInto(LibraryManager.library, {
 
         try {
             window.localStorage.setItem(key, value);
+            console.log("[LocalStorageBridge] localStorage actualizado:", key);
         } catch (error) {
             console.error("[LocalStorageBridge] Error escribiendo localStorage:", error);
         }
@@ -44,6 +51,7 @@ mergeInto(LibraryManager.library, {
 
         try {
             window.localStorage.removeItem(key);
+            console.log("[LocalStorageBridge] localStorage eliminado:", key);
         } catch (error) {
             console.error("[LocalStorageBridge] Error eliminando localStorage:", error);
         }

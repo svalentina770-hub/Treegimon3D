@@ -218,6 +218,85 @@ public class PlantDataBase : ScriptableObject
         return modelVariants;
     }
 
+    public PlantSpeciesData GetRandomSpecies()
+    {
+        BuildCache();
+
+        if (plants == null || plants.Count == 0)
+            return null;
+
+        List<PlantSpeciesData> validPlants = new List<PlantSpeciesData>();
+
+        for (int i = 0; i < plants.Count; i++)
+        {
+            if (plants[i] != null && !string.IsNullOrWhiteSpace(plants[i].plantId))
+                validPlants.Add(plants[i]);
+        }
+
+        if (validPlants.Count == 0)
+            return null;
+
+        int index = UnityEngine.Random.Range(0, validPlants.Count);
+        return validPlants[index];
+    }
+
+    public PlantSpeciesData GetRandomSpeciesByBiome(PlantBiomeType biome)
+    {
+        BuildCache();
+
+        if (plants == null || plants.Count == 0)
+            return null;
+
+        List<PlantSpeciesData> matchingPlants = new List<PlantSpeciesData>();
+
+        for (int i = 0; i < plants.Count; i++)
+        {
+            PlantSpeciesData plant = plants[i];
+
+            if (plant == null || string.IsNullOrWhiteSpace(plant.plantId))
+                continue;
+
+            if (plant.biomeType == biome)
+                matchingPlants.Add(plant);
+        }
+
+        if (matchingPlants.Count == 0)
+            return GetRandomSpecies();
+
+        int index = UnityEngine.Random.Range(0, matchingPlants.Count);
+        return matchingPlants[index];
+    }
+
+    public PlantModelVariantData GetRandomVariantForSpecies(string speciesId)
+    {
+        List<PlantModelVariantData> variants = GetVariantsBySpeciesId(speciesId);
+
+        if (variants == null || variants.Count == 0)
+            return null;
+
+        List<PlantModelVariantData> validVariants = new List<PlantModelVariantData>();
+
+        for (int i = 0; i < variants.Count; i++)
+        {
+            if (variants[i] != null && !string.IsNullOrWhiteSpace(variants[i].modelKey))
+                validVariants.Add(variants[i]);
+        }
+
+        if (validVariants.Count == 0)
+            return null;
+
+        int index = UnityEngine.Random.Range(0, validVariants.Count);
+        return validVariants[index];
+    }
+
+    public PlantModelVariantData GetRandomVariantForSpecies(PlantSpeciesData species)
+    {
+        if (species == null)
+            return null;
+
+        return GetRandomVariantForSpecies(species.plantId);
+    }
+
     public static string NormalizeKey(string value)
     {
         if (string.IsNullOrWhiteSpace(value))

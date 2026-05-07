@@ -1,12 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
-using System.Collections;
+using UnityEngine;
 
 public class NetworkUI : MonoBehaviour
 {
+    [Header("Network")]
     [SerializeField] private ushort port = 7777;
     [SerializeField] private string serverAddress = "127.0.0.1";
+
+    [Header("Data User")]
+    [SerializeField] private UserDataSourceMode dataSourceMode = UserDataSourceMode.Auto;
+    [SerializeField] private string resourcesUserDataPath = "Data/Data_user";
+    [SerializeField] private string androidUserDataPath = "/storage/emulated/0/Documents/IMAGINATIO/Data_user.tree";
+    [SerializeField] private string webglLocalStorageKey = "imaginatio_tree_data";
 
     [Header("Camera")]
     [SerializeField] private SmoothCameraFollow cameraFollow;
@@ -18,14 +29,27 @@ public class NetworkUI : MonoBehaviour
 
     private string playerName = "";
     private string selectedPlantId = "aliso";
-    private string selectedPlantLevel = "3";
+    private string selectedPlantLevel = "1";
+    private string selectedPlantInstanceId = "";
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern string GetLocalStorageItem(string key);
+#endif
+
+    public enum UserDataSourceMode
+    {
+        Auto,
+        ResourcesTextAsset,
+        AndroidTreeFile,
+        WebGLLocalStorage,
+        PlayerPrefsOnly
+    }
 
     private void Start()
     {
-        playerName = PlayerPrefs.GetString("PLAYER_NAME", "");
-        serverAddress = PlayerPrefs.GetString("SERVER_IP", serverAddress);
-        selectedPlantId = PlayerPrefs.GetString("SELECTED_PLANT_ID", selectedPlantId);
-        selectedPlantLevel = PlayerPrefs.GetInt("SELECTED_PLANT_LEVEL", 3).ToString();
+        LoadNetworkDefaults();
+        LoadPlayerDataFromTreeOrPrefs();
 
         if (NetworkManager.Singleton == null)
         {
@@ -53,6 +77,8 @@ public class NetworkUI : MonoBehaviour
             return;
 
         GUI.Label(new Rect(10, 10, 70, 20), "Nombre:");
+
+        GUI.enabled = false;
         playerName = GUI.TextField(new Rect(80, 10, 180, 25), playerName);
 
         GUI.Label(new Rect(10, 45, 70, 20), "Planta:");
@@ -60,6 +86,7 @@ public class NetworkUI : MonoBehaviour
 
         GUI.Label(new Rect(10, 80, 70, 20), "Nivel:");
         selectedPlantLevel = GUI.TextField(new Rect(80, 80, 180, 25), selectedPlantLevel);
+        GUI.enabled = true;
 
         if (mostrarCampoIP)
         {
@@ -80,6 +107,7 @@ public class NetworkUI : MonoBehaviour
 
             if (GUI.Button(new Rect(100, y, 80, 30), "Server"))
             {
+                SavePlayerData();
                 NetworkManager.Singleton.StartServer();
             }
 
@@ -95,6 +123,228 @@ public class NetworkUI : MonoBehaviour
                 StartClient();
             }
         }
+    }
+
+    private void LoadNetworkDefaults()
+    {
+        serverAddress = PlayerPrefs.GetString("SERVER_IP", serverAddress);
+        selectedPlantId = PlayerPrefs.GetString("SELECTED_PLANT_ID", selectedPlantId);
+        selectedPlantLevel = PlayerPrefs.GetInt("SELECTED_PLANT_LEVEL", 1).ToString();
+        selectedPlantInstanceId = PlayerPrefs.GetString("SELECTED_PLANT_INSTANCE_ID", "");
+        playerName = PlayerPrefs.GetString("PLAYER_NAME", "");
+    }
+
+    private void LoadPlayerDataFromTreeOrPrefs()
+    {
+        string json = LoadUserDataJson();
+
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            ApplySafeFallbackValues();
+            SavePlayerData();
+            return;
+        }
+
+        UserTreeData userData = null;
+
+        try
+        {
+            userData = JsonUtility.FromJson<UserTreeData>(json);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"NetworkUI: No se pudo leer el archivo de usuario. Error: {exception.Message}");
+        }
+
+        if (userData == null)
+        {
+            ApplySafeFallbackValues();
+            SavePlayerData();
+            return;
+        }
+
+        if (userData.usuario != null && !string.IsNullOrWhiteSpace(userData.usuario.nombre))
+            playerName = userData.usuario.nombre;
+
+        UserTreePlant selectedPlant = ResolveSelectedPlant(userData);
+
+        if (selectedPlant != null)
+        {
+            selectedPlantId = FirstNonEmpty(
+                selectedPlant.id_base_especie,
+                selectedPlant.id
+            );
+
+            selectedPlantInstanceId = FirstNonEmpty(
+                selectedPlant.id_instancia,
+                selectedPlant.instance_id
+            );
+
+            int level = 1;
+
+            if (selectedPlant.progreso != null && selectedPlant.progreso.nivel > 0)
+                level = selectedPlant.progreso.nivel;
+
+            selectedPlantLevel = Mathf.Max(1, level).ToString();
+        }
+
+        ApplySafeFallbackValues();
+        SavePlayerData();
+    }
+
+    private UserTreePlant ResolveSelectedPlant(UserTreeData userData)
+    {
+        if (userData == null || userData.plantas == null || userData.plantas.Count == 0)
+            return null;
+
+        string savedInstanceId = PlayerPrefs.GetString("SELECTED_PLANT_INSTANCE_ID", "");
+        string savedPlantId = PlayerPrefs.GetString("SELECTED_PLANT_ID", "");
+
+        if (!string.IsNullOrWhiteSpace(savedInstanceId))
+        {
+            for (int i = 0; i < userData.plantas.Count; i++)
+            {
+                UserTreePlant plant = userData.plantas[i];
+                if (plant == null) continue;
+
+                string plantInstanceId = FirstNonEmpty(plant.id_instancia, plant.instance_id);
+
+                if (string.Equals(plantInstanceId, savedInstanceId, StringComparison.OrdinalIgnoreCase))
+                    return plant;
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(savedPlantId))
+        {
+            string normalizedSavedId = NormalizeKey(savedPlantId);
+
+            for (int i = 0; i < userData.plantas.Count; i++)
+            {
+                UserTreePlant plant = userData.plantas[i];
+                if (plant == null) continue;
+
+                string plantId = NormalizeKey(FirstNonEmpty(plant.id_base_especie, plant.id));
+
+                if (plantId == normalizedSavedId)
+                    return plant;
+            }
+        }
+
+        for (int i = 0; i < userData.plantas.Count; i++)
+        {
+            UserTreePlant plant = userData.plantas[i];
+
+            if (plant != null && plant.uso != null && plant.uso.seleccionada)
+                return plant;
+        }
+
+        for (int i = 0; i < userData.plantas.Count; i++)
+        {
+            UserTreePlant plant = userData.plantas[i];
+
+            if (plant != null && plant.desbloqueada)
+                return plant;
+        }
+
+        return userData.plantas[0];
+    }
+
+    private string LoadUserDataJson()
+    {
+        UserDataSourceMode mode = dataSourceMode == UserDataSourceMode.Auto ? GetAutoDataSourceMode() : dataSourceMode;
+
+        switch (mode)
+        {
+            case UserDataSourceMode.AndroidTreeFile:
+                return LoadFromAndroidFile();
+
+            case UserDataSourceMode.WebGLLocalStorage:
+                return LoadFromWebGLLocalStorage();
+
+            case UserDataSourceMode.ResourcesTextAsset:
+                return LoadFromResources();
+
+            case UserDataSourceMode.PlayerPrefsOnly:
+                return PlayerPrefs.GetString("imaginatio_tree_data_runtime_cache", "");
+
+            default:
+                return LoadFromResources();
+        }
+    }
+
+    private UserDataSourceMode GetAutoDataSourceMode()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        return UserDataSourceMode.WebGLLocalStorage;
+#elif UNITY_ANDROID && !UNITY_EDITOR
+        return UserDataSourceMode.AndroidTreeFile;
+#else
+        return UserDataSourceMode.ResourcesTextAsset;
+#endif
+    }
+
+    private string LoadFromResources()
+    {
+        TextAsset asset = Resources.Load<TextAsset>(resourcesUserDataPath);
+
+        if (asset == null)
+        {
+            Debug.LogWarning($"NetworkUI: No se encontró archivo en Resources/{resourcesUserDataPath}.");
+            return "";
+        }
+
+        return asset.text;
+    }
+
+    private string LoadFromAndroidFile()
+    {
+        try
+        {
+            if (!File.Exists(androidUserDataPath))
+            {
+                Debug.LogWarning($"NetworkUI: No existe archivo Android: {androidUserDataPath}");
+                return "";
+            }
+
+            return File.ReadAllText(androidUserDataPath);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"NetworkUI: Error leyendo archivo Android: {exception.Message}");
+            return "";
+        }
+    }
+
+    private string LoadFromWebGLLocalStorage()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        try
+        {
+            return GetLocalStorageItem(webglLocalStorageKey);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogWarning($"NetworkUI: Error leyendo LocalStorage: {exception.Message}");
+            return "";
+        }
+#else
+        return PlayerPrefs.GetString("imaginatio_tree_data_runtime_cache", "");
+#endif
+    }
+
+    private void ApplySafeFallbackValues()
+    {
+        if (string.IsNullOrWhiteSpace(playerName))
+            playerName = "Player";
+
+        if (string.IsNullOrWhiteSpace(selectedPlantId))
+            selectedPlantId = "aliso";
+
+        if (string.IsNullOrWhiteSpace(selectedPlantLevel))
+            selectedPlantLevel = "1";
+
+        if (string.IsNullOrWhiteSpace(serverAddress))
+            serverAddress = "127.0.0.1";
     }
 
     private void StartClient()
@@ -122,9 +372,7 @@ public class NetworkUI : MonoBehaviour
     private IEnumerator AssignCameraWhenPlayerExists()
     {
         if (cameraFollow == null)
-        {
             cameraFollow = FindObjectOfType<SmoothCameraFollow>();
-        }
 
         if (cameraFollow == null)
         {
@@ -145,20 +393,101 @@ public class NetworkUI : MonoBehaviour
 
     private void SavePlayerData()
     {
-        if (string.IsNullOrWhiteSpace(playerName))
-            playerName = "Player";
+        ApplySafeFallbackValues();
 
-        if (string.IsNullOrWhiteSpace(selectedPlantId))
-            selectedPlantId = "aliso";
-
-        int parsedLevel = 3;
+        int parsedLevel = 1;
         int.TryParse(selectedPlantLevel, out parsedLevel);
         parsedLevel = Mathf.Max(1, parsedLevel);
 
         PlayerPrefs.SetString("PLAYER_NAME", playerName.Trim());
         PlayerPrefs.SetString("SERVER_IP", serverAddress.Trim());
-        PlayerPrefs.SetString("SELECTED_PLANT_ID", selectedPlantId.Trim().ToLower());
+        PlayerPrefs.SetString("SELECTED_PLANT_ID", NormalizeKey(selectedPlantId));
         PlayerPrefs.SetInt("SELECTED_PLANT_LEVEL", parsedLevel);
+
+        if (!string.IsNullOrWhiteSpace(selectedPlantInstanceId))
+            PlayerPrefs.SetString("SELECTED_PLANT_INSTANCE_ID", selectedPlantInstanceId);
+
         PlayerPrefs.Save();
+    }
+
+    private static string FirstNonEmpty(params string[] values)
+    {
+        if (values == null)
+            return string.Empty;
+
+        for (int i = 0; i < values.Length; i++)
+        {
+            if (!string.IsNullOrWhiteSpace(values[i]))
+                return values[i];
+        }
+
+        return string.Empty;
+    }
+
+    private static string NormalizeKey(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return string.Empty;
+
+        return value.Trim().ToLowerInvariant();
+    }
+
+    [Serializable]
+    private class UserTreeData
+    {
+        public UserTreeUser usuario;
+        public List<UserTreePlant> plantas;
+    }
+
+    [Serializable]
+    private class UserTreeUser
+    {
+        public string id;
+        public string nombre;
+        public int nivel;
+        public int xp;
+    }
+
+    [Serializable]
+    private class UserTreePlant
+    {
+        public string id;
+        public string instance_id;
+        public string subid;
+        public bool desbloqueada;
+
+        public string nombre_especie;
+        public string nombre_cientifico;
+        public string id_base_especie;
+        public int id_subespecie;
+        public string id_instancia;
+        public string nombre_estudiante;
+        public string model_key;
+
+        public UserTreePlantEstado estado;
+        public UserTreePlantProgreso progreso;
+        public UserTreePlantUso uso;
+    }
+
+    [Serializable]
+    private class UserTreePlantEstado
+    {
+        public string fase;
+        public string salud;
+        public int hp_actual;
+    }
+
+    [Serializable]
+    private class UserTreePlantProgreso
+    {
+        public int nivel;
+        public int xp;
+    }
+
+    [Serializable]
+    private class UserTreePlantUso
+    {
+        public bool seleccionada;
+        public bool en_combate;
     }
 }

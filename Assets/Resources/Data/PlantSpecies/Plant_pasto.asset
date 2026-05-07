@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: a8df8c563f56248c09675a153bb29b68, type: 2}
+  defenseSkill: {fileID: 11400000, guid: bebed44e3bd9d4f9d932a4e336954b6a, type: 2}
+  specialSkill: {fileID: 11400000, guid: b3e5b553b3df94a078be74cf1f8c6771, type: 2}
   basicAttackDisplayName: Hoja cortante
   defenseDisplayName: Resistencia natural
   specialDisplayName: "Brote r\xE1pido"

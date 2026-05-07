@@ -47,6 +47,8 @@ public class CombatUIController : MonoBehaviour
     private string baseDefenseLabel = "Defensa";
     private string baseSpecialLabel = "Especial";
 
+    private bool combatFinished;
+
     private readonly Color enabledColor = new Color(0.2f, 0.65f, 0.2f);
     private readonly Color disabledColor = new Color(0.4f, 0.4f, 0.4f);
     private readonly Color defenseWindowColor = new Color(0.95f, 0.65f, 0.15f);
@@ -76,6 +78,12 @@ public class CombatUIController : MonoBehaviour
         if (defenseButton != null) defenseButton.onClick.AddListener(OnDefensePressed);
         if (specialButton != null) specialButton.onClick.AddListener(OnSpecialPressed);
 
+        if (statusText != null)
+        {
+            statusText.enableWordWrapping = true;
+            statusText.overflowMode = TextOverflowModes.Overflow;
+        }
+
         HideCombatUI();
     }
 
@@ -101,6 +109,8 @@ public class CombatUIController : MonoBehaviour
         string defenseLabel,
         string specialLabel)
     {
+        combatFinished = false;
+
         if (combatPanel != null) combatPanel.SetActive(true);
         if (rootCanvas != null) rootCanvas.enabled = true;
         if (rootRaycaster != null) rootRaycaster.enabled = true;
@@ -115,12 +125,14 @@ public class CombatUIController : MonoBehaviour
         SetMyHP(myCurrentHP, myMaxHP);
         SetRivalHP(rivalCurrentHP, rivalMaxHP);
         SetTimerDisplay(5);
-        SetStatus("Esperando acción...");
+        SetStatus("Esperando acciÃ³n...");
         UpdateButtonCaptions(0, 0, 2, true, false, false);
     }
 
     public void HideCombatUI()
     {
+        combatFinished = false;
+
         if (combatPanel != null) combatPanel.SetActive(false);
         if (rootCanvas != null) rootCanvas.enabled = false;
         if (rootRaycaster != null) rootRaycaster.enabled = false;
@@ -143,7 +155,24 @@ public class CombatUIController : MonoBehaviour
         SetMyHP(myCurrentHP, myMaxHP);
         SetRivalHP(rivalCurrentHP, rivalMaxHP);
         SetTimerDisplay(secondsRemaining);
+
+        if (IsFinishMessage(statusMessage))
+            combatFinished = true;
+
         SetStatus(statusMessage);
+
+        if (combatFinished)
+        {
+            UpdateButtonCaptions(
+                basicCooldownSeconds,
+                specialCooldownSeconds,
+                defenseUsesRemaining,
+                false,
+                false,
+                false
+            );
+            return;
+        }
 
         UpdateButtonCaptions(
             basicCooldownSeconds,
@@ -216,8 +245,18 @@ public class CombatUIController : MonoBehaviour
 
     public void SetStatus(string message)
     {
-        if (statusText != null)
-            statusText.text = message;
+        if (statusText == null)
+            return;
+
+        statusText.text = string.IsNullOrWhiteSpace(message) ? string.Empty : message;
+    }
+
+    private bool IsFinishMessage(string message)
+    {
+        if (string.IsNullOrWhiteSpace(message))
+            return false;
+
+        return message.StartsWith("Ganaste") || message.StartsWith("Perdiste");
     }
 
     private void OnAttackPressed()
@@ -355,7 +394,7 @@ public class CombatUIController : MonoBehaviour
         SetMyHP(myCurrentHP, myMaxHP);
         SetRivalHP(rivalCurrentHP, rivalMaxHP);
         SetTimerDisplay(5);
-        SetStatus("Esperando acción...");
+        SetStatus("Esperando acciï¿½n...");
         SetButtonsInteractable(true);
     }
 
@@ -433,7 +472,7 @@ public class CombatUIController : MonoBehaviour
     private void OnAttackPressed()
     {
         Debug.Log("[CombatUI] AttackButton presionado");
-        SetStatus("Ataque genérico seleccionado");
+        SetStatus("Ataque genï¿½rico seleccionado");
     }
 
     private void OnDefensePressed()

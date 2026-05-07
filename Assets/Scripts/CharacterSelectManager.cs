@@ -21,6 +21,19 @@ public class CharacterSelectManager : MonoBehaviour
     [SerializeField] private float centerScale = 1.6f;
     [SerializeField] private float sideScale = 0.9f;
 
+    [Header("Material de respaldo")]
+    [Tooltip("Material que se aplicará automáticamente a los modelos que no tengan material, tengan material por defecto o usen shader de error.")]
+    [SerializeField] private Material fallbackModelMaterial;
+
+    [Tooltip("Si está activo, revisa cada modelo instanciado en el carrusel y aplica el material de respaldo cuando sea necesario.")]
+    [SerializeField] private bool applyFallbackMaterialOnSpawn = true;
+
+    [Tooltip("Si está activo, reemplaza materiales llamados Default-Material, Default Material o Default.")]
+    [SerializeField] private bool replaceDefaultMaterial = true;
+
+    [Tooltip("Si está activo, reemplaza materiales cuyo shader sea de error.")]
+    [SerializeField] private bool replaceErrorShaderMaterial = true;
+
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI speciesNameText;
     [SerializeField] private TextMeshProUGUI studentNameText;
@@ -512,6 +525,75 @@ public class CharacterSelectManager : MonoBehaviour
         }
     }
 
+    private void ApplyFallbackMaterialIfNeeded(GameObject modelInstance)
+    {
+        if (modelInstance == null || fallbackModelMaterial == null)
+            return;
+
+        Renderer[] renderers = modelInstance.GetComponentsInChildren<Renderer>(true);
+
+        for (int r = 0; r < renderers.Length; r++)
+        {
+            Renderer renderer = renderers[r];
+
+            if (renderer == null)
+                continue;
+
+            Material[] materials = renderer.sharedMaterials;
+
+            if (materials == null || materials.Length == 0)
+            {
+                renderer.sharedMaterials = new Material[] { fallbackModelMaterial };
+                continue;
+            }
+
+            bool changed = false;
+
+            for (int i = 0; i < materials.Length; i++)
+            {
+                if (ShouldReplaceMaterial(materials[i]))
+                {
+                    materials[i] = fallbackModelMaterial;
+                    changed = true;
+                }
+            }
+
+            if (changed)
+                renderer.sharedMaterials = materials;
+        }
+    }
+
+    private bool ShouldReplaceMaterial(Material material)
+    {
+        if (material == null)
+            return true;
+
+        if (replaceDefaultMaterial)
+        {
+            string materialName = material.name.ToLowerInvariant();
+
+            if (materialName.Contains("default-material") ||
+                materialName.Contains("default material") ||
+                materialName == "default")
+            {
+                return true;
+            }
+        }
+
+        if (replaceErrorShaderMaterial && material.shader != null)
+        {
+            string shaderName = material.shader.name.ToLowerInvariant();
+
+            if (shaderName.Contains("internalerror") ||
+                shaderName.Contains("error"))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void SpawnCharacters()
     {
         if (_carouselItems.Count == 0)
@@ -529,7 +611,10 @@ public class CharacterSelectManager : MonoBehaviour
 
             if (_carouselItems[i].unlocked && _carouselItems[i].prefab != null)
             {
-                Instantiate(_carouselItems[i].prefab, cube.transform);
+                GameObject modelInstance = Instantiate(_carouselItems[i].prefab, cube.transform);
+
+                if (applyFallbackMaterialOnSpawn)
+                    ApplyFallbackMaterialIfNeeded(modelInstance);
             }
 
             Renderer r = cube.GetComponent<Renderer>();
@@ -749,15 +834,64 @@ public class CharacterSelectManager : MonoBehaviour
         if (_carouselItems.Count > 0 && _currentIndex >= 0 && _currentIndex < _carouselItems.Count)
         {
             CarouselItemData selectedItem = _carouselItems[_currentIndex];
-            PlayerPrefs.SetString("SelectedPlantId", selectedItem.plantId);
-            PlayerPrefs.SetString("SelectedBaseSpeciesId", selectedItem.baseSpeciesId);
-            PlayerPrefs.SetString("SelectedInstanceId", selectedItem.instanceId);
-            PlayerPrefs.SetInt("SelectedSubspeciesId", selectedItem.subspeciesId);
-            PlayerPrefs.SetString("SelectedPhase", selectedItem.selectedPhase);
-            PlayerPrefs.SetInt("SelectedHasJsonData", selectedItem.hasJsonData ? 1 : 0);
+            SaveSelectedPlantForGameplay(selectedItem);
         }
 
+        PlayerPrefs.Save();
         SceneManager.LoadScene(1);
+    }
+
+    private void SaveSelectedPlantForGameplay(CarouselItemData selectedItem)
+    {
+        if (selectedItem == null)
+            return;
+
+        string selectedPlantId = FirstNonEmpty(selectedItem.baseSpeciesId, selectedItem.plantId);
+        string selectedInstanceId = selectedItem.instanceId;
+        int selectedLevel = 1;
+
+        if (selectedItem.progreso != null && selectedItem.progreso.nivel > 0)
+            selectedLevel = selectedItem.progreso.nivel;
+
+        // Claves originales que ya usaba el carrusel.
+        PlayerPrefs.SetString("SelectedPlantId", selectedItem.plantId);
+        PlayerPrefs.SetString("SelectedBaseSpeciesId", selectedItem.baseSpeciesId);
+        PlayerPrefs.SetString("SelectedInstanceId", selectedItem.instanceId);
+        PlayerPrefs.SetInt("SelectedSubspeciesId", selectedItem.subspeciesId);
+        PlayerPrefs.SetString("SelectedPhase", selectedItem.selectedPhase);
+        PlayerPrefs.SetInt("SelectedHasJsonData", selectedItem.hasJsonData ? 1 : 0);
+
+        // Claves usadas por NetworkUI y PlayerPlantLoadout.
+        PlayerPrefs.SetString("SELECTED_PLANT_ID", NormalizeKey(selectedPlantId));
+        PlayerPrefs.SetString("SELECTED_PLANT_INSTANCE_ID", selectedInstanceId);
+        PlayerPrefs.SetInt("SELECTED_PLANT_LEVEL", Mathf.Max(1, selectedLevel));
+        PlayerPrefs.SetInt("SELECTED_SUBSPECIES_ID", selectedItem.subspeciesId);
+        PlayerPrefs.SetString("SELECTED_PHASE", selectedItem.selectedPhase);
+        PlayerPrefs.SetInt("SELECTED_HAS_JSON_DATA", selectedItem.hasJsonData ? 1 : 0);
+
+        Debug.Log($"CharacterSelectManager: Planta seleccionada para gameplay/network: id={selectedPlantId}, instance={selectedInstanceId}, nivel={selectedLevel}, fase={selectedItem.selectedPhase}");
+    }
+
+    private string FirstNonEmpty(params string[] values)
+    {
+        if (values == null)
+            return string.Empty;
+
+        for (int i = 0; i < values.Length; i++)
+        {
+            if (!string.IsNullOrWhiteSpace(values[i]))
+                return values[i];
+        }
+
+        return string.Empty;
+    }
+
+    private string NormalizeKey(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return string.Empty;
+
+        return value.Trim().ToLowerInvariant();
     }
 
     public GameObject getPrefab()

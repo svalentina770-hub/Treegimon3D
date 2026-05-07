@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: 0287e2f9bde6d47e0bb5eb76bd6e9ccd, type: 2}
+  defenseSkill: {fileID: 11400000, guid: 9251d9bbb688f44f5a8f920aebbedc7e, type: 2}
+  specialSkill: {fileID: 11400000, guid: 0175cce8b10cb47a2b834c614d91def8, type: 2}
   basicAttackDisplayName: Crecimiento
   defenseDisplayName: Equilibrio natural
   specialDisplayName: Fruto nutritivo

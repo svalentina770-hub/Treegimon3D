@@ -32,9 +32,9 @@ MonoBehaviour:
   xpLose: 100
   xpWinBiomeBonus: 250
   xpLoseBiomeBonus: 150
-  basicAttack: {fileID: 0}
-  defenseSkill: {fileID: 0}
-  specialSkill: {fileID: 0}
+  basicAttack: {fileID: 11400000, guid: 22512ec6fd74840b6a8691e6d461b8f9, type: 2}
+  defenseSkill: {fileID: 11400000, guid: 107a8c95cb4a84b15bdd6e9f4f3b49ca, type: 2}
+  specialSkill: {fileID: 11400000, guid: 435ac976f993f4793a237b650fd209ae, type: 2}
   basicAttackDisplayName: Crecimiento
   defenseDisplayName: Equilibrio natural
   specialDisplayName: "Floraci\xF3n abundante"
