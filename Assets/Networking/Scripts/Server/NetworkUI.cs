@@ -488,6 +488,7 @@ public class NetworkUI : MonoBehaviour
         if (transport == null)
         {
             Debug.LogError("No se encontró UnityTransport en el NetworkManager.");
+            clientStartRequested = false;
             return;
         }
 

@@ -579,7 +579,7 @@ public class PlayerPlantLoadout : NetworkBehaviour
         switch (mode)
         {
             case UserDataSourceMode.PlayerPrefsOnly:
-                return string.Empty;
+                return PlayerPrefs.GetString("imaginatio_tree_data_runtime_cache", string.Empty);
 
             case UserDataSourceMode.ResourcesTextAsset:
                 return LoadFromResources();
