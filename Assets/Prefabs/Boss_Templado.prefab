@@ -1,0 +1,306 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4167182572659979092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7510437752036722414}
+  m_Layer: 0
+  m_Name: ModelRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7510437752036722414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167182572659979092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.026, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4113276617984588719}
+  m_Father: {fileID: 4307328910769273326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4823178306475087371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4307328910769273326}
+  - component: {fileID: 73058568485859652}
+  - component: {fileID: 615767738151866056}
+  - component: {fileID: 5574860652022584583}
+  - component: {fileID: 3597879878415327764}
+  - component: {fileID: 4870317715390172848}
+  m_Layer: 0
+  m_Name: Boss_Templado
+  m_TagString: Boss
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4307328910769273326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823178306475087371}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 144.063, y: 0, z: -50.8}
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 7510437752036722414}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &73058568485859652
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823178306475087371}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &615767738151866056
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823178306475087371}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 20
+  m_CollisionDetection: 3
+--- !u!114 &5574860652022584583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823178306475087371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1729688254
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 0
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &3597879878415327764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823178306475087371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1eb82473ce134db0aa5c3dba9ce3b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_templado
+  bossDisplayName: Alcatraz guardian
+  bossBiome: 5
+  assignedZone: {fileID: 0}
+  canMove: 1
+  moveSpeed: 2.4
+  rotationSpeed: 9
+  waitTimeAtPoint: 1.2
+  minDistanceToTarget: 1
+  randomPointYOffset: 0
+  playerTag: Player
+  stopWhenPlayerIsNear: 1
+  modelRoot: {fileID: 7510437752036722414}
+  walkBobAmplitude: 0.12
+  walkBobFrequency: 4.8
+  walkTiltZAmplitude: 8
+  walkTiltZFrequency: 4.2
+  idleRotationYAmplitude: 12
+  idleRotationYFrequency: 0.7
+  idleBobAmplitude: 0.03
+  idleBobFrequency: 1
+  drawDebug: 0
+  debugColor: {r: 1, g: 0.4, b: 0, a: 0.35}
+  useServerAuthoritativeMovement: 1
+  clientPositionLerpSpeed: 12
+  clientRotationLerpSpeed: 10
+  networkSendInterval: 0.05
+--- !u!114 &4870317715390172848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823178306475087371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b332dcb4545e4bad9e7dba79dcc5d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  bossId: boss_templado
+  bossDisplayName: Alcatraz guardian
+  bossBiome: 5
+  maxHP: 1450
+  basicAttackDamage: 95
+  specialAttackDamage: 170
+  defenseValue: 18
+  defensePercent: 0.25
+  basicAttackName: "Picada a\xE9rea"
+  defenseName: Alas protectoras
+  specialAttackName: Vuelo templado
+  basicAttackVfxPrefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
+  specialAttackVfxPrefab: {fileID: 9110354499124891501, guid: c5d6fe0d019476e4b8289893081b334c, type: 3}
+  defenseVfxPrefab: {fileID: 8080156424910990937, guid: a4a854a599000554ea07ead6681e648f, type: 3}
+  impactVfxPrefab: {fileID: 8487402871801164198, guid: 90375796f996bff4cabed66da5e558cb, type: 3}
+  basicVfxTravelsToTarget: 1
+  specialVfxTravelsToTarget: 1
+  defenseVfxTravelsToTarget: 0
+  basicVfxMoveSpeed: 12
+  specialVfxMoveSpeed: 9
+  defenseVfxMoveSpeed: 0
+  basicVfxLifetime: 5
+  specialVfxLifetime: 5
+  defenseVfxLifetime: 2.5
+  orientAttackVfxToTarget: 1
+  orientDefenseVfxToTarget: 0
+  autoAssignVfxFromFolders: 1
+  basicAttacksFolder: Assets/Resources/VFX/Combat/BasicAttacks
+  defensesFolder: Assets/Resources/VFX/Combat/Defenses
+  specialAttacksFolder: Assets/Resources/VFX/Combat/SpecialAttacks
+  impactsFolder: Assets/Resources/VFX/Combat/Impacts
+--- !u!1001 &4512591669741837380
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7510437752036722414}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+      propertyPath: m_Name
+      value: Boss_Boss_Alcatraz_fase_1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+--- !u!4 &4113276617984588719 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: be8fb023419b14fbb9e8e756f9bcd37d, type: 3}
+  m_PrefabInstance: {fileID: 4512591669741837380}
+  m_PrefabAsset: {fileID: 0}

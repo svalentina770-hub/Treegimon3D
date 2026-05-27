@@ -22,6 +22,9 @@ public class NetworkUI : MonoBehaviour
     [SerializeField] private bool hideGuiOnWebGL = true;
     [SerializeField] private string fixedWebGLServerAddress = "142.93.60.198";
     [SerializeField] private float webGLAutoConnectDelay = 1f;
+    [SerializeField] private bool forceWebSocketsTransport = true;
+    [SerializeField] private bool useSecureWebSockets = false;
+    [SerializeField] private string secureWebSocketHost = "";
 
     [Header("Data User")]
     [SerializeField] private UserDataSourceMode dataSourceMode = UserDataSourceMode.Auto;
@@ -98,6 +101,8 @@ public class NetworkUI : MonoBehaviour
 
         NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnected;
+        NetworkManager.Singleton.OnTransportFailure += HandleTransportFailure;
+        NetworkManager.Singleton.OnConnectionEvent += HandleConnectionEvent;
         callbacksRegistered = true;
     }
 
@@ -108,6 +113,8 @@ public class NetworkUI : MonoBehaviour
 
         NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;
         NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnected;
+        NetworkManager.Singleton.OnTransportFailure -= HandleTransportFailure;
+        NetworkManager.Singleton.OnConnectionEvent -= HandleConnectionEvent;
         callbacksRegistered = false;
     }
 
@@ -132,6 +139,21 @@ public class NetworkUI : MonoBehaviour
         clientStartRequested = false;
     }
 
+    private void HandleTransportFailure()
+    {
+        Debug.LogError("NETCODE: OnTransportFailure recibido. El transporte falló antes o durante la conexión.");
+        clientStartRequested = false;
+    }
+
+    private void HandleConnectionEvent(NetworkManager manager, ConnectionEventData eventData)
+    {
+        string disconnectReason = manager != null ? manager.DisconnectReason : string.Empty;
+        ulong localClientId = manager != null ? manager.LocalClientId : ulong.MaxValue;
+        Debug.Log(
+            $"NETCODE: ConnectionEvent={eventData.EventType}. ClientId={eventData.ClientId}. " +
+            $"LocalClientId={localClientId}. DisconnectReason='{disconnectReason}'.");
+    }
+
     private IEnumerator CoAutoConnectWebGLClient()
     {
         yield return new WaitForSeconds(webGLAutoConnectDelay);
@@ -145,7 +167,7 @@ public class NetworkUI : MonoBehaviour
         if (NetworkManager.Singleton.IsClient || NetworkManager.Singleton.IsServer || clientStartRequested)
             yield break;
 
-        Debug.Log($"NetworkUI: autoconexión WebGL hacia {serverAddress}:{port}.");
+        Debug.Log($"NetworkUI: autoconexión WebGL hacia {serverAddress}:{port}. URL={Application.absoluteURL}");
         StartClient();
     }
 
@@ -166,6 +188,7 @@ public class NetworkUI : MonoBehaviour
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         if (transport != null)
         {
+            ConfigureWebSocketMode(transport);
             transport.SetConnectionData(dedicatedServerBindAddress, port);
             Debug.Log($"NetworkUI: servidor dedicado configurado en {dedicatedServerBindAddress}:{port}.");
         }
@@ -247,7 +270,10 @@ public class NetworkUI : MonoBehaviour
 
     private void LoadNetworkDefaults()
     {
-        serverAddress = PlayerPrefs.GetString("SERVER_IP", serverAddress);
+        string savedServerAddress = PlayerPrefs.GetString("SERVER_IP", serverAddress);
+        if (!IsLoopbackAddress(savedServerAddress) || IsLoopbackAddress(serverAddress))
+            serverAddress = savedServerAddress;
+
         selectedPlantId = PlayerPrefs.GetString("SELECTED_PLANT_ID", selectedPlantId);
         selectedPlantLevel = PlayerPrefs.GetInt("SELECTED_PLANT_LEVEL", 1).ToString();
         selectedPlantInstanceId = PlayerPrefs.GetString("SELECTED_PLANT_INSTANCE_ID", "");
@@ -492,8 +518,17 @@ public class NetworkUI : MonoBehaviour
             return;
         }
 
+        if (!ConfigureClientTransport(transport))
+        {
+            clientStartRequested = false;
+            return;
+        }
+
         transport.SetConnectionData(serverAddress, port);
-        Debug.Log($"NetworkUI: intentando iniciar cliente hacia {serverAddress}:{port}.");
+        Debug.Log(
+            $"NetworkUI: intentando iniciar cliente hacia {serverAddress}:{port}. " +
+            $"Platform={Application.platform}. URL={Application.absoluteURL}. " +
+            $"UseWebSockets={transport.UseWebSockets}. UseEncryption={transport.UseEncryption}.");
 
         bool started = NetworkManager.Singleton.StartClient();
         Debug.Log(started
@@ -553,6 +588,60 @@ public class NetworkUI : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    private bool ConfigureClientTransport(UnityTransport transport)
+    {
+        ConfigureWebSocketMode(transport);
+        transport.UseEncryption = useSecureWebSockets;
+
+        if (useSecureWebSockets)
+        {
+            string host = string.IsNullOrWhiteSpace(secureWebSocketHost)
+                ? serverAddress.Trim()
+                : secureWebSocketHost.Trim();
+
+            if (string.IsNullOrWhiteSpace(host))
+            {
+                Debug.LogError("NetworkUI: useSecureWebSockets está activo, pero no hay hostname configurado para WSS.");
+                return false;
+            }
+
+            transport.SetClientSecrets(host);
+            Debug.Log($"NetworkUI: cliente configurado para WSS contra host '{host}'.");
+        }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (IsWebGLPageServedOverHttps() && !transport.UseEncryption)
+        {
+            Debug.LogError(
+                "NetworkUI: el build WebGL se cargó por HTTPS, pero Unity Transport intentaría conectar por ws://. " +
+                "El navegador bloquea esa conexión por mixed content. Sirve el WebGL por HTTP para pruebas, " +
+                "o configura WSS/TLS en el servidor y activa useSecureWebSockets con un dominio válido.");
+            return false;
+        }
+#endif
+
+        return true;
+    }
+
+    private void ConfigureWebSocketMode(UnityTransport transport)
+    {
+        if (!forceWebSocketsTransport)
+            return;
+
+        transport.UseWebSockets = true;
+    }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    private static bool IsWebGLPageServedOverHttps()
+    {
+        if (string.IsNullOrWhiteSpace(Application.absoluteURL))
+            return false;
+
+        return Uri.TryCreate(Application.absoluteURL, UriKind.Absolute, out Uri uri) &&
+               string.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase);
+    }
+#endif
+
     private static string FirstNonEmpty(params string[] values)
     {
         if (values == null)
@@ -573,6 +662,15 @@ public class NetworkUI : MonoBehaviour
             return string.Empty;
 
         return value.Trim().ToLowerInvariant();
+    }
+
+    private static bool IsLoopbackAddress(string address)
+    {
+        if (string.IsNullOrWhiteSpace(address))
+            return false;
+
+        string normalized = address.Trim().ToLowerInvariant();
+        return normalized == "127.0.0.1" || normalized == "localhost" || normalized == "::1";
     }
 
     [Serializable]
